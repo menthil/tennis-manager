@@ -10,7 +10,7 @@ class Set {
   private Set(Turn turn) {
     this.turn = turn;
     this.games = new ArrayList<>();
-    this.games.add(Game.normalGame(turn));
+    this.games.add(Game.normalGame());
   }
 
   static Set startSet(Turn turn) {
