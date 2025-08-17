@@ -27,22 +27,26 @@ class Game {
     this.isLackService = false;
   }
 
-  Integer[] getGamePoints() {
-    return this.points;
-  }
-
   void pointService() {
     this.points[0]++;
     this.isLackService = false;
   }
 
   boolean isGameFinished() {
-    return (this.points[0] >= MIN_POINTS_TO_WIN || this.points[1] >= MIN_POINTS_TO_WIN)
-        && Math.abs(this.points[0] - this.points[1]) >= MIN_DIFFERENCE_TO_WIN;
+    return (this.getServicePoints() >= MIN_POINTS_TO_WIN || this.getRestPoints() >= MIN_POINTS_TO_WIN)
+        && Math.abs(this.getServicePoints() - this.getRestPoints()) >= MIN_DIFFERENCE_TO_WIN;
   }
 
-  public boolean isServiceWinner() {
-    return this.isGameFinished() && this.points[0] > this.points[1];
+  int getRestPoints() {
+    return this.points[1];
+  }
+
+  int getServicePoints() {
+    return this.points[0];
+  }
+
+  boolean isServiceWinner() {
+    return this.isGameFinished() && this.getServicePoints() > this.getRestPoints();
   }
 
 }

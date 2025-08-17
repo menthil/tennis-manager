@@ -1,6 +1,6 @@
 package com.escuelait.models;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -9,10 +9,10 @@ import org.junit.Test;
 public class GameTest {
 
   @Test
-  public void when_lack_service_first_time_then_no_point_added() {
+  public void when_lack_service_first_time_then_no_point_added_to_rest() {
     Game game = Game.normalGame();
     game.lackService();
-    assertArrayEquals(new Integer[] { 0, 0 }, game.getGamePoints());
+    assertEquals(0, game.getRestPoints());
   }
 
   @Test
@@ -20,25 +20,25 @@ public class GameTest {
     Game game = Game.normalGame();
     game.lackService();
     game.lackService();
-    assertArrayEquals(new Integer[] { 0, 1 }, game.getGamePoints());
+    assertEquals(1, game.getRestPoints());
   }
 
   @Test
   public void when_point_service_then_one_point_added_to_service() {
     Game game = Game.normalGame();
     game.pointService();
-    assertArrayEquals(new Integer[] { 1, 0 }, game.getGamePoints());
+    assertEquals(1, game.getServicePoints());
     game.pointService();
-    assertArrayEquals(new Integer[] { 2, 0 }, game.getGamePoints());
+    assertEquals(2, game.getServicePoints());
   }
 
   @Test
   public void when_point_rest_then_one_point_added_to_rest() {
     Game game = Game.normalGame();
     game.pointRest();
-    assertArrayEquals(new Integer[] { 0, 1 }, game.getGamePoints());
+    assertEquals(1, game.getRestPoints());
     game.pointRest();
-    assertArrayEquals(new Integer[] { 0, 2 }, game.getGamePoints());
+    assertEquals(2, game.getRestPoints());
   }
 
   @Test
@@ -47,7 +47,7 @@ public class GameTest {
     game.lackService();
     game.pointService();
     game.lackService();
-    assertArrayEquals(new Integer[] { 1, 0 }, game.getGamePoints());
+    assertEquals(1, game.getServicePoints());
   }
 
   @Test
@@ -56,7 +56,7 @@ public class GameTest {
     game.lackService();
     game.pointRest();
     game.lackService();
-    assertArrayEquals(new Integer[] { 0, 1 }, game.getGamePoints());
+    assertEquals(1, game.getRestPoints());
   }
 
   @Test
