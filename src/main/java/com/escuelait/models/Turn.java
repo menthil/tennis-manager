@@ -12,7 +12,7 @@ class Turn {
     this.servingPlayer = new Random().nextInt(players.size()) + 1;
   }
 
-  static Turn startMath(List<Player> players) {
+  static Turn startMatch(List<Player> players) {
     return new Turn(players);
   }
 

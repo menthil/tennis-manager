@@ -15,7 +15,7 @@ public class Match {
   private Match(int id, int numberOfSets, List<Player> players) {
     this.id = id;
     this.sets = new Set[numberOfSets];
-    this.turn = Turn.startMath(players);
+    this.turn = Turn.startMatch(players);
     this.startGame();
   }
 
@@ -25,7 +25,7 @@ public class Match {
     this.sets[this.currentSet] = Set.startSet(turn);
   }
 
-  public static Match createTreeSetMatch(int id, List<Player> players) {
+  public static Match createThreeSetMatch(int id, List<Player> players) {
     return new Match(id, VALID_NUMBER_OF_SETS.get(0), players);
   }
 
