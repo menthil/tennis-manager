@@ -5,37 +5,44 @@ import java.util.List;
 class Turn {
 
   private List<Player> players;
-  private int servingPlayer;
+  private int servingPlayerIndex;
 
   private Turn(List<Player> players, Player servingPlayer) {
-    assert players != null && players.size() == 2;
-    assert servingPlayer != null && players.contains(servingPlayer);
     this.players = players;
-    this.servingPlayer = this.players.indexOf(servingPlayer);
+    this.servingPlayerIndex = this.players.indexOf(servingPlayer);
   }
 
-  static Turn startMatch(List<Player> players, Player servingPlayer) {
-    return new Turn(players, servingPlayer);
+  static Turn firstPlayerServes(List<Player> players) {
+    assert players != null && players.size() == 2;
+    return new Turn(players, players.get(0));
   }
 
   Player getServicePlayer() {
-    return this.players.get(this.servingPlayer);
+    return this.getPlayer(this.servingPlayerIndex);
   }
 
   Player getRestPlayer() {
-    return this.players.get((this.servingPlayer + 1) % 2);
+    return this.getPlayer(this.restPlayerIndex());
   }
 
   void changeService() {
-    this.servingPlayer = (this.servingPlayer + 1) % 2;
+    this.servingPlayerIndex = this.restPlayerIndex();
   }
 
   Player getFirstPlayer() {
-    return this.players.get(0);
+    return this.getPlayer(0);
   }
 
   Player getSecondPlayer() {
-    return this.players.get(1);
+    return this.getPlayer(1);
+  }
+
+  private Player getPlayer(int index) {
+    return this.players.get(index);
+  }
+
+  private int restPlayerIndex() {
+    return (this.servingPlayerIndex + 1) % 2;
   }
 
 }
