@@ -25,6 +25,7 @@ class GameBuilder {
   }
 
   GameBuilder advantageService() {
+    assert !this.isTieBreak;
     this.servicePoints = Game.MIN_POINTS_TO_WIN + 1;
     this.restPoints = Game.MIN_POINTS_TO_WIN;
     return this;
@@ -36,7 +37,7 @@ class GameBuilder {
   }
 
   GameBuilder serviceWins() {
-    this.servicePoints = Game.MIN_POINTS_TO_WIN;
+    this.servicePoints = this.isTieBreak ? TieBreakGame.MIN_POINTS_TO_WIN : Game.MIN_POINTS_TO_WIN;
     return this;
   }
 

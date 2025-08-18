@@ -2,7 +2,7 @@ package com.escuelait.models;
 
 class TieBreakGame extends Game {
 
-  private static final int MIN_POINTS_TO_WIN = 6;
+  static final int MIN_POINTS_TO_WIN = 6;
 
   protected TieBreakGame(Turn turn) {
     super(turn);

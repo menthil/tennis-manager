@@ -109,16 +109,9 @@ public class GameTest {
   }
 
   @Test
-  public void when_tie_break_need_six_points_to_win() {
-    Game game = new GameBuilder().tieBreakGame().build();
-    game.addPointService();
-    game.addPointService();
-    game.addPointService();
-    game.addPointService();
-    game.addPointService();
-    game.addPointService();
+  public void when_tie_break_serving_player_need_six_points_to_win() {
+    Game game = new GameBuilder().tieBreakGame().serviceWins().build();
     assertTrue(game.isServiceWinner());
-    assertEquals(6, game.getServicePoints());
   }
 
 }
