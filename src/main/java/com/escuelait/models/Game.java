@@ -44,8 +44,12 @@ class Game {
   }
 
   boolean isGameFinished() {
-    return (this.getServicePoints() >= MIN_POINTS_TO_WIN || this.getRestPoints() >= MIN_POINTS_TO_WIN)
+    return (this.getServicePoints() >= this.getMinPointsToWin() || this.getRestPoints() >= this.getMinPointsToWin())
         && Math.abs(this.getServicePoints() - this.getRestPoints()) >= MIN_DIFFERENCE_TO_WIN;
+  }
+
+  protected int getMinPointsToWin() {
+    return MIN_POINTS_TO_WIN;
   }
 
   int getRestPoints() {
