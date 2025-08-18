@@ -2,6 +2,8 @@ package com.escuelait.models;
 
 class Game {
 
+  private static final int SERVICE = 0;
+  private static final int REST = 1;
   private static final int MIN_DIFFERENCE_TO_WIN = 2;
   static final int MIN_POINTS_TO_WIN = 4;
   private Turn turn;
@@ -19,22 +21,26 @@ class Game {
 
   void lackService() {
     if (this.isLackService) {
-      this.pointRest();
+      this.addPointRest();
     }
     this.isLackService = !this.isLackService;
   }
 
-  void pointRest() {
-    this.points[1]++;
-    this.isLackService = false;
+  void addPointRest() {
+    this.addPoint(REST);
   }
 
-  void pointService() {
-    this.points[0]++;
+  private void addPoint(int i) {
+    assert !this.isGameFinished();
+    this.points[i]++;
     this.isLackService = false;
-    if (this.isServiceWinner()) {
+    if (this.isGameFinished()) {
       this.turn.changeService();
     }
+  }
+
+  void addPointService() {
+    this.addPoint(SERVICE);
   }
 
   boolean isGameFinished() {
@@ -43,15 +49,19 @@ class Game {
   }
 
   int getRestPoints() {
-    return this.points[1];
+    return this.points[REST];
   }
 
   int getServicePoints() {
-    return this.points[0];
+    return this.points[SERVICE];
   }
 
   boolean isServiceWinner() {
     return this.isGameFinished() && this.getServicePoints() > this.getRestPoints();
+  }
+
+  boolean isRestWinner() {
+    return this.isGameFinished() && this.getRestPoints() > this.getServicePoints();
   }
 
 }

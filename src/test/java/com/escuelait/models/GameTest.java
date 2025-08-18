@@ -27,18 +27,18 @@ public class GameTest {
   @Test
   public void when_point_service_then_one_point_added_to_service() {
     Game game = new GameBuilder().build();
-    game.pointService();
+    game.addPointService();
     assertEquals(1, game.getServicePoints());
-    game.pointService();
+    game.addPointService();
     assertEquals(2, game.getServicePoints());
   }
 
   @Test
   public void when_point_rest_then_one_point_added_to_rest() {
     Game game = new GameBuilder().build();
-    game.pointRest();
+    game.addPointRest();
     assertEquals(1, game.getRestPoints());
-    game.pointRest();
+    game.addPointRest();
     assertEquals(2, game.getRestPoints());
   }
 
@@ -46,7 +46,7 @@ public class GameTest {
   public void when_lack_service_point_service_lack_service_then_no_point_added() {
     Game game = new GameBuilder().build();
     game.lackService();
-    game.pointService();
+    game.addPointService();
     game.lackService();
     assertEquals(1, game.getServicePoints());
   }
@@ -55,7 +55,7 @@ public class GameTest {
   public void when_lack_service_point_rest_lack_service_then_no_point_added() {
     Game game = new GameBuilder().build();
     game.lackService();
-    game.pointRest();
+    game.addPointRest();
     game.lackService();
     assertEquals(1, game.getRestPoints());
   }
@@ -65,7 +65,7 @@ public class GameTest {
     Game game = new GameBuilder().advantageService().build();
     assertFalse(game.isGameFinished());
     assertFalse(game.isServiceWinner());
-    game.pointService();
+    game.addPointService();
     assertTrue(game.isGameFinished());
     assertTrue(game.isServiceWinner());
   }
@@ -79,6 +79,19 @@ public class GameTest {
     Game game = new GameBuilder().turn(turn).serviceWins().build();
     assertTrue(game.isServiceWinner());
     assertNotEquals(turn.getServicePlayer(), servicePlayer);
+    assertEquals(turn.getServicePlayer(), restPlayer);
+  }
+
+  @Test
+  public void when_rest_player_wins_game_then_service_changes_to_the_other_player() {
+    Turn turn = new TurnBuilder().build();
+    Player servicePlayer = turn.getServicePlayer();
+    Player restPlayer = turn.getRestPlayer();
+    assertNotEquals(servicePlayer, restPlayer);
+    Game game = new GameBuilder().turn(turn).restWins().build();
+    assertTrue(game.isRestWinner());
+    assertNotEquals(turn.getServicePlayer(), servicePlayer);
+    assertEquals(turn.getServicePlayer(), restPlayer);
   }
 
 }

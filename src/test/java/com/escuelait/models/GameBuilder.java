@@ -12,11 +12,13 @@ class GameBuilder {
 
   Game build() {
     Game game = Game.normalGame(this.turn);
-    for (int i = 0; i < this.servicePoints; i++) {
-      game.pointService();
-    }
-    for (int i = 0; i < this.restPoints; i++) {
-      game.pointRest();
+    for (int i = 0; i < Math.max(this.servicePoints, this.restPoints); i++) {
+      if (i < this.servicePoints) {
+        game.addPointService();
+      }
+      if (i < this.restPoints) {
+        game.addPointRest();
+      }
     }
     return game;
   }
@@ -34,6 +36,11 @@ class GameBuilder {
 
   GameBuilder serviceWins() {
     this.servicePoints = Game.MIN_POINTS_TO_WIN;
+    return this;
+  }
+
+  GameBuilder restWins() {
+    this.restPoints = Game.MIN_POINTS_TO_WIN;
     return this;
   }
 
