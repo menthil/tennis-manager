@@ -4,8 +4,14 @@ import java.util.List;
 
 class TurnBuilder {
 
-  static Turn create() {
-    return Turn.startMatch(List.of(PlayerBuilder.createPlayer(), PlayerBuilder.createPlayer()));
+  private List<Player> players;
+
+  TurnBuilder() {
+    this.players = List.of(PlayerBuilder.createPlayer(), PlayerBuilder.createPlayer());
+  }
+
+  Turn build() {
+    return Turn.startMatch(this.players);
   }
 
 }
