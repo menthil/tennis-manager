@@ -94,4 +94,18 @@ public class GameTest {
     assertEquals(turn.getServicePlayer(), restPlayer);
   }
 
+  @Test
+  public void when_odd_number_of_points_in_tie_break_then_service_changes_to_the_other_player() {
+    Turn turn = new TurnBuilder().build();
+    Player servicePlayer = turn.getServicePlayer();
+    Player restPlayer = turn.getRestPlayer();
+    Game game = new GameBuilder().turn(turn).tieBreakGame().build();
+    game.addPointService();
+    assertEquals(turn.getServicePlayer(), restPlayer);
+    game.addPointRest();
+    assertEquals(turn.getServicePlayer(), restPlayer);
+    game.addPointService();
+    assertEquals(turn.getServicePlayer(), servicePlayer);
+  }
+
 }

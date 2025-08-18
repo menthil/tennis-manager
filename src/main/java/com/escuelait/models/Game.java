@@ -10,7 +10,7 @@ class Game {
   private boolean isLackService;
   private Integer[] points;
 
-  private Game(Turn turn) {
+  protected Game(Turn turn) {
     this.turn = turn;
     this.points = new Integer[] { 0, 0 };
   }
@@ -34,9 +34,13 @@ class Game {
     assert !this.isGameFinished();
     this.points[i]++;
     this.isLackService = false;
-    if (this.isGameFinished()) {
+    if (this.shouldChangeService()) {
       this.turn.changeService();
     }
+  }
+
+  protected boolean shouldChangeService() {
+    return this.isGameFinished();
   }
 
   void addPointService() {

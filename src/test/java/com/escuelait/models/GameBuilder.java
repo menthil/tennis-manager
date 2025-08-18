@@ -5,6 +5,7 @@ class GameBuilder {
   private Turn turn;
   private int servicePoints;
   private int restPoints;
+  private boolean isTieBreak;
 
   GameBuilder() {
     this.turn = new TurnBuilder().build();
@@ -12,6 +13,9 @@ class GameBuilder {
 
   Game build() {
     Game game = Game.normalGame(this.turn);
+    if (this.isTieBreak) {
+      game = new TieBreakGame(this.turn);
+    }
     for (int i = 0; i < Math.max(this.servicePoints, this.restPoints); i++) {
       if (i < this.servicePoints) {
         game.addPointService();
@@ -41,6 +45,11 @@ class GameBuilder {
 
   GameBuilder restWins() {
     this.restPoints = Game.MIN_POINTS_TO_WIN;
+    return this;
+  }
+
+  public GameBuilder tieBreakGame() {
+    this.isTieBreak = true;
     return this;
   }
 
