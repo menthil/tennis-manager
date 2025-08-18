@@ -6,7 +6,7 @@ class Game {
   private static final int REST = 1;
   private static final int MIN_DIFFERENCE_TO_WIN = 2;
   static final int MIN_POINTS_TO_WIN = 4;
-  private Turn turn;
+  protected Turn turn;
   private boolean isLackService;
   private Integer[] points;
 
@@ -26,7 +26,7 @@ class Game {
     this.addPoint(REST);
   }
 
-  private void addPoint(int i) {
+  protected void addPoint(int i) {
     assert !this.isGameFinished();
     this.points[i]++;
     this.isLackService = false;

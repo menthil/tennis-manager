@@ -133,4 +133,31 @@ public class GameTest {
     assertTrue(game.isServiceWinner());
   }
 
+  @Test
+  public void when_tie_break_player_resting_first_serves_next_game_when_odd_number_of_points() {
+    Turn turn = new TurnBuilder().build();
+    Player restPlayer = turn.getRestPlayer();
+    Game game = new GameBuilder()
+        .tieBreakGame()
+        .turn(turn)
+        .service(TieBreakGame.MIN_POINTS_TO_WIN)
+        .rest(1)
+        .build();
+    assertTrue(game.isServiceWinner());
+    assertEquals(turn.getServicePlayer(), restPlayer);
+  }
+
+  @Test
+  public void when_tie_break_player_resting_first_serves_next_game_when_even_number_of_points() {
+    Turn turn = new TurnBuilder().build();
+    Player restPlayer = turn.getRestPlayer();
+    Game game = new GameBuilder()
+        .tieBreakGame()
+        .turn(turn)
+        .service(TieBreakGame.MIN_POINTS_TO_WIN)
+        .build();
+    assertTrue(game.isServiceWinner());
+    assertEquals(turn.getServicePlayer(), restPlayer);
+  }
+
 }
