@@ -37,12 +37,16 @@ class GameBuilder {
   }
 
   GameBuilder serviceWins() {
-    this.servicePoints = this.isTieBreak ? TieBreakGame.MIN_POINTS_TO_WIN : Game.MIN_POINTS_TO_WIN;
+    this.servicePoints = this.getMinPointsToWin();
     return this;
   }
 
+  private int getMinPointsToWin() {
+    return this.isTieBreak ? TieBreakGame.MIN_POINTS_TO_WIN : Game.MIN_POINTS_TO_WIN;
+  }
+
   GameBuilder restWins() {
-    this.restPoints = Game.MIN_POINTS_TO_WIN;
+    this.restPoints = this.getMinPointsToWin();
     return this;
   }
 

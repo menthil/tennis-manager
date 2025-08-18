@@ -114,4 +114,10 @@ public class GameTest {
     assertTrue(game.isServiceWinner());
   }
 
+  @Test
+  public void when_tie_break_resting_player_need_six_points_to_win() {
+    Game game = new GameBuilder().tieBreakGame().restWins().build();
+    assertTrue(game.isRestWinner());
+  }
+
 }
