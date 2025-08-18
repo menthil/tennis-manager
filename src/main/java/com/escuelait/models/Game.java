@@ -4,15 +4,17 @@ class Game {
 
   private static final int MIN_DIFFERENCE_TO_WIN = 2;
   private static final int MIN_POINTS_TO_WIN = 4;
+  private Turn turn;
   private boolean isLackService;
   private Integer[] points;
 
-  private Game() {
+  private Game(Turn turn) {
+    this.turn = turn;
     this.points = new Integer[] { 0, 0 };
   }
 
-  static Game normalGame() {
-    return new Game();
+  static Game normalGame(Turn turn) {
+    return new Game(turn);
   }
 
   void lackService() {
@@ -30,6 +32,9 @@ class Game {
   void pointService() {
     this.points[0]++;
     this.isLackService = false;
+    if (this.isServiceWinner()) {
+      this.turn.changeService();
+    }
   }
 
   boolean isGameFinished() {
