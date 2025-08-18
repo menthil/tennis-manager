@@ -12,10 +12,7 @@ class GameBuilder {
   }
 
   Game build() {
-    Game game = Game.normalGame(this.turn);
-    if (this.isTieBreak) {
-      game = new TieBreakGame(this.turn);
-    }
+    Game game = this.isTieBreak ? GameFactory.tieBreakGame(this.turn) : GameFactory.regularGame(this.turn);
     for (int i = 0; i < Math.max(this.servicePoints, this.restPoints); i++) {
       if (i < this.servicePoints) {
         game.addPointService();

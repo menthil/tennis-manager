@@ -11,7 +11,7 @@ class Set {
   private Set(Turn turn) {
     this.turn = turn;
     this.games = new ArrayList<>();
-    this.games.add(Game.normalGame(Turn.startMatch(List.of(new Player(0, "p1"), new Player(1, "p2")))));
+    this.games.add(GameFactory.regularGame(Turn.startMatch(List.of(new Player(0, "p1"), new Player(1, "p2")))));
   }
 
   static Set startSet(Turn turn) {

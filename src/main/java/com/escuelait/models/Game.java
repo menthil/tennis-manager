@@ -15,10 +15,6 @@ class Game {
     this.points = new Integer[] { 0, 0 };
   }
 
-  static Game normalGame(Turn turn) {
-    return new Game(turn);
-  }
-
   void lackService() {
     if (this.isLackService) {
       this.addPointRest();
