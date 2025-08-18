@@ -120,4 +120,17 @@ public class GameTest {
     assertTrue(game.isRestWinner());
   }
 
+  @Test
+  public void when_tie_break_player_needs_difference_of_two_to_win() {
+    Game game = new GameBuilder()
+        .tieBreakGame()
+        .service(TieBreakGame.MIN_POINTS_TO_WIN)
+        .rest(TieBreakGame.MIN_POINTS_TO_WIN)
+        .build();
+    assertFalse(game.isGameFinished());
+    game.addPointService();
+    game.addPointService();
+    assertTrue(game.isServiceWinner());
+  }
+
 }

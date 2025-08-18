@@ -26,9 +26,7 @@ class GameBuilder {
 
   GameBuilder advantageService() {
     assert !this.isTieBreak;
-    this.servicePoints = Game.MIN_POINTS_TO_WIN + 1;
-    this.restPoints = Game.MIN_POINTS_TO_WIN;
-    return this;
+    return this.service(Game.MIN_POINTS_TO_WIN + 1).rest(Game.MIN_POINTS_TO_WIN);
   }
 
   GameBuilder turn(Turn turn) {
@@ -37,8 +35,7 @@ class GameBuilder {
   }
 
   GameBuilder serviceWins() {
-    this.servicePoints = this.getMinPointsToWin();
-    return this;
+    return this.service(this.getMinPointsToWin());
   }
 
   private int getMinPointsToWin() {
@@ -46,12 +43,21 @@ class GameBuilder {
   }
 
   GameBuilder restWins() {
-    this.restPoints = this.getMinPointsToWin();
+    return this.rest(this.getMinPointsToWin());
+  }
+
+  GameBuilder tieBreakGame() {
+    this.isTieBreak = true;
     return this;
   }
 
-  public GameBuilder tieBreakGame() {
-    this.isTieBreak = true;
+  GameBuilder service(int points) {
+    this.servicePoints = points;
+    return this;
+  }
+
+  GameBuilder rest(int points) {
+    this.restPoints = points;
     return this;
   }
 
