@@ -11,7 +11,7 @@ class TurnBuilder {
   }
 
   Turn build() {
-    return Turn.startMatch(this.players);
+    return Turn.startMatch(this.players, this.players.get(0));
   }
 
 }

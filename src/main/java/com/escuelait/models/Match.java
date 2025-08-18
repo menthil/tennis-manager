@@ -15,7 +15,7 @@ public class Match {
   private Match(int id, int numberOfSets, List<Player> players) {
     this.id = id;
     this.sets = new Set[numberOfSets];
-    this.turn = Turn.startMatch(players);
+    this.turn = Turn.startMatch(players, players.get(0));
     this.startGame();
   }
 

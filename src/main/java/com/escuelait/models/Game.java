@@ -9,6 +9,7 @@ class Game {
   protected Turn turn;
   private boolean isLackService;
   private Integer[] points;
+  private Player winner;
 
   protected Game(Turn turn) {
     this.turn = turn;
@@ -30,8 +31,18 @@ class Game {
     assert !this.isGameFinished();
     this.points[i]++;
     this.isLackService = false;
+    this.setWinnerPlayer();
     if (this.shouldChangeService()) {
       this.turn.changeService();
+    }
+  }
+
+  private void setWinnerPlayer() {
+    if (this.isServiceWinner()) {
+      this.winner = this.turn.getServicePlayer();
+    }
+    if (this.isRestWinner()) {
+      this.winner = this.turn.getRestPlayer();
     }
   }
 
@@ -66,6 +77,10 @@ class Game {
 
   boolean isRestWinner() {
     return this.isGameFinished() && this.getRestPoints() > this.getServicePoints();
+  }
+
+  boolean isFirstPlayerWinner() {
+    return this.isGameFinished() && this.winner.equals(this.turn.getFirstPlayer());
   }
 
 }
