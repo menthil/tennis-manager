@@ -10,6 +10,10 @@ class Set {
   private Set(Turn turn) {
     this.turn = turn;
     this.games = new ArrayList<>();
+    this.newGame();
+  }
+
+  private void newGame() {
     this.games.add(GameFactory.regularGame(this.turn));
   }
 
@@ -18,13 +22,7 @@ class Set {
   }
 
   int getFirstPlayerResult() {
-    int gamesWon = 0;
-    for (Game game : this.games) {
-      if (game.isFirstPlayerWinner()) {
-        gamesWon++;
-      }
-    }
-    return gamesWon;
+    return (int) this.games.stream().filter(game -> game.isWinner(this.turn.getFirstPlayer())).count();
   }
 
   int getSecondPlayerResult() {
@@ -32,10 +30,14 @@ class Set {
   }
 
   void addPointService() {
-    this.games.get(this.games.size() - 1).addPointService();
-    if (this.games.get(this.games.size() - 1).isGameFinished()) {
-      this.games.add(GameFactory.regularGame(this.turn));
+    this.currentGame().addPointService();
+    if (this.currentGame().isFinished()) {
+      this.newGame();
     }
+  }
+
+  private Game currentGame() {
+    return this.games.get(this.games.size() - 1);
   }
 
 }

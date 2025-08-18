@@ -63,10 +63,10 @@ public class GameTest {
   @Test
   public void when_service_won_four_points_with_at_least_two_more_points_then_won_the_game() {
     Game game = new GameBuilder().advantageService().build();
-    assertFalse(game.isGameFinished());
+    assertFalse(game.isFinished());
     assertFalse(game.isServiceWinner());
     game.addPointService();
-    assertTrue(game.isGameFinished());
+    assertTrue(game.isFinished());
     assertTrue(game.isServiceWinner());
   }
 
@@ -127,7 +127,7 @@ public class GameTest {
         .service(TieBreakGame.MIN_POINTS_TO_WIN)
         .rest(TieBreakGame.MIN_POINTS_TO_WIN)
         .build();
-    assertFalse(game.isGameFinished());
+    assertFalse(game.isFinished());
     game.addPointService();
     game.addPointService();
     assertTrue(game.isServiceWinner());

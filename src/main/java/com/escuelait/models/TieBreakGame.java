@@ -23,7 +23,7 @@ class TieBreakGame extends Game {
   @Override
   protected void addPoint(int i) {
     super.addPoint(i);
-    if (this.isGameFinished() && !this.turn.getServicePlayer().equals(this.restPlayer)) {
+    if (this.isFinished() && !this.turn.getServicePlayer().equals(this.restPlayer)) {
       this.turn.changeService();
     }
   }
