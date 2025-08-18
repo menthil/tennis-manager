@@ -3,7 +3,7 @@ package com.escuelait.models;
 class Game {
 
   private static final int MIN_DIFFERENCE_TO_WIN = 2;
-  private static final int MIN_POINTS_TO_WIN = 4;
+  static final int MIN_POINTS_TO_WIN = 4;
   private Turn turn;
   private boolean isLackService;
   private Integer[] points;
