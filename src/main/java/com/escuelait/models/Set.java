@@ -26,7 +26,7 @@ class Set {
   }
 
   int getSecondPlayerResult() {
-    return 0;
+    return (int) this.games.stream().filter(game -> game.isWinner(this.turn.getSecondPlayer())).count();
   }
 
   void addPointService() {
@@ -38,6 +38,13 @@ class Set {
 
   private Game currentGame() {
     return this.games.get(this.games.size() - 1);
+  }
+
+  void addPointRest() {
+    this.currentGame().addPointRest();
+    if (this.currentGame().isFinished()) {
+      this.newGame();
+    }
   }
 
 }

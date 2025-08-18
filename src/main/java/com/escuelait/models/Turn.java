@@ -34,4 +34,8 @@ class Turn {
     return this.players.get(0);
   }
 
+  Player getSecondPlayer() {
+    return this.players.get(1);
+  }
+
 }

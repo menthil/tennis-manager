@@ -20,4 +20,11 @@ public class SetTest {
     assertEquals(0, set.getSecondPlayerResult());
   }
 
+  @Test
+  public void when_second_player_wins_a_game_result_is_zero_to_one() {
+    Set set = new SetBuilder().secondPlayerGames(1).build();
+    assertEquals(0, set.getFirstPlayerResult());
+    assertEquals(1, set.getSecondPlayerResult());
+  }
+
 }
