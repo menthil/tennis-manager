@@ -6,7 +6,7 @@ class SetBuilder {
   private int secondPlayerGames;
 
   Set build() {
-    Set set = Set.startSet(new TurnBuilder().build());
+    Set set = Set.start(new TurnBuilder().build());
     for (int gameNumber = 0; gameNumber < this.firstPlayerGames + this.secondPlayerGames; gameNumber++) {
       if (gameNumber % 2 == 0) {
         if (gameNumber / 2 < this.firstPlayerGames) {

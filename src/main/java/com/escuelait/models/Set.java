@@ -6,6 +6,7 @@ class Set {
 
   private static final int MIN_DIFFERENCE_TO_WIN = 2;
   private static final int MIN_GAMES_TO_WIN = 6;
+  private static final int MAX_REGULAR_GAMES = MIN_GAMES_TO_WIN * 2;
   private Turn turn;
   private ArrayList<Game> games;
 
@@ -15,20 +16,12 @@ class Set {
     this.games.add(GameFactory.regularGame(this.turn));
   }
 
-  static Set startSet(Turn turn) {
+  static Set start(Turn turn) {
     return new Set(turn);
   }
 
   int getFirstPlayerResult() {
     return this.getPlayerResult(this.turn.getFirstPlayer());
-  }
-
-  private int getPlayerResult(Player player) {
-    int count = 0;
-    for (Game game : this.games) {
-      count += game.isWinner(player) ? 1 : 0;
-    }
-    return count;
   }
 
   int getSecondPlayerResult() {
@@ -40,13 +33,34 @@ class Set {
     this.newGame();
   }
 
+  void addPointRest() {
+    this.currentGame().addPointRest();
+    this.newGame();
+  }
+
+  boolean isFinished() {
+    return this.isFinishedBeforeTieBreak() || this.isFinishedTieBreak();
+  }
+
+  int getMinPointsToWinGame() {
+    return this.currentGame().getMinPointsToWin();
+  }
+
+  private int getPlayerResult(Player player) {
+    int count = 0;
+    for (Game game : this.games) {
+      count += game.isWinner(player) ? 1 : 0;
+    }
+    return count;
+  }
+
   private Game currentGame() {
     return this.games.get(this.games.size() - 1);
   }
 
   private void newGame() {
     if (this.currentGame().isFinished() && !this.isFinished()) {
-      if (this.games.size() == MIN_GAMES_TO_WIN * 2) {
+      if (this.games.size() == MAX_REGULAR_GAMES) {
         this.games.add(GameFactory.tieBreakGame(this.turn));
       } else {
         this.games.add(GameFactory.regularGame(this.turn));
@@ -54,19 +68,20 @@ class Set {
     }
   }
 
-  void addPointRest() {
-    this.currentGame().addPointRest();
-    this.newGame();
+  private boolean isFinishedBeforeTieBreak() {
+    return this.somePlayerReachMinGamesToWin() && this.isDifferenceEnoughToWin();
   }
 
-  boolean isFinished() {
-    return (this.games.size() == MIN_GAMES_TO_WIN * 2 + 1 && this.currentGame().isFinished()) ||
-        (this.getFirstPlayerResult() >= MIN_GAMES_TO_WIN || this.getSecondPlayerResult() >= MIN_GAMES_TO_WIN)
-            && Math.abs(this.getFirstPlayerResult() - this.getSecondPlayerResult()) >= MIN_DIFFERENCE_TO_WIN;
+  private boolean somePlayerReachMinGamesToWin() {
+    return this.getFirstPlayerResult() >= MIN_GAMES_TO_WIN || this.getSecondPlayerResult() >= MIN_GAMES_TO_WIN;
   }
 
-  int getMinPointsToWinGame() {
-    return this.currentGame().getMinPointsToWin();
+  private boolean isDifferenceEnoughToWin() {
+    return Math.abs(this.getFirstPlayerResult() - this.getSecondPlayerResult()) >= MIN_DIFFERENCE_TO_WIN;
+  }
+
+  private boolean isFinishedTieBreak() {
+    return this.games.size() == MAX_REGULAR_GAMES + 1 && this.currentGame().isFinished();
   }
 
 }

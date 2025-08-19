@@ -22,7 +22,7 @@ public class Match {
   private void startGame() {
     this.creationDate = LocalDate.now();
     this.currentSet = 0;
-    this.sets[this.currentSet] = Set.startSet(turn);
+    this.sets[this.currentSet] = Set.start(turn);
   }
 
   public static Match createThreeSetMatch(int id, List<Player> players) {

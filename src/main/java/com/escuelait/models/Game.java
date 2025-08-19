@@ -27,40 +27,12 @@ class Game {
     this.addPoint(REST);
   }
 
-  protected void addPoint(int i) {
-    assert !this.isFinished();
-    this.points[i]++;
-    this.isLackService = false;
-    this.setWinnerPlayer();
-    if (this.shouldChangeService()) {
-      this.turn.changeService();
-    }
-  }
-
-  private void setWinnerPlayer() {
-    if (this.isServiceWinner()) {
-      this.winner = this.turn.getServicePlayer();
-    }
-    if (this.isRestWinner()) {
-      this.winner = this.turn.getRestPlayer();
-    }
-  }
-
-  protected boolean shouldChangeService() {
-    return this.isFinished();
-  }
-
   void addPointService() {
     this.addPoint(SERVICE);
   }
 
   boolean isFinished() {
-    return (this.getServicePoints() >= this.getMinPointsToWin() || this.getRestPoints() >= this.getMinPointsToWin())
-        && Math.abs(this.getServicePoints() - this.getRestPoints()) >= MIN_DIFFERENCE_TO_WIN;
-  }
-
-  protected int getMinPointsToWin() {
-    return MIN_POINTS_TO_WIN;
+    return this.somePlayerReachMinPointsToWin() && this.isDifferenceEnoughToWin();
   }
 
   int getRestPoints() {
@@ -81,6 +53,41 @@ class Game {
 
   boolean isWinner(Player player) {
     return this.isFinished() && this.winner.equals(player);
+  }
+
+  protected void addPoint(int i) {
+    assert !this.isFinished();
+    this.points[i]++;
+    this.isLackService = false;
+    this.setWinnerPlayer();
+    if (this.shouldChangeService()) {
+      this.turn.changeService();
+    }
+  }
+
+  protected boolean shouldChangeService() {
+    return this.isFinished();
+  }
+
+  protected int getMinPointsToWin() {
+    return MIN_POINTS_TO_WIN;
+  }
+
+  private void setWinnerPlayer() {
+    if (this.isServiceWinner()) {
+      this.winner = this.turn.getServicePlayer();
+    }
+    if (this.isRestWinner()) {
+      this.winner = this.turn.getRestPlayer();
+    }
+  }
+
+  private boolean somePlayerReachMinPointsToWin() {
+    return this.getServicePoints() >= this.getMinPointsToWin() || this.getRestPoints() >= this.getMinPointsToWin();
+  }
+
+  private boolean isDifferenceEnoughToWin() {
+    return Math.abs(this.getServicePoints() - this.getRestPoints()) >= MIN_DIFFERENCE_TO_WIN;
   }
 
 }
