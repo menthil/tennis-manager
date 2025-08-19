@@ -1,6 +1,8 @@
 package com.escuelait.models;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -25,6 +27,22 @@ public class SetTest {
     Set set = new SetBuilder().secondPlayerGames(1).build();
     assertEquals(0, set.getFirstPlayerResult());
     assertEquals(1, set.getSecondPlayerResult());
+  }
+
+  @Test
+  public void when_player_gets_at_leats_six_games_with_two_more_games_than_other_player_wins_set() {
+    Set set = new SetBuilder().firstPlayerGames(5).secondPlayerGames(1).build();
+    assertFalse(set.isFinished());
+    assertEquals(5, set.getFirstPlayerResult());
+    assertEquals(1, set.getSecondPlayerResult());
+    set = new SetBuilder().firstPlayerGames(6).secondPlayerGames(4).build();
+    assertTrue(set.isFinished());
+    assertEquals(6, set.getFirstPlayerResult());
+    assertEquals(4, set.getSecondPlayerResult());
+    set = new SetBuilder().firstPlayerGames(5).secondPlayerGames(7).build();
+    assertTrue(set.isFinished());
+    assertEquals(5, set.getFirstPlayerResult());
+    assertEquals(7, set.getSecondPlayerResult());
   }
 
 }

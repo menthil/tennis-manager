@@ -7,26 +7,41 @@ class SetBuilder {
 
   Set build() {
     Set set = Set.startSet(new TurnBuilder().build());
-    for (int i = 0; i < Math.max(this.firstPlayerGames, this.secondPlayerGames); i++) {
-      if (i < this.firstPlayerGames) {
-        this.firstPlayerWinsGame(set);
-      }
-      if (i < this.secondPlayerGames) {
-        this.secondPlayerWinsGame(set);
+    for (int gameNumber = 0; gameNumber < this.firstPlayerGames + this.secondPlayerGames; gameNumber++) {
+      if (gameNumber % 2 == 0) {
+        if (gameNumber / 2 < this.firstPlayerGames) {
+          this.firstPlayerWinsGame(set, gameNumber);
+        } else {
+          this.secondPlayerWinsGame(set, gameNumber);
+        }
+      } else {
+        if (gameNumber / 2 < this.secondPlayerGames) {
+          this.secondPlayerWinsGame(set, gameNumber);
+        } else {
+          this.firstPlayerWinsGame(set, gameNumber);
+        }
       }
     }
     return set;
   }
 
-  private void secondPlayerWinsGame(Set set) {
+  private void firstPlayerWinsGame(Set set, int gameNumber) {
     for (int i = 0; i < Game.MIN_POINTS_TO_WIN; i++) {
-      set.addPointRest();
+      if (gameNumber % 2 == 0) {
+        set.addPointService();
+      } else {
+        set.addPointRest();
+      }
     }
   }
 
-  private void firstPlayerWinsGame(Set set) {
+  private void secondPlayerWinsGame(Set set, int gameNumber) {
     for (int i = 0; i < Game.MIN_POINTS_TO_WIN; i++) {
-      set.addPointService();
+      if (gameNumber % 2 == 0) {
+        set.addPointRest();
+      } else {
+        set.addPointService();
+      }
     }
   }
 

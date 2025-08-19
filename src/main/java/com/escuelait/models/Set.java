@@ -4,17 +4,21 @@ import java.util.ArrayList;
 
 class Set {
 
+  private static final int MIN_DIFFERENCE_TO_WIN = 2;
+  private static final int MIN_GAMES_TO_WIN = 6;
   private Turn turn;
   private ArrayList<Game> games;
 
   private Set(Turn turn) {
     this.turn = turn;
     this.games = new ArrayList<>();
-    this.newGame();
+    this.games.add(GameFactory.regularGame(this.turn));
   }
 
   private void newGame() {
-    this.games.add(GameFactory.regularGame(this.turn));
+    if (this.currentGame().isFinished() && !this.isFinished()) {
+      this.games.add(GameFactory.regularGame(this.turn));
+    }
   }
 
   static Set startSet(Turn turn) {
@@ -31,9 +35,7 @@ class Set {
 
   void addPointService() {
     this.currentGame().addPointService();
-    if (this.currentGame().isFinished()) {
-      this.newGame();
-    }
+    this.newGame();
   }
 
   private Game currentGame() {
@@ -42,9 +44,12 @@ class Set {
 
   void addPointRest() {
     this.currentGame().addPointRest();
-    if (this.currentGame().isFinished()) {
-      this.newGame();
-    }
+    this.newGame();
+  }
+
+  boolean isFinished() {
+    return (this.getFirstPlayerResult() >= MIN_GAMES_TO_WIN || this.getSecondPlayerResult() >= MIN_GAMES_TO_WIN)
+        && Math.abs(this.getFirstPlayerResult() - this.getSecondPlayerResult()) >= MIN_DIFFERENCE_TO_WIN;
   }
 
 }
