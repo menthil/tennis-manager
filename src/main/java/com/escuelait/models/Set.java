@@ -15,22 +15,24 @@ class Set {
     this.games.add(GameFactory.regularGame(this.turn));
   }
 
-  private void newGame() {
-    if (this.currentGame().isFinished() && !this.isFinished()) {
-      this.games.add(GameFactory.regularGame(this.turn));
-    }
-  }
-
   static Set startSet(Turn turn) {
     return new Set(turn);
   }
 
   int getFirstPlayerResult() {
-    return (int) this.games.stream().filter(game -> game.isWinner(this.turn.getFirstPlayer())).count();
+    return this.getPlayerResult(this.turn.getFirstPlayer());
+  }
+
+  private int getPlayerResult(Player player) {
+    int count = 0;
+    for (Game game : this.games) {
+      count += game.isWinner(player) ? 1 : 0;
+    }
+    return count;
   }
 
   int getSecondPlayerResult() {
-    return (int) this.games.stream().filter(game -> game.isWinner(this.turn.getSecondPlayer())).count();
+    return this.getPlayerResult(this.turn.getSecondPlayer());
   }
 
   void addPointService() {
@@ -40,6 +42,12 @@ class Set {
 
   private Game currentGame() {
     return this.games.get(this.games.size() - 1);
+  }
+
+  private void newGame() {
+    if (this.currentGame().isFinished() && !this.isFinished()) {
+      this.games.add(GameFactory.regularGame(this.turn));
+    }
   }
 
   void addPointRest() {
