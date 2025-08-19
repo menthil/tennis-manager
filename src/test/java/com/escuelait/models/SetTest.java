@@ -45,4 +45,14 @@ public class SetTest {
     assertEquals(7, set.getSecondPlayerResult());
   }
 
+  @Test
+  public void when_players_draw_at_six_games_only_need_tie_break_game_to_win() {
+    Set set = new SetBuilder().firstPlayerGames(7).secondPlayerGames(6).build();
+    assertEquals(TieBreakGame.MIN_POINTS_TO_WIN, set.getMinPointsToWinGame());
+    assertTrue(set.isFinished());
+    set = new SetBuilder().firstPlayerGames(6).secondPlayerGames(7).build();
+    assertEquals(TieBreakGame.MIN_POINTS_TO_WIN, set.getMinPointsToWinGame());
+    assertTrue(set.isFinished());
+  }
+
 }

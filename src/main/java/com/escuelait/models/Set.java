@@ -46,7 +46,11 @@ class Set {
 
   private void newGame() {
     if (this.currentGame().isFinished() && !this.isFinished()) {
-      this.games.add(GameFactory.regularGame(this.turn));
+      if (this.games.size() == MIN_GAMES_TO_WIN * 2) {
+        this.games.add(GameFactory.tieBreakGame(this.turn));
+      } else {
+        this.games.add(GameFactory.regularGame(this.turn));
+      }
     }
   }
 
@@ -56,8 +60,13 @@ class Set {
   }
 
   boolean isFinished() {
-    return (this.getFirstPlayerResult() >= MIN_GAMES_TO_WIN || this.getSecondPlayerResult() >= MIN_GAMES_TO_WIN)
-        && Math.abs(this.getFirstPlayerResult() - this.getSecondPlayerResult()) >= MIN_DIFFERENCE_TO_WIN;
+    return (this.games.size() == MIN_GAMES_TO_WIN * 2 + 1 && this.currentGame().isFinished()) ||
+        (this.getFirstPlayerResult() >= MIN_GAMES_TO_WIN || this.getSecondPlayerResult() >= MIN_GAMES_TO_WIN)
+            && Math.abs(this.getFirstPlayerResult() - this.getSecondPlayerResult()) >= MIN_DIFFERENCE_TO_WIN;
+  }
+
+  int getMinPointsToWinGame() {
+    return this.currentGame().getMinPointsToWin();
   }
 
 }

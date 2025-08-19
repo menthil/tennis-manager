@@ -26,7 +26,8 @@ class SetBuilder {
   }
 
   private void firstPlayerWinsGame(Set set, int gameNumber) {
-    for (int i = 0; i < Game.MIN_POINTS_TO_WIN; i++) {
+    int minPointsToWinGame = set.getMinPointsToWinGame();
+    for (int i = 0; i < minPointsToWinGame; i++) {
       if (gameNumber % 2 == 0) {
         set.addPointService();
       } else {
@@ -36,7 +37,8 @@ class SetBuilder {
   }
 
   private void secondPlayerWinsGame(Set set, int gameNumber) {
-    for (int i = 0; i < Game.MIN_POINTS_TO_WIN; i++) {
+    int minPointsToWinGame = set.getMinPointsToWinGame();
+    for (int i = 0; i < minPointsToWinGame; i++) {
       if (gameNumber % 2 == 0) {
         set.addPointRest();
       } else {
