@@ -1,72 +1,77 @@
 package com.escuelait.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Match {
+class Match {
 
   private static final List<Integer> VALID_NUMBER_OF_SETS = List.of(3, 5);
   private int id;
-  private Set[] sets;
+  private int numberOfSets;
+  private List<Set> sets;
   private Turn turn;
   private LocalDate creationDate;
-  private int currentSet;
 
   private Match(int id, int numberOfSets, List<Player> players) {
     this.id = id;
-    this.sets = new Set[numberOfSets];
+    this.numberOfSets = numberOfSets;
+    this.sets = new ArrayList<>();
     this.turn = Turn.firstPlayerServes(players);
     this.startGame();
   }
 
   private void startGame() {
     this.creationDate = LocalDate.now();
-    this.currentSet = 0;
-    this.sets[this.currentSet] = Set.start(turn);
+    this.sets.add(Set.start(turn));
   }
 
-  public static Match createThreeSetMatch(int id, List<Player> players) {
+  static Match createThreeSetMatch(int id, List<Player> players) {
     return new Match(id, VALID_NUMBER_OF_SETS.get(0), players);
   }
 
-  public static Match createFiveSetMatch(int id, List<Player> players) {
+  static Match createFiveSetMatch(int id, List<Player> players) {
     return new Match(id, VALID_NUMBER_OF_SETS.get(1), players);
   }
 
-  public void addPointService() {
-    this.sets[this.currentSet].addPointService();
-    if (this.sets[this.currentSet].isFinished()) {
-      this.currentSet++;
-      this.sets[this.currentSet] = Set.start(turn);
-    }
+  void lackService() {
+    this.currentSet().lackService();
   }
 
-  public void addPointRest() {
-    this.sets[this.currentSet].addPointRest();
-    if (this.sets[this.currentSet].isFinished()) {
-      this.currentSet++;
-      this.sets[this.currentSet] = Set.start(turn);
-    }
+  int getFirstPlayerGamePoints() {
+    return this.currentSet().getFirstPlayerGamePoints();
   }
 
-  public int[] getFisrstPlayerSetGames() {
-    int games[] = new int[this.currentSet + 1];
-    for (int i = 0; i < games.length; i++) {
-      games[i] = this.sets[i].getFirstPlayerResult();
+  int getSecondPlayerGamePoints() {
+    return this.currentSet().getSecondPlayerGamePoints();
+  }
+
+  void addPointService() {
+    this.currentSet().addPointService();
+    this.newSet();
+  }
+
+  void addPointRest() {
+    this.currentSet().addPointRest();
+    this.newSet();
+  }
+
+  int[] getFisrstPlayerSetGames() {
+    int games[] = new int[this.numberOfSets];
+    for (int i = 0; i < this.sets.size(); i++) {
+      games[i] = this.sets.get(i).getFirstPlayerResult();
     }
     return games;
   }
 
-  public void lackService() {
-		this.sets[this.currentSet].lackService();
-	}
+  private Set currentSet() {
+    return this.sets.get(this.sets.size() - 1);
+  }
 
-	public int getFirstPlayerGamePoints() {
-		return this.sets[this.currentSet].getFirstPlayerGamePoints();
-	}
-
-  public int getSecondPlayerGamePoints() {
-		return this.sets[this.currentSet].getSecondPlayerGamePoints();
+  private void newSet() {
+    if (this.currentSet().isFinished()) {
+      this.sets.add(Set.start(turn));
+    }
   }
 
 }

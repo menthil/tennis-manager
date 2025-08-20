@@ -43,7 +43,7 @@ public class MatchTest {
         match.addPointRest();
       }
     }
-    assertArrayEquals(new int[] { 6, 0 }, match.getFisrstPlayerSetGames());
+    assertArrayEquals(new int[] { 6, 0, 0 }, match.getFisrstPlayerSetGames());
   }
 
 }
