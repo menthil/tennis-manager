@@ -37,6 +37,10 @@ class Turn {
     return this.getPlayer(1);
   }
 
+  boolean isFirstPlayerServing() {
+    return this.servingPlayerIndex == 0;
+  }
+
   private Player getPlayer(int index) {
     return this.players.get(index);
   }

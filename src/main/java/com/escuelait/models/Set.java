@@ -46,6 +46,22 @@ class Set {
     return this.currentGame().getMinPointsToWin();
   }
 
+  void lackService() {
+    this.currentGame().lackService();
+  }
+
+  int getFirstPlayerGamePoints() {
+    return this.turn.isFirstPlayerServing()
+        ? this.currentGame().getServicePoints()
+        : this.currentGame().getRestPoints();
+  }
+
+  int getSecondPlayerGamePoints() {
+    return !this.turn.isFirstPlayerServing()
+        ? this.currentGame().getServicePoints()
+        : this.currentGame().getRestPoints();
+  }
+
   private int getPlayerResult(Player player) {
     int count = 0;
     for (Game game : this.games) {

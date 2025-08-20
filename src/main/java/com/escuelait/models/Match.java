@@ -33,4 +33,40 @@ public class Match {
     return new Match(id, VALID_NUMBER_OF_SETS.get(1), players);
   }
 
+  public void addPointService() {
+    this.sets[this.currentSet].addPointService();
+    if (this.sets[this.currentSet].isFinished()) {
+      this.currentSet++;
+      this.sets[this.currentSet] = Set.start(turn);
+    }
+  }
+
+  public void addPointRest() {
+    this.sets[this.currentSet].addPointRest();
+    if (this.sets[this.currentSet].isFinished()) {
+      this.currentSet++;
+      this.sets[this.currentSet] = Set.start(turn);
+    }
+  }
+
+  public int[] getFisrstPlayerSetGames() {
+    int games[] = new int[this.currentSet + 1];
+    for (int i = 0; i < games.length; i++) {
+      games[i] = this.sets[i].getFirstPlayerResult();
+    }
+    return games;
+  }
+
+  public void lackService() {
+		this.sets[this.currentSet].lackService();
+	}
+
+	public int getFirstPlayerGamePoints() {
+		return this.sets[this.currentSet].getFirstPlayerGamePoints();
+	}
+
+  public int getSecondPlayerGamePoints() {
+		return this.sets[this.currentSet].getSecondPlayerGamePoints();
+  }
+
 }
