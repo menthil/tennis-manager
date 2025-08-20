@@ -5,7 +5,7 @@ import java.util.ArrayList;
 class Set {
 
   private static final int MIN_DIFFERENCE_TO_WIN = 2;
-  private static final int MIN_GAMES_TO_WIN = 6;
+  static final int MIN_GAMES_TO_WIN = 6;
   private static final int MAX_REGULAR_GAMES = MIN_GAMES_TO_WIN * 2;
   private Turn turn;
   private ArrayList<Game> games;
