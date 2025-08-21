@@ -69,12 +69,13 @@ public class GameTest {
   @Test
   public void when_service_won_four_points_with_at_least_two_more_points_then_won_the_game() {
     Turn turn = new TurnBuilder().build();
+    Player servicePlayer = turn.getServicePlayer();
     Game game = new GameBuilder().turn(turn).advantageService().build();
     assertFalse(game.isFinished());
-    assertFalse(game.isServiceWinner());
+    assertFalse(game.isWinner(servicePlayer));
     game.addPoint(turn.getServicePlayer());
     assertTrue(game.isFinished());
-    assertTrue(game.isServiceWinner());
+    assertTrue(game.isWinner(servicePlayer));
   }
 
   @Test
@@ -84,7 +85,7 @@ public class GameTest {
     Player restPlayer = turn.getRestPlayer();
     assertNotEquals(servicePlayer, restPlayer);
     Game game = new GameBuilder().turn(turn).serviceWins().build();
-    assertTrue(game.isServiceWinner());
+    assertTrue(game.isWinner(servicePlayer));
     assertNotEquals(turn.getServicePlayer(), servicePlayer);
     assertEquals(turn.getServicePlayer(), restPlayer);
   }
@@ -96,7 +97,7 @@ public class GameTest {
     Player restPlayer = turn.getRestPlayer();
     assertNotEquals(servicePlayer, restPlayer);
     Game game = new GameBuilder().turn(turn).restWins().build();
-    assertTrue(game.isRestWinner());
+    assertTrue(game.isWinner(restPlayer));
     assertNotEquals(turn.getServicePlayer(), servicePlayer);
     assertEquals(turn.getServicePlayer(), restPlayer);
   }
@@ -117,14 +118,18 @@ public class GameTest {
 
   @Test
   public void when_tie_break_serving_player_need_six_points_to_win() {
-    Game game = new GameBuilder().tieBreakGame().serviceWins().build();
-    assertTrue(game.isServiceWinner());
+    Turn turn = new TurnBuilder().build();
+    Player servicePlayer = turn.getServicePlayer();
+    Game game = new GameBuilder().turn(turn).tieBreakGame().serviceWins().build();
+    assertTrue(game.isWinner(servicePlayer));
   }
 
   @Test
   public void when_tie_break_resting_player_need_six_points_to_win() {
-    Game game = new GameBuilder().tieBreakGame().restWins().build();
-    assertTrue(game.isRestWinner());
+    Turn turn = new TurnBuilder().build();
+    Player restPlayer = turn.getRestPlayer();
+    Game game = new GameBuilder().turn(turn).tieBreakGame().restWins().build();
+    assertTrue(game.isWinner(restPlayer));
   }
 
   @Test
@@ -140,12 +145,13 @@ public class GameTest {
     assertFalse(game.isFinished());
     game.addPoint(servicePlayer);
     game.addPoint(servicePlayer);
-    assertTrue(game.isServiceWinner());
+    assertTrue(game.isWinner(servicePlayer));
   }
 
   @Test
   public void when_tie_break_player_resting_first_serves_next_game_when_odd_number_of_points() {
     Turn turn = new TurnBuilder().build();
+    Player servicePlayer = turn.getServicePlayer();
     Player restPlayer = turn.getRestPlayer();
     Game game = new GameBuilder()
         .tieBreakGame()
@@ -153,20 +159,21 @@ public class GameTest {
         .service(TieBreakGame.MIN_POINTS_TO_WIN)
         .rest(1)
         .build();
-    assertTrue(game.isServiceWinner());
+    assertTrue(game.isWinner(servicePlayer));
     assertEquals(turn.getServicePlayer(), restPlayer);
   }
 
   @Test
   public void when_tie_break_player_resting_first_serves_next_game_when_even_number_of_points() {
     Turn turn = new TurnBuilder().build();
+    Player servicePlayer = turn.getServicePlayer();
     Player restPlayer = turn.getRestPlayer();
     Game game = new GameBuilder()
         .tieBreakGame()
         .turn(turn)
         .service(TieBreakGame.MIN_POINTS_TO_WIN)
         .build();
-    assertTrue(game.isServiceWinner());
+    assertTrue(game.isWinner(servicePlayer));
     assertEquals(turn.getServicePlayer(), restPlayer);
   }
 

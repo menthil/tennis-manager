@@ -32,7 +32,9 @@ class Game {
     assert !this.isFinished();
     this.points.put(player.id(), this.getPoints(player) + 1);
     this.isLackService = false;
-    this.setWinnerPlayer();
+    if (this.isFinished()) {
+      this.winner = this.getServicePoints() > this.getRestPoints() ? this.servicePlayer : this.restPlayer;
+    }
     if (this.shouldChangeService()) {
       this.turn.changeService();
     }
@@ -44,14 +46,6 @@ class Game {
 
   int getPoints(Player player) {
     return Optional.ofNullable(this.points.get(player.id())).orElse(0);
-  }
-
-  boolean isServiceWinner() {
-    return this.isFinished() && this.getServicePoints() > this.getRestPoints();
-  }
-
-  boolean isRestWinner() {
-    return this.isFinished() && this.getRestPoints() > this.getServicePoints();
   }
 
   boolean isWinner(Player player) {
@@ -72,15 +66,6 @@ class Game {
 
   protected int getMinPointsToWin() {
     return MIN_POINTS_TO_WIN;
-  }
-
-  private void setWinnerPlayer() {
-    if (this.isServiceWinner()) {
-      this.winner = this.servicePlayer;
-    }
-    if (this.isRestWinner()) {
-      this.winner = this.restPlayer;
-    }
   }
 
   private boolean somePlayerReachMinPointsToWin() {
