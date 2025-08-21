@@ -7,7 +7,7 @@ class TurnBuilder {
   private List<Player> players;
 
   TurnBuilder() {
-    this.players = List.of(PlayerBuilder.createPlayer(), PlayerBuilder.createPlayer());
+    this.players = new PlayerBuilder().build();
   }
 
   Turn build() {
