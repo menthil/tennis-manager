@@ -4,55 +4,116 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class SetTest {
 
+  private SetBuilder setBuilder;
+  private Set set;
+
+  @Before
+  public void before() {
+    this.setBuilder = new SetBuilder();
+    this.set = this.setBuilder.build();
+  }
+
   @Test
   public void when_set_starts_result_is_zero_to_zero() {
-    Set set = new SetBuilder().build();
-    assertEquals(0, set.getFirstPlayerResult());
-    assertEquals(0, set.getSecondPlayerResult());
+    assertEquals(0, this.set.getFirstPlayerResult());
+    assertEquals(0, this.set.getSecondPlayerResult());
   }
 
   @Test
   public void when_first_player_wins_a_game_result_is_one_to_zero() {
-    Set set = new SetBuilder().firstPlayerGames(1).build();
-    assertEquals(1, set.getFirstPlayerResult());
-    assertEquals(0, set.getSecondPlayerResult());
+    this.firstPlayerWinsGame(0);
+    assertEquals(1, this.set.getFirstPlayerResult());
+    assertEquals(0, this.set.getSecondPlayerResult());
   }
 
   @Test
   public void when_second_player_wins_a_game_result_is_zero_to_one() {
-    Set set = new SetBuilder().secondPlayerGames(1).build();
-    assertEquals(0, set.getFirstPlayerResult());
-    assertEquals(1, set.getSecondPlayerResult());
+    this.secondPlayerWinsGame(0);
+    assertEquals(0, this.set.getFirstPlayerResult());
+    assertEquals(1, this.set.getSecondPlayerResult());
   }
 
   @Test
-  public void when_player_gets_at_leats_six_games_with_two_more_games_than_other_player_wins_set() {
-    Set set = new SetBuilder().firstPlayerGames(5).secondPlayerGames(1).build();
-    assertFalse(set.isFinished());
-    assertEquals(5, set.getFirstPlayerResult());
-    assertEquals(1, set.getSecondPlayerResult());
-    set = new SetBuilder().firstPlayerGames(6).secondPlayerGames(4).build();
-    assertTrue(set.isFinished());
-    assertEquals(6, set.getFirstPlayerResult());
-    assertEquals(4, set.getSecondPlayerResult());
-    set = new SetBuilder().firstPlayerGames(5).secondPlayerGames(7).build();
-    assertTrue(set.isFinished());
-    assertEquals(5, set.getFirstPlayerResult());
-    assertEquals(7, set.getSecondPlayerResult());
+  public void when_player_dont_wins_at_least_six_games_then_set_is_not_finished() {
+    this.alternateGamesWinning(5, 1);
+    assertFalse(this.set.isFinished());
+    assertEquals(5, this.set.getFirstPlayerResult());
+    assertEquals(1, this.set.getSecondPlayerResult());
   }
 
   @Test
-  public void when_players_draw_at_six_games_only_need_tie_break_game_to_win() {
-    Set set = new SetBuilder().firstPlayerGames(7).secondPlayerGames(6).build();
-    assertEquals(TieBreakGame.MIN_POINTS_TO_WIN, set.getMinPointsToWinGame());
-    assertTrue(set.isFinished());
-    set = new SetBuilder().firstPlayerGames(6).secondPlayerGames(7).build();
-    assertEquals(TieBreakGame.MIN_POINTS_TO_WIN, set.getMinPointsToWinGame());
-    assertTrue(set.isFinished());
+  public void when_first_player_wins_six_games_with_two_more_games_than_other_player_then_wins_set() {
+    this.alternateGamesWinning(6, 4);
+    assertTrue(this.set.isFinished());
+    assertEquals(6, this.set.getFirstPlayerResult());
+    assertEquals(4, this.set.getSecondPlayerResult());
+  }
+
+  @Test
+  public void when_second_player_wins_six_games_with_two_more_games_than_other_player_then_wins_set() {
+    this.alternateGamesWinning(5, 7);
+    assertTrue(this.set.isFinished());
+    assertEquals(5, this.set.getFirstPlayerResult());
+    assertEquals(7, this.set.getSecondPlayerResult());
+  }
+
+  @Test
+  public void when_players_draw_at_six_games_and_first_player_wins_next_game_then_first_player_wins() {
+    this.alternateGamesWinning(7, 6);
+    assertEquals(TieBreakGame.MIN_POINTS_TO_WIN, this.set.getMinPointsToWinGame());
+    assertTrue(this.set.isFinished());
+  }
+
+  @Test
+  public void when_players_draw_at_six_games_and_second_player_wins_next_game_then_second_player_wins() {
+    this.alternateGamesWinning(6, 7);
+    assertEquals(TieBreakGame.MIN_POINTS_TO_WIN, this.set.getMinPointsToWinGame());
+    assertTrue(this.set.isFinished());
+  }
+
+  private void alternateGamesWinning(int firstPlayerGames, int secondPlayerGames) {
+    for (int gameNumber = 0; gameNumber < firstPlayerGames + secondPlayerGames; gameNumber++) {
+      if (gameNumber % 2 == 0) {
+        if (gameNumber / 2 < firstPlayerGames) {
+          this.firstPlayerWinsGame(gameNumber);
+        } else {
+          this.secondPlayerWinsGame(gameNumber);
+        }
+      } else {
+        if (gameNumber / 2 < secondPlayerGames) {
+          this.secondPlayerWinsGame(gameNumber);
+        } else {
+          this.firstPlayerWinsGame(gameNumber);
+        }
+      }
+    }
+  }
+
+  private void firstPlayerWinsGame(int gameNumber) {
+    int minPointsToWinGame = this.set.getMinPointsToWinGame();
+    for (int i = 0; i < minPointsToWinGame; i++) {
+      if (gameNumber % 2 == 0) {
+        this.set.addPointService();
+      } else {
+        this.set.addPointRest();
+      }
+    }
+  }
+
+  private void secondPlayerWinsGame(int gameNumber) {
+    int minPointsToWinGame = this.set.getMinPointsToWinGame();
+    for (int i = 0; i < minPointsToWinGame; i++) {
+      if (gameNumber % 2 == 0) {
+        this.set.addPointRest();
+      } else {
+        this.set.addPointService();
+      }
+    }
   }
 
 }
