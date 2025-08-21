@@ -28,13 +28,8 @@ class Set {
     return count;
   }
 
-  void addPointService() {
-    this.currentGame().addPointService();
-    this.newGame();
-  }
-
-  void addPointRest() {
-    this.currentGame().addPointRest();
+  void addPoint(Player player) {
+    this.currentGame().addPoint(player);
     this.newGame();
   }
 
@@ -51,9 +46,7 @@ class Set {
   }
 
   int getGamePoints(Player player) {
-    return this.turn.isServing(player)
-        ? this.currentGame().getServicePoints()
-        : this.currentGame().getRestPoints();
+    return this.currentGame().getPoints(player);
   }
 
   private Game currentGame() {

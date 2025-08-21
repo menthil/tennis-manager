@@ -13,12 +13,14 @@ class GameBuilder {
 
   Game build() {
     Game game = this.isTieBreak ? GameFactory.tieBreakGame(this.turn) : GameFactory.regularGame(this.turn);
+    Player servicePlayer = this.turn.getServicePlayer();
+    Player restPlayer = this.turn.getRestPlayer();
     for (int i = 0; i < Math.max(this.servicePoints, this.restPoints); i++) {
       if (i < this.servicePoints) {
-        game.addPointService();
+        game.addPoint(servicePlayer);
       }
       if (i < this.restPoints) {
-        game.addPointRest();
+        game.addPoint(restPlayer);
       }
     }
     return game;

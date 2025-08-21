@@ -41,7 +41,7 @@ public class MatchTest {
   @Test
   public void when_first_set_ends_a_second_set_starts() {
     this.firstPlayerWinsFirstSet();
-    assertArrayEquals(new int[] { Set.MIN_GAMES_TO_WIN, 0, 0 }, this.match.getFisrstPlayerSetGames());
+    assertArrayEquals(new int[] { Set.MIN_GAMES_TO_WIN, 0, 0 }, this.match.getFirstPlayerSetGames());
   }
 
   private void firstPlayerWinsFirstSet() {

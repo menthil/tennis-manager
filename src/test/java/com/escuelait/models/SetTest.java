@@ -26,14 +26,14 @@ public class SetTest {
 
   @Test
   public void when_first_player_wins_a_game_result_is_one_to_zero() {
-    this.firstPlayerWinsGame(0);
+    this.alternateGamesWinning(1, 0);
     assertEquals(1, this.set.getGamesWon(this.setBuilder.getFirstPlayer()));
     assertEquals(0, this.set.getGamesWon(this.setBuilder.getSecondPlayer()));
   }
 
   @Test
   public void when_second_player_wins_a_game_result_is_zero_to_one() {
-    this.secondPlayerWinsGame(0);
+    this.alternateGamesWinning(0, 1);
     assertEquals(0, this.set.getGamesWon(this.setBuilder.getFirstPlayer()));
     assertEquals(1, this.set.getGamesWon(this.setBuilder.getSecondPlayer()));
   }
@@ -80,39 +80,24 @@ public class SetTest {
     for (int gameNumber = 0; gameNumber < firstPlayerGames + secondPlayerGames; gameNumber++) {
       if (gameNumber % 2 == 0) {
         if (gameNumber / 2 < firstPlayerGames) {
-          this.firstPlayerWinsGame(gameNumber);
+          this.playerWinsGame(this.setBuilder.getFirstPlayer());
         } else {
-          this.secondPlayerWinsGame(gameNumber);
+          this.playerWinsGame(this.setBuilder.getSecondPlayer());
         }
       } else {
         if (gameNumber / 2 < secondPlayerGames) {
-          this.secondPlayerWinsGame(gameNumber);
+          this.playerWinsGame(this.setBuilder.getSecondPlayer());
         } else {
-          this.firstPlayerWinsGame(gameNumber);
+          this.playerWinsGame(this.setBuilder.getFirstPlayer());
         }
       }
     }
   }
 
-  private void firstPlayerWinsGame(int gameNumber) {
+  private void playerWinsGame(Player player) {
     int minPointsToWinGame = this.set.getMinPointsToWinGame();
     for (int i = 0; i < minPointsToWinGame; i++) {
-      if (gameNumber % 2 == 0) {
-        this.set.addPointService();
-      } else {
-        this.set.addPointRest();
-      }
-    }
-  }
-
-  private void secondPlayerWinsGame(int gameNumber) {
-    int minPointsToWinGame = this.set.getMinPointsToWinGame();
-    for (int i = 0; i < minPointsToWinGame; i++) {
-      if (gameNumber % 2 == 0) {
-        this.set.addPointRest();
-      } else {
-        this.set.addPointService();
-      }
+      this.set.addPoint(player);
     }
   }
 

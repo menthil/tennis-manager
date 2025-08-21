@@ -5,10 +5,12 @@ import java.util.List;
 class SetBuilder {
 
   private List<Player> players;
+  private Turn turn;
 
   Set build() {
     this.players = new PlayerBuilder().build();
-    return Set.start(new TurnBuilder().players(this.players).build());
+    this.turn = new TurnBuilder().players(this.players).build();
+    return Set.start(this.turn);
   }
 
   Player getFirstPlayer() {
@@ -17,6 +19,10 @@ class SetBuilder {
 
   Player getSecondPlayer() {
     return this.players.get(1);
+  }
+
+  boolean isServing(Player player) {
+    return this.turn.isServing(player);
   }
 
 }

@@ -43,16 +43,16 @@ class Match {
   }
 
   void addPointService() {
-    this.currentSet().addPointService();
+    this.currentSet().addPoint(this.turn.getServicePlayer());
     this.newSet();
   }
 
   void addPointRest() {
-    this.currentSet().addPointRest();
+    this.currentSet().addPoint(this.turn.getRestPlayer());
     this.newSet();
   }
 
-  int[] getFisrstPlayerSetGames() {
+  int[] getFirstPlayerSetGames() {
     int games[] = new int[this.numberOfSets];
     for (int i = 0; i < this.sets.size(); i++) {
       games[i] = this.sets.get(i).getGamesWon(this.turn.getFirstPlayer());
