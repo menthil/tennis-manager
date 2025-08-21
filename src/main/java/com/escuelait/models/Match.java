@@ -55,7 +55,7 @@ class Match {
   int[] getFisrstPlayerSetGames() {
     int games[] = new int[this.numberOfSets];
     for (int i = 0; i < this.sets.size(); i++) {
-      games[i] = this.sets.get(i).getFirstPlayerResult();
+      games[i] = this.sets.get(i).getGamesWon(this.turn.getFirstPlayer());
     }
     return games;
   }

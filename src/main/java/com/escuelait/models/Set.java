@@ -20,12 +20,12 @@ class Set {
     return new Set(turn);
   }
 
-  int getFirstPlayerResult() {
-    return this.getPlayerResult(this.turn.getFirstPlayer());
-  }
-
-  int getSecondPlayerResult() {
-    return this.getPlayerResult(this.turn.getSecondPlayer());
+  int getGamesWon(Player player) {
+    int count = 0;
+    for (Game game : this.games) {
+      count += game.isWinner(player) ? 1 : 0;
+    }
+    return count;
   }
 
   void addPointService() {
@@ -56,14 +56,6 @@ class Set {
         : this.currentGame().getRestPoints();
   }
 
-  private int getPlayerResult(Player player) {
-    int count = 0;
-    for (Game game : this.games) {
-      count += game.isWinner(player) ? 1 : 0;
-    }
-    return count;
-  }
-
   private Game currentGame() {
     return this.games.get(this.games.size() - 1);
   }
@@ -83,11 +75,19 @@ class Set {
   }
 
   private boolean somePlayerReachMinGamesToWin() {
-    return this.getFirstPlayerResult() >= MIN_GAMES_TO_WIN || this.getSecondPlayerResult() >= MIN_GAMES_TO_WIN;
+    return this.getFirstPlayerGamesWon() >= MIN_GAMES_TO_WIN || this.getSecondPlayerGamesWon() >= MIN_GAMES_TO_WIN;
+  }
+
+  private int getFirstPlayerGamesWon() {
+    return this.getGamesWon(this.turn.getFirstPlayer());
+  }
+
+  private int getSecondPlayerGamesWon() {
+    return this.getGamesWon(this.turn.getSecondPlayer());
   }
 
   private boolean isDifferenceEnoughToWin() {
-    return Math.abs(this.getFirstPlayerResult() - this.getSecondPlayerResult()) >= MIN_DIFFERENCE_TO_WIN;
+    return Math.abs(this.getFirstPlayerGamesWon() - this.getSecondPlayerGamesWon()) >= MIN_DIFFERENCE_TO_WIN;
   }
 
   private boolean isFinishedTieBreak() {

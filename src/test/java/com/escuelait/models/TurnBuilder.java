@@ -10,6 +10,11 @@ class TurnBuilder {
     this.players = new PlayerBuilder().build();
   }
 
+  TurnBuilder players(List<Player> players) {
+    this.players = players;
+    return this;
+  }
+
   Turn build() {
     return Turn.firstPlayerServes(this.players);
   }

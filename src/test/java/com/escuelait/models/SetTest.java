@@ -20,46 +20,46 @@ public class SetTest {
 
   @Test
   public void when_set_starts_result_is_zero_to_zero() {
-    assertEquals(0, this.set.getFirstPlayerResult());
-    assertEquals(0, this.set.getSecondPlayerResult());
+    assertEquals(0, this.set.getGamesWon(this.setBuilder.getFirstPlayer()));
+    assertEquals(0, this.set.getGamesWon(this.setBuilder.getSecondPlayer()));
   }
 
   @Test
   public void when_first_player_wins_a_game_result_is_one_to_zero() {
     this.firstPlayerWinsGame(0);
-    assertEquals(1, this.set.getFirstPlayerResult());
-    assertEquals(0, this.set.getSecondPlayerResult());
+    assertEquals(1, this.set.getGamesWon(this.setBuilder.getFirstPlayer()));
+    assertEquals(0, this.set.getGamesWon(this.setBuilder.getSecondPlayer()));
   }
 
   @Test
   public void when_second_player_wins_a_game_result_is_zero_to_one() {
     this.secondPlayerWinsGame(0);
-    assertEquals(0, this.set.getFirstPlayerResult());
-    assertEquals(1, this.set.getSecondPlayerResult());
+    assertEquals(0, this.set.getGamesWon(this.setBuilder.getFirstPlayer()));
+    assertEquals(1, this.set.getGamesWon(this.setBuilder.getSecondPlayer()));
   }
 
   @Test
   public void when_player_dont_wins_at_least_six_games_then_set_is_not_finished() {
     this.alternateGamesWinning(5, 1);
     assertFalse(this.set.isFinished());
-    assertEquals(5, this.set.getFirstPlayerResult());
-    assertEquals(1, this.set.getSecondPlayerResult());
+    assertEquals(5, this.set.getGamesWon(this.setBuilder.getFirstPlayer()));
+    assertEquals(1, this.set.getGamesWon(this.setBuilder.getSecondPlayer()));
   }
 
   @Test
   public void when_first_player_wins_six_games_with_two_more_games_than_other_player_then_wins_set() {
     this.alternateGamesWinning(6, 4);
     assertTrue(this.set.isFinished());
-    assertEquals(6, this.set.getFirstPlayerResult());
-    assertEquals(4, this.set.getSecondPlayerResult());
+    assertEquals(6, this.set.getGamesWon(this.setBuilder.getFirstPlayer()));
+    assertEquals(4, this.set.getGamesWon(this.setBuilder.getSecondPlayer()));
   }
 
   @Test
   public void when_second_player_wins_six_games_with_two_more_games_than_other_player_then_wins_set() {
     this.alternateGamesWinning(5, 7);
     assertTrue(this.set.isFinished());
-    assertEquals(5, this.set.getFirstPlayerResult());
-    assertEquals(7, this.set.getSecondPlayerResult());
+    assertEquals(5, this.set.getGamesWon(this.setBuilder.getFirstPlayer()));
+    assertEquals(7, this.set.getGamesWon(this.setBuilder.getSecondPlayer()));
   }
 
   @Test
