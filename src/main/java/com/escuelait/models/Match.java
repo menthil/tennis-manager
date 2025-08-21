@@ -38,12 +38,8 @@ class Match {
     this.currentSet().lackService();
   }
 
-  int getFirstPlayerGamePoints() {
-    return this.currentSet().getFirstPlayerGamePoints();
-  }
-
-  int getSecondPlayerGamePoints() {
-    return this.currentSet().getSecondPlayerGamePoints();
+  int getGamePoints(Player player) {
+    return this.currentSet().getGamePoints(player);
   }
 
   void addPointService() {

@@ -50,14 +50,8 @@ class Set {
     this.currentGame().lackService();
   }
 
-  int getFirstPlayerGamePoints() {
-    return this.turn.isFirstPlayerServing()
-        ? this.currentGame().getServicePoints()
-        : this.currentGame().getRestPoints();
-  }
-
-  int getSecondPlayerGamePoints() {
-    return !this.turn.isFirstPlayerServing()
+  int getGamePoints(Player player) {
+    return this.turn.isServing(player)
         ? this.currentGame().getServicePoints()
         : this.currentGame().getRestPoints();
   }
