@@ -79,6 +79,10 @@ class Set {
     return this.isFinished() && this.getGamePoints(player) > this.getGamePoints(this.turn.getOther(player));
   }
 
+  boolean isTieBreak() {
+    return this.games.size() == MAX_REGULAR_GAMES + 1;
+  }
+
   int getMinPointsToWinGame() {
     return this.currentGame().getMinPointsToWin();
   }

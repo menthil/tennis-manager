@@ -57,6 +57,16 @@ public class SetTest {
   }
 
   @Test
+  public void when_players_draw_at_six_games_then_tie_break_starts() {
+    this.firstPlayerGames = Set.MIN_GAMES_TO_WIN;
+    this.secondPlayerGames = Set.MIN_GAMES_TO_WIN - 1;
+    this.alternateGamesWinning();
+    assertFalse(this.set.isTieBreak());
+    this.playerWinsGame(this.turn.getSecondPlayer());
+    assertTrue(this.set.isTieBreak());
+  }
+
+  @Test
   public void when_first_player_wins_six_games_with_two_more_games_than_other_player_then_wins_set() {
     this.firstPlayerGames = Set.MIN_GAMES_TO_WIN;
     this.secondPlayerGames = Set.MIN_GAMES_TO_WIN - 2;
