@@ -20,33 +20,9 @@ class Set {
     return new Set(turn);
   }
 
-  int getGamesWon(Player player) {
-    int count = 0;
-    for (Game game : this.games) {
-      count += game.isWinner(player) ? 1 : 0;
-    }
-    return count;
-  }
-
   void addPoint(Player player) {
     this.currentGame().addPoint(player);
     this.newGame();
-  }
-
-  boolean isFinished() {
-    return this.isFinishedBeforeTieBreak() || this.isFinishedTieBreak();
-  }
-
-  int getMinPointsToWinGame() {
-    return this.currentGame().getMinPointsToWin();
-  }
-
-  void lackService() {
-    this.currentGame().lackService();
-  }
-
-  int getGamePoints(Player player) {
-    return this.currentGame().getPoints(player);
   }
 
   private Game currentGame() {
@@ -61,6 +37,18 @@ class Set {
         this.games.add(GameFactory.regularGame(this.turn));
       }
     }
+  }
+
+  int getGamesWon(Player player) {
+    int count = 0;
+    for (Game game : this.games) {
+      count += game.isWinner(player) ? 1 : 0;
+    }
+    return count;
+  }
+
+  boolean isFinished() {
+    return this.isFinishedBeforeTieBreak() || this.isFinishedTieBreak();
   }
 
   private boolean isFinishedBeforeTieBreak() {
@@ -85,6 +73,22 @@ class Set {
 
   private boolean isFinishedTieBreak() {
     return this.games.size() == MAX_REGULAR_GAMES + 1 && this.currentGame().isFinished();
+  }
+
+  boolean isWinner(Player player) {
+    return this.isFinished() && this.getGamePoints(player) > this.getGamePoints(this.turn.getOther(player));
+  }
+
+  int getMinPointsToWinGame() {
+    return this.currentGame().getMinPointsToWin();
+  }
+
+  void lackService() {
+    this.currentGame().lackService();
+  }
+
+  int getGamePoints(Player player) {
+    return this.currentGame().getPoints(player);
   }
 
 }

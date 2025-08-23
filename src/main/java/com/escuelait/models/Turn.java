@@ -21,8 +21,16 @@ class Turn {
     return this.getPlayer(this.servingPlayerIndex);
   }
 
+  private Player getPlayer(int index) {
+    return this.players.get(index);
+  }
+
   Player getRestPlayer() {
     return this.getPlayer(this.restPlayerIndex());
+  }
+
+  private int restPlayerIndex() {
+    return (this.servingPlayerIndex + 1) % 2;
   }
 
   void changeService() {
@@ -37,16 +45,14 @@ class Turn {
     return this.getPlayer(1);
   }
 
+  Player getOther(Player player) {
+    assert this.players.contains(player);
+    return player.equals(this.getFirstPlayer()) ? this.getSecondPlayer() : this.getFirstPlayer();
+  }
+
   boolean isServing(Player player) {
+    assert this.players.contains(player);
     return player.equals(this.getServicePlayer());
-  }
-
-  private Player getPlayer(int index) {
-    return this.players.get(index);
-  }
-
-  private int restPlayerIndex() {
-    return (this.servingPlayerIndex + 1) % 2;
   }
 
 }

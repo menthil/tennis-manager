@@ -62,6 +62,7 @@ public class SetTest {
     this.secondPlayerGames = Set.MIN_GAMES_TO_WIN - 2;
     this.alternateGamesWinning();
     assertTrue(this.set.isFinished());
+    assertTrue(this.set.isWinner(this.turn.getFirstPlayer()));
   }
 
   @Test
@@ -70,6 +71,7 @@ public class SetTest {
     this.secondPlayerGames = Set.MIN_GAMES_TO_WIN + 1;
     this.alternateGamesWinning();
     assertTrue(this.set.isFinished());
+    assertTrue(this.set.isWinner(this.turn.getSecondPlayer()));
   }
 
   @Test
@@ -78,6 +80,7 @@ public class SetTest {
     this.secondPlayerGames = Set.MIN_GAMES_TO_WIN;
     this.alternateGamesWinning();
     assertTrue(this.set.isFinished());
+    assertTrue(this.set.isWinner(this.turn.getFirstPlayer()));
   }
 
   @Test
@@ -86,6 +89,7 @@ public class SetTest {
     this.secondPlayerGames = Set.MIN_GAMES_TO_WIN + 1;
     this.alternateGamesWinning();
     assertTrue(this.set.isFinished());
+    assertTrue(this.set.isWinner(this.turn.getSecondPlayer()));
   }
 
   private void alternateGamesWinning() {
