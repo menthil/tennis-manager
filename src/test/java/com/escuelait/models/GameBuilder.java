@@ -3,8 +3,6 @@ package com.escuelait.models;
 class GameBuilder {
 
   private Turn turn;
-  private int servicePoints;
-  private int restPoints;
   private boolean isTieBreak;
 
   GameBuilder() {
@@ -12,23 +10,7 @@ class GameBuilder {
   }
 
   Game build() {
-    Game game = this.isTieBreak ? GameFactory.tieBreakGame(this.turn) : GameFactory.regularGame(this.turn);
-    Player servicePlayer = this.turn.getServicePlayer();
-    Player restPlayer = this.turn.getRestPlayer();
-    for (int i = 0; i < Math.max(this.servicePoints, this.restPoints); i++) {
-      if (i < this.servicePoints) {
-        game.addPoint(servicePlayer);
-      }
-      if (i < this.restPoints) {
-        game.addPoint(restPlayer);
-      }
-    }
-    return game;
-  }
-
-  GameBuilder advantageService() {
-    assert !this.isTieBreak;
-    return this.service(Game.MIN_POINTS_TO_WIN + 1).rest(Game.MIN_POINTS_TO_WIN);
+    return this.isTieBreak ? GameFactory.tieBreakGame(this.turn) : GameFactory.regularGame(this.turn);
   }
 
   GameBuilder turn(Turn turn) {
@@ -36,30 +18,8 @@ class GameBuilder {
     return this;
   }
 
-  GameBuilder serviceWins() {
-    return this.service(this.getMinPointsToWin());
-  }
-
-  private int getMinPointsToWin() {
-    return this.isTieBreak ? TieBreakGame.MIN_POINTS_TO_WIN : Game.MIN_POINTS_TO_WIN;
-  }
-
-  GameBuilder restWins() {
-    return this.rest(this.getMinPointsToWin());
-  }
-
   GameBuilder tieBreakGame() {
     this.isTieBreak = true;
-    return this;
-  }
-
-  GameBuilder service(int points) {
-    this.servicePoints = points;
-    return this;
-  }
-
-  GameBuilder rest(int points) {
-    this.restPoints = points;
     return this;
   }
 
