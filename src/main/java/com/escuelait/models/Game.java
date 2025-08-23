@@ -37,32 +37,23 @@ class Game {
   }
 
   private boolean somePlayerReachMinPointsToWin() {
-    return this.firstPlayerPoints() >= this.getMinPointsToWin()
-        || this.secondPlayerPoints() >= this.getMinPointsToWin();
+    return this.firstPlayerPoints() >= this.minPointsToWin() || this.secondPlayerPoints() >= this.minPointsToWin();
   }
 
   protected int firstPlayerPoints() {
-    return this.getPoints(this.firstPlayer());
-  }
-
-  private Player firstPlayer() {
-    return this.turn.getFirstPlayer();
+    return this.getPoints(this.turn.getFirstPlayer());
   }
 
   int getPoints(Player player) {
     return Optional.ofNullable(this.points.get(player)).orElse(0);
   }
 
-  int getMinPointsToWin() {
+  protected int minPointsToWin() {
     return MIN_POINTS_TO_WIN;
   }
 
   protected int secondPlayerPoints() {
-    return this.getPoints(this.secondPlayer());
-  }
-
-  private Player secondPlayer() {
-    return this.turn.getSecondPlayer();
+    return this.getPoints(this.turn.getSecondPlayer());
   }
 
   private boolean isDifferenceEnoughToWin() {
@@ -78,7 +69,9 @@ class Game {
   }
 
   private Player getWinner() {
-    return this.firstPlayerPoints() > this.secondPlayerPoints() ? this.firstPlayer() : this.secondPlayer();
+    return this.firstPlayerPoints() > this.secondPlayerPoints()
+        ? this.turn.getFirstPlayer()
+        : this.turn.getSecondPlayer();
   }
 
 }

@@ -121,10 +121,10 @@ public class SetTest {
   }
 
   private void playerWinsGame(Player player) {
-    int minPointsToWinGame = this.set.getMinPointsToWinGame();
-    for (int i = 0; i < minPointsToWinGame; i++) {
+    int games = this.set.getGamesWon(player);
+    do {
       this.set.addPoint(player);
-    }
+    } while (games == this.set.getGamesWon(player));
   }
 
 }

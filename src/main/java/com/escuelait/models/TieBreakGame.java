@@ -16,7 +16,7 @@ class TieBreakGame extends Game {
   }
 
   @Override
-  protected int getMinPointsToWin() {
+  protected int minPointsToWin() {
     return MIN_POINTS_TO_WIN;
   }
 

@@ -83,10 +83,6 @@ class Set {
     return this.games.size() == MAX_REGULAR_GAMES + 1;
   }
 
-  int getMinPointsToWinGame() {
-    return this.currentGame().getMinPointsToWin();
-  }
-
   void lackService() {
     this.currentGame().lackService();
   }
