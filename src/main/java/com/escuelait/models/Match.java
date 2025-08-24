@@ -102,4 +102,8 @@ class Match {
     return setsWinner == this.numberOfSets / 2 + 1;
   }
 
+  boolean isTieBreak() {
+    return this.currentSet().isTieBreak();
+  }
+
 }

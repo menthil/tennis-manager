@@ -145,6 +145,16 @@ public class MatchTest {
     assertTrue(this.match.isWinner(this.getSecondPlayer()));
   }
 
+  @Test
+  public void when_players_draw_at_six_games_then_tie_break_starts() {
+    for (int i = 0; i < Set.MIN_GAMES_TO_WIN; i++) {
+      this.winGame(this.getFirstPlayer());
+      this.winGame(this.getSecondPlayer());
+    }
+    assertTrue(this.match.isGameFinished());
+    assertTrue(this.match.isTieBreak());
+  }
+
   private Player getFirstPlayer() {
     return this.players.get(0);
   }
