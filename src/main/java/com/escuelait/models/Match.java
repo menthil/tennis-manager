@@ -64,7 +64,9 @@ class Match {
   private void newSet() {
     if (this.currentSet().isFinished()) {
       this.setFinished = true;
-      this.sets.add(Set.start(turn));
+      if (!this.isFinished()) {
+        this.sets.add(Set.start(turn));
+      }
     }
   }
 
@@ -86,6 +88,18 @@ class Match {
 
   boolean isSetFinished() {
     return this.setFinished;
+  }
+
+  boolean isFinished() {
+    return this.isWinner(this.turn.getFirstPlayer()) || this.isWinner(this.turn.getSecondPlayer());
+  }
+
+  boolean isWinner(Player player) {
+    int setsWinner = 0;
+    for (Set set : this.sets) {
+      setsWinner += set.isWinner(player) ? 1 : 0;
+    }
+    return setsWinner == this.numberOfSets / 2 + 1;
   }
 
 }

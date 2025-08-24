@@ -63,7 +63,7 @@ public class MatchTest {
   public void when_second_player_wins_a_game_then_game_numbers_increases_in_one() {
     this.winGame(this.getSecondPlayer());
     assertTrue(this.match.isGameFinished());
-    assertEquals(1, this.match.getSetGames(this.getSecondPlayer()).get(0).intValue());
+    assertEquals(Integer.valueOf(1), this.match.getSetGames(this.getSecondPlayer()).get(0));
   }
 
   @Test
@@ -105,6 +105,44 @@ public class MatchTest {
     this.alternateSetsWinning();
     this.match.addPointService();
     assertFalse(this.match.isSetFinished());
+  }
+
+  @Test
+  public void when_first_player_wins_two_sets_in_a_three_set_match_then_wins_match() {
+    this.firstPlayerSets = 2;
+    this.secondPlayerSets = 1;
+    this.alternateSetsWinning();
+    assertTrue(this.match.isFinished());
+    assertTrue(this.match.isWinner(this.getFirstPlayer()));
+  }
+
+  @Test
+  public void when_second_player_wins_two_sets_in_a_three_set_match_then_wins_match() {
+    this.firstPlayerSets = 1;
+    this.secondPlayerSets = 2;
+    this.alternateSetsWinning();
+    assertTrue(this.match.isFinished());
+    assertTrue(this.match.isWinner(this.getSecondPlayer()));
+  }
+
+  @Test
+  public void when_first_player_wins_three_sets_in_a_five_set_match_then_wins_match() {
+    this.firstPlayerSets = 3;
+    this.secondPlayerSets = 1;
+    this.match = new MatchBuilder().players(this.players).fiveSetsMatch().build();
+    this.alternateSetsWinning();
+    assertTrue(this.match.isFinished());
+    assertTrue(this.match.isWinner(this.getFirstPlayer()));
+  }
+
+  @Test
+  public void when_second_player_wins_three_sets_in_a_five_set_match_then_wins_match() {
+    this.firstPlayerSets = 0;
+    this.secondPlayerSets = 3;
+    this.match = new MatchBuilder().players(this.players).fiveSetsMatch().build();
+    this.alternateSetsWinning();
+    assertTrue(this.match.isFinished());
+    assertTrue(this.match.isWinner(this.getSecondPlayer()));
   }
 
   private Player getFirstPlayer() {
