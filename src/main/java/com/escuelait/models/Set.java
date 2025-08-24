@@ -23,15 +23,6 @@ class Set {
 
   void addPoint(Player player) {
     this.currentGame().addPoint(player);
-    this.gameFinished = false;
-    this.newGame();
-  }
-
-  private Game currentGame() {
-    return this.games.get(this.games.size() - 1);
-  }
-
-  private void newGame() {
     if (this.currentGame().isFinished()) {
       this.gameFinished = true;
       if (!this.isFinished()) {
@@ -41,7 +32,13 @@ class Set {
           this.games.add(GameFactory.regularGame(this.turn));
         }
       }
+    } else {
+      this.gameFinished = false;
     }
+  }
+
+  private Game currentGame() {
+    return this.games.get(this.games.size() - 1);
   }
 
   int getGamesWon(Player player) {
@@ -77,15 +74,15 @@ class Set {
   }
 
   private boolean isFinishedTieBreak() {
-    return this.games.size() == MAX_REGULAR_GAMES + 1 && this.currentGame().isFinished();
-  }
-
-  boolean isWinner(Player player) {
-    return this.isFinished() && this.getGamePoints(player) > this.getGamePoints(this.turn.getOther(player));
+    return this.isTieBreak() && this.currentGame().isFinished();
   }
 
   boolean isTieBreak() {
     return this.games.size() == MAX_REGULAR_GAMES + 1;
+  }
+
+  boolean isWinner(Player player) {
+    return this.isFinished() && this.getGamePoints(player) > this.getGamePoints(this.turn.getOther(player));
   }
 
   void lackService() {

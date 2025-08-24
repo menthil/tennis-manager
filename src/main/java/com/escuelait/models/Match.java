@@ -9,22 +9,18 @@ class Match {
   private static final List<Integer> VALID_NUMBER_OF_SETS = List.of(3, 5);
   private int id;
   private int numberOfSets;
-  private List<Set> sets;
   private Turn turn;
+  private List<Set> sets;
   private LocalDate creationDate;
   private boolean setFinished;
 
   private Match(int id, int numberOfSets, List<Player> players) {
     this.id = id;
     this.numberOfSets = numberOfSets;
-    this.sets = new ArrayList<>();
     this.turn = Turn.firstPlayerServes(players);
-    this.startGame();
-  }
-
-  private void startGame() {
+    this.sets = new ArrayList<>();
+    this.sets.add(Set.start(this.turn));
     this.creationDate = LocalDate.now();
-    this.sets.add(Set.start(turn));
   }
 
   static Match createThreeSetMatch(int id, List<Player> players) {
@@ -57,16 +53,13 @@ class Match {
 
   private void addPoint(Player player) {
     this.currentSet().addPoint(player);
-    this.setFinished = false;
-    this.newSet();
-  }
-
-  private void newSet() {
     if (this.currentSet().isFinished()) {
       this.setFinished = true;
       if (!this.isFinished()) {
-        this.sets.add(Set.start(turn));
+        this.sets.add(Set.start(this.turn));
       }
+    } else {
+      this.setFinished = false;
     }
   }
 
