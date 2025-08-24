@@ -1,20 +1,26 @@
 package com.escuelait.models;
 
 import java.util.List;
+import java.util.Random;
 
 class Turn {
 
   private List<Player> players;
   private int servingPlayerIndex;
 
-  private Turn(List<Player> players, Player servingPlayer) {
+  private Turn(List<Player> players, int servingPlayerIndex) {
+    assert players != null && players.size() == 2 && servingPlayerIndex < players.size();
     this.players = players;
-    this.servingPlayerIndex = this.players.indexOf(servingPlayer);
+    this.servingPlayerIndex = servingPlayerIndex;
   }
 
   static Turn firstPlayerServes(List<Player> players) {
-    assert players != null && players.size() == 2;
-    return new Turn(players, players.get(0));
+    return new Turn(players, 0);
+  }
+
+  static Turn randomPlayerServes(List<Player> players) {
+    assert players != null;
+    return new Turn(players, new Random().nextInt(players.size()));
   }
 
   Player getServicePlayer() {

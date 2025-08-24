@@ -17,7 +17,7 @@ class Match {
   private Match(int id, int numberOfSets, List<Player> players) {
     this.id = id;
     this.numberOfSets = numberOfSets;
-    this.turn = Turn.firstPlayerServes(players);
+    this.turn = Turn.randomPlayerServes(players);
     this.sets = new ArrayList<>();
     this.sets.add(Set.start(this.turn));
     this.creationDate = LocalDate.now();
