@@ -6,17 +6,17 @@ class MatchBuilder {
 
   private List<Player> players;
 
-  Match build() {
+  MatchBuilder() {
     this.players = new PlayerBuilder().build();
+  }
+
+  Match build() {
     return Match.createThreeSetMatch(1, this.players);
   }
 
-  Player getFirstPlayer() {
-    return this.players.get(0);
-  }
-
-  Player getSecondPlayer() {
-    return this.players.get(1);
+  MatchBuilder players(List<Player> players) {
+    this.players = players;
+    return this;
   }
 
 }

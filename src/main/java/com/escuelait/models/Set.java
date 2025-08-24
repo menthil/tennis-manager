@@ -9,6 +9,7 @@ class Set {
   private static final int MAX_REGULAR_GAMES = MIN_GAMES_TO_WIN * 2;
   private Turn turn;
   private ArrayList<Game> games;
+  private boolean gameFinished;
 
   private Set(Turn turn) {
     this.turn = turn;
@@ -22,6 +23,7 @@ class Set {
 
   void addPoint(Player player) {
     this.currentGame().addPoint(player);
+    this.gameFinished = false;
     this.newGame();
   }
 
@@ -30,11 +32,14 @@ class Set {
   }
 
   private void newGame() {
-    if (this.currentGame().isFinished() && !this.isFinished()) {
-      if (this.games.size() == MAX_REGULAR_GAMES) {
-        this.games.add(GameFactory.tieBreakGame(this.turn));
-      } else {
-        this.games.add(GameFactory.regularGame(this.turn));
+    if (this.currentGame().isFinished()) {
+      this.gameFinished = true;
+      if (!this.isFinished()) {
+        if (this.games.size() == MAX_REGULAR_GAMES) {
+          this.games.add(GameFactory.tieBreakGame(this.turn));
+        } else {
+          this.games.add(GameFactory.regularGame(this.turn));
+        }
       }
     }
   }
@@ -89,6 +94,10 @@ class Set {
 
   int getGamePoints(Player player) {
     return this.currentGame().getPoints(player);
+  }
+
+  boolean isGameFinished() {
+    return this.gameFinished;
   }
 
 }

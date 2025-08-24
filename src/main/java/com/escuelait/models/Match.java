@@ -12,6 +12,7 @@ class Match {
   private List<Set> sets;
   private Turn turn;
   private LocalDate creationDate;
+  private boolean setFinished;
 
   private Match(int id, int numberOfSets, List<Player> players) {
     this.id = id;
@@ -38,36 +39,53 @@ class Match {
     this.currentSet().lackService();
   }
 
-  int getGamePoints(Player player) {
-    return this.currentSet().getGamePoints(player);
-  }
-
-  void addPointService() {
-    this.currentSet().addPoint(this.turn.getServicePlayer());
-    this.newSet();
-  }
-
-  void addPointRest() {
-    this.currentSet().addPoint(this.turn.getRestPlayer());
-    this.newSet();
-  }
-
-  int[] getFirstPlayerSetGames() {
-    int games[] = new int[this.numberOfSets];
-    for (int i = 0; i < this.sets.size(); i++) {
-      games[i] = this.sets.get(i).getGamesWon(this.turn.getFirstPlayer());
-    }
-    return games;
-  }
-
   private Set currentSet() {
     return this.sets.get(this.sets.size() - 1);
   }
 
+  int getGamePoints(Player player) {
+    return this.currentSet().getGamePoints(player);
+  }
+
+  boolean isServing(Player player) {
+    return this.turn.isServing(player);
+  }
+
+  void addPointService() {
+    this.addPoint(this.turn.getServicePlayer());
+  }
+
+  private void addPoint(Player player) {
+    this.currentSet().addPoint(player);
+    this.setFinished = false;
+    this.newSet();
+  }
+
   private void newSet() {
     if (this.currentSet().isFinished()) {
+      this.setFinished = true;
       this.sets.add(Set.start(turn));
     }
+  }
+
+  void addPointRest() {
+    this.addPoint(this.turn.getRestPlayer());
+  }
+
+  boolean isGameFinished() {
+    return this.currentSet().isGameFinished();
+  }
+
+  List<Integer> getSetGames(Player player) {
+    ArrayList<Integer> games = new ArrayList<>();
+    for (int i = 0; i < this.sets.size(); i++) {
+      games.add(this.sets.get(i).getGamesWon(player));
+    }
+    return games;
+  }
+
+  boolean isSetFinished() {
+    return this.setFinished;
   }
 
 }
