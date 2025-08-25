@@ -16,4 +16,8 @@ public class State {
     this.stateValue = StateValue.EXIT;
   }
 
+  public void started() {
+    this.stateValue = StateValue.STARTED;
+  }
+
 }

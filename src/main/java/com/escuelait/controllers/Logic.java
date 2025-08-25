@@ -14,6 +14,7 @@ public class Logic {
     this.state = new State();
     this.controllers = new HashMap<>();
     this.controllers.put(StateValue.INITIAL, new StartController(this.state));
+    this.controllers.put(StateValue.STARTED, new LoginController(this.state));
     this.controllers.put(StateValue.EXIT, null);
   }
 

@@ -2,9 +2,9 @@ package com.escuelait.controllers;
 
 import com.escuelait.models.State;
 
-public class StartController extends Controller {
+public class LoginController extends Controller {
 
-  StartController(State state) {
+  LoginController(State state) {
     super(state);
   }
 
@@ -14,7 +14,7 @@ public class StartController extends Controller {
   }
 
   public void next() {
-    this.state.started();
+    this.state.exit();
   }
 
 }
