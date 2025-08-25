@@ -12,7 +12,11 @@ class LoginView extends ConsoleView {
 
   @Override
   void interact() {
-    this.loginController.next();
+    String prompt = null;
+    do {
+      prompt = this.console.readString("Escribe un comando válido> ").trim();
+    } while (!this.loginController.isValid(prompt));
+    CommandFactory.create(this.loginController.getCommandType(prompt), prompt).execute(this.loginController);
   }
 
 }

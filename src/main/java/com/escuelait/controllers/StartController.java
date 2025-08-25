@@ -1,5 +1,7 @@
 package com.escuelait.controllers;
 
+import java.util.List;
+
 import com.escuelait.models.State;
 
 public class StartController extends Controller {
@@ -11,6 +13,11 @@ public class StartController extends Controller {
   @Override
   public void accept(ControllerVisitor visitor) {
     visitor.visit(this);
+  }
+
+  @Override
+  protected List<CommandType> getAvailableCommandTypes() {
+    return List.of();
   }
 
   public void next() {
