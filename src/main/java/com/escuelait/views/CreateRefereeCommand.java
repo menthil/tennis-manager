@@ -4,19 +4,20 @@ import com.escuelait.controllers.CommandType;
 import com.escuelait.controllers.Controller;
 import com.escuelait.controllers.LoginController;
 
-class CreateRefereeCommand implements Command {
+class CreateRefereeCommand extends Command {
 
   private String name;
   private String password;
 
-  CreateRefereeCommand(String commandString) {
+  CreateRefereeCommand(Controller controller, String commandString) {
+    super(controller);
     this.name = CommandType.CREATE_REFEREE.getArgs(commandString).get(0);
     this.password = CommandType.CREATE_REFEREE.getArgs(commandString).get(1);
   }
 
   @Override
-  public void execute(Controller controller) {
-    ((LoginController) controller).createReferee(this.name, this.password);
+  void execute() {
+    ((LoginController) this.controller).createReferee(this.name, this.password);
   }
 
 }

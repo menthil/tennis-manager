@@ -15,14 +15,20 @@ public abstract class Controller {
 
   public abstract void accept(ControllerVisitor visitor);
 
-  public boolean isValid(String commandString) {
+  public List<String> getErrors(String commandString) {
     assert commandString != null;
-    return this.getValidated(commandString).isPresent();
+    Optional<CommandType> matched = this.getMatchedCommandType(commandString);
+    if (matched.isEmpty()) {
+      return List.of("Comando no válido");
+    }
+    return matched.get().isValid(commandString)
+        ? List.of()
+        : List.of("Parámetros incorrectos: " + matched.get().getCommand());
   }
 
-  private Optional<CommandType> getValidated(String commandString) {
+  private Optional<CommandType> getMatchedCommandType(String commandString) {
     for (CommandType commandType : this.getAvailableCommandTypes()) {
-      if (commandType.isValid(commandString)) {
+      if (commandType.is(commandString)) {
         return Optional.of(commandType);
       }
     }
@@ -32,8 +38,8 @@ public abstract class Controller {
   protected abstract List<CommandType> getAvailableCommandTypes();
 
   public CommandType getCommandType(String commandString) {
-    assert this.isValid(commandString);
-    return this.getValidated(commandString).get();
+    assert this.getErrors(commandString).isEmpty();
+    return this.getMatchedCommandType(commandString).get();
   }
 
   public void exit() {

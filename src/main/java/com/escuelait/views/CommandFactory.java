@@ -1,18 +1,18 @@
 package com.escuelait.views;
 
-import com.escuelait.controllers.CommandType;
+import com.escuelait.controllers.Controller;
 
 class CommandFactory {
 
   private CommandFactory() {
   }
 
-  static Command create(CommandType commandType, String commandString) {
-    switch (commandType) {
+  static Command create(Controller controller, String commandString) {
+    switch (controller.getCommandType(commandString)) {
       case CREATE_REFEREE:
-        return new CreateRefereeCommand(commandString);
+        return new CreateRefereeCommand(controller, commandString);
       case EXIT:
-        return new ExitCommand();
+        return new ExitCommand(controller);
       case LOGIN:
         return null;
       default:

@@ -2,8 +2,14 @@ package com.escuelait.views;
 
 import com.escuelait.controllers.Controller;
 
-interface Command {
+abstract class Command {
 
-  void execute(Controller controller);
+  protected Controller controller;
+
+  Command(Controller controller) {
+    this.controller = controller;
+  }
+
+  abstract void execute();
 
 }

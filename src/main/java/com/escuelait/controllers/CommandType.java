@@ -6,26 +6,36 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum CommandType {
-  CREATE_REFEREE("createReferee", "name:(.{4,});password:(.{4,})"),
-  LOGIN("login", "name:(.{4,});password:(.{4,})"),
-  EXIT("exit", ""),
+  CREATE_REFEREE("createReferee", "name:(.{4,});password:(.{4,})", "name:<name>;password:<password>"),
+  LOGIN("login", "name:(.{4,});password:(.{4,})", "name:<name>;password:<password>"),
+  EXIT("exit", "", ""),
   ;
 
   private String name;
   private String regex;
+  private String parameters;
 
-  private CommandType(String name, String parameters) {
+  private CommandType(String name, String regex, String parameters) {
     this.name = name;
-    this.regex = (this.name + " " + parameters).trim();
+    this.regex = (this.name + " " + regex).trim();
+    this.parameters = parameters;
+  }
+
+  boolean is(String commandString) {
+    return this.getMatcher("^" + this.name + "\\b(.*)", commandString).matches();
+  }
+
+  private Matcher getMatcher(String regex, String commandString) {
+    assert commandString != null;
+    return Pattern.compile(regex).matcher(commandString);
   }
 
   boolean isValid(String commandString) {
-    assert commandString != null;
     return this.getMatcher(commandString).matches();
   }
 
   private Matcher getMatcher(String commandString) {
-    return Pattern.compile(this.regex).matcher(commandString);
+    return this.getMatcher(this.regex, commandString);
   }
 
   public List<String> getArgs(String commandString) {
@@ -37,6 +47,10 @@ public enum CommandType {
       args.add(matcher.group(i));
     }
     return args;
+  }
+
+  String getCommand() {
+    return (this.name + " " + this.parameters).trim();
   }
 
 }
