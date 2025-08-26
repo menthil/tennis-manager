@@ -16,7 +16,7 @@ public class StartController extends Controller {
   }
 
   @Override
-  protected List<CommandType> getAvailableCommandTypes() {
+  public List<CommandType> getAvailableCommandTypes() {
     return List.of();
   }
 

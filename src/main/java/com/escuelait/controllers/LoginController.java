@@ -23,8 +23,8 @@ public class LoginController extends Controller {
   }
 
   @Override
-  protected List<CommandType> getAvailableCommandTypes() {
-    return List.of(CommandType.CREATE_REFEREE, CommandType.LOGIN, CommandType.EXIT);
+  public List<CommandType> getAvailableCommandTypes() {
+    return List.of(CommandType.CREATE_REFEREE, CommandType.LOGIN, CommandType.HELP, CommandType.EXIT);
   }
 
   public List<String> getCreateRefereeeErrors(String name, String password) {

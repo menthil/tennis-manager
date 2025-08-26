@@ -16,8 +16,8 @@ public class ManageController extends Controller {
   }
 
   @Override
-  protected List<CommandType> getAvailableCommandTypes() {
-    return List.of();
+  public List<CommandType> getAvailableCommandTypes() {
+    return List.of(CommandType.HELP, CommandType.EXIT);
   }
 
 }

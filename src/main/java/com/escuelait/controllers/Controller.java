@@ -35,7 +35,7 @@ public abstract class Controller {
     return Optional.empty();
   }
 
-  protected abstract List<CommandType> getAvailableCommandTypes();
+  public abstract List<CommandType> getAvailableCommandTypes();
 
   public CommandType getCommandType(String commandString) {
     assert this.getErrors(commandString).isEmpty();

@@ -2,13 +2,13 @@ package com.escuelait.views;
 
 import java.util.List;
 
-import com.escuelait.controllers.LoginController;
+import com.escuelait.controllers.Controller;
 
-class LoginView extends ConsoleView {
+class CommandView extends ConsoleView {
 
-  private LoginController loginController;
+  private Controller loginController;
 
-  LoginView(LoginController loginController) {
+  CommandView(Controller loginController) {
     this.loginController = loginController;
   }
 
@@ -17,7 +17,7 @@ class LoginView extends ConsoleView {
     String prompt = null;
     List<String> errors = List.of();
     do {
-      prompt = this.console.readString("Escribe un comando válido> ").trim();
+      prompt = this.console.readString("Escribe un comando válido (help para mostrar ayuda)> ").trim();
       errors = this.loginController.getErrors(prompt);
       if (!errors.isEmpty()) {
         for (String error : errors) {
@@ -25,7 +25,9 @@ class LoginView extends ConsoleView {
         }
       }
     } while (!errors.isEmpty());
+    this.console.writeln();
     CommandFactory.create(this.loginController, prompt).execute();
+    this.console.writeln();
   }
 
 }

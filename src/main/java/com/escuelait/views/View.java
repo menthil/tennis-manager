@@ -19,12 +19,12 @@ public class View implements ControllerVisitor {
 
   @Override
   public void visit(LoginController loginController) {
-    new LoginView(loginController).interact();
+    new CommandView(loginController).interact();
   }
 
   @Override
   public void visit(ManageController manageController) {
-    new ManageView(manageController).interact();
+    new CommandView(manageController).interact();
   }
 
 }

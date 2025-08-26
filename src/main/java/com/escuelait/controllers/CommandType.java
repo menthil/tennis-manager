@@ -9,6 +9,7 @@ public enum CommandType {
   CREATE_REFEREE("createReferee", "name:(.+);password:(.+)", "name:<name>;password:<password>"),
   LOGIN("login", "name:(.+);password:(.+)", "name:<name>;password:<password>"),
   EXIT("exit", "", ""),
+  HELP("help", "", "");
   ;
 
   private String name;
@@ -49,7 +50,7 @@ public enum CommandType {
     return args;
   }
 
-  String getCommand() {
+  public String getCommand() {
     return (this.name + " " + this.parameters).trim();
   }
 
