@@ -4,7 +4,7 @@ import com.escuelait.controllers.Controller;
 
 class ExitCommand extends Command {
 
-  public ExitCommand(Controller controller) {
+  ExitCommand(Controller controller) {
     super(controller);
   }
 

@@ -6,7 +6,7 @@ class ManageView extends ConsoleView {
 
   private ManageController manageController;
 
-  public ManageView(ManageController manageController) {
+  ManageView(ManageController manageController) {
     this.manageController = manageController;
   }
 
