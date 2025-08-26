@@ -14,7 +14,7 @@ class CommandFactory {
       case EXIT:
         return new ExitCommand(controller);
       case LOGIN:
-        return null;
+        return new LoginCommand(controller, commandString);
       default:
         return null;
     }

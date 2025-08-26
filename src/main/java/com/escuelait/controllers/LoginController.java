@@ -1,7 +1,9 @@
 package com.escuelait.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.escuelait.models.Referee;
 import com.escuelait.models.State;
 import com.escuelait.repositories.RefereeRepository;
 
@@ -42,6 +44,14 @@ public class LoginController extends Controller {
   public void createReferee(String name, String password) {
     assert this.getCreateRefereeeErrors(name, password).isEmpty();
     this.refereeRepository.create(name, password);
+  }
+
+  public boolean login(String name, String password) {
+    Optional<Referee> referee = this.refereeRepository.findByName(name);
+    if (referee.isEmpty()) {
+      return false;
+    }
+    return referee.get().equals(new Referee(name, password));
   }
 
 }
