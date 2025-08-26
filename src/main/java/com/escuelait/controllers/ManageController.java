@@ -17,7 +17,15 @@ public class ManageController extends Controller {
 
   @Override
   public List<CommandType> getAvailableCommandTypes() {
-    return List.of(CommandType.HELP, CommandType.EXIT);
+    return List.of(
+        CommandType.CREATE_PLAYER,
+        CommandType.READ_PLAYERS,
+        CommandType.CREATE_MATCH,
+        CommandType.READ_PLAYER,
+        CommandType.READ_MATCH,
+        CommandType.LOGOUT,
+        CommandType.HELP,
+        CommandType.EXIT);
   }
 
 }

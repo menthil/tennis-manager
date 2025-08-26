@@ -6,10 +6,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum CommandType {
-  CREATE_REFEREE("createReferee", "name:(.+);password:(.+)", "name:<name>;password:<password>"),
-  LOGIN("login", "name:(.+);password:(.+)", "name:<name>;password:<password>"),
-  EXIT("exit", "", ""),
-  HELP("help", "", "");
+  CREATE_REFEREE("createReferee", "name:(.+);password:(.+)", "createReferee name:<name>;password:<password>"),
+  LOGIN("login", "name:(.+);password:(.+)", "login name:<name>;password:<password>"),
+  EXIT("exit", "", "exit"),
+  HELP("help", "", "help"),
+  CREATE_PLAYER("createPlayer", "name:(.+)", "createPlayer name:<name>"),
+  READ_PLAYERS("readPlayers", "", "readPlayers"),
+  CREATE_MATCH("createMatch", "sets:(.+);ids:\\d+,\\d+", "createMatch sets:<3|5>;ids:<id1>,<id2>"),
+  READ_PLAYER("readPlayer:\\d+", "", "readPlayer:<id>"),
+  READ_MATCH("readMatch:\\d+", "", "readMatch:<id>"),
+  LOGOUT("logout", "", "logout"),
   ;
 
   private String name;
@@ -51,7 +57,7 @@ public enum CommandType {
   }
 
   public String getCommand() {
-    return (this.name + " " + this.parameters).trim();
+    return this.parameters;
   }
 
 }
