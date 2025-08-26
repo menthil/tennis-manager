@@ -1,18 +1,18 @@
 package com.escuelait.controllers;
 
-import java.util.HashMap;
 import java.util.List;
 
 import com.escuelait.models.State;
+import com.escuelait.repositories.RefereeRepository;
 
 public class LoginController extends Controller {
 
   private static final int MIN_LENGTH = 4;
-  private HashMap<String, String> referees;
+  private RefereeRepository refereeRepository;
 
-  LoginController(State state) {
+  LoginController(State state, RefereeRepository refereeRepository) {
     super(state);
-    this.referees = new HashMap<>();
+    this.refereeRepository = refereeRepository;
   }
 
   @Override
@@ -33,7 +33,7 @@ public class LoginController extends Controller {
     if (password.length() < LoginController.MIN_LENGTH) {
       return List.of("La longitud de la contraseña debe ser al menos " + LoginController.MIN_LENGTH);
     }
-    if (this.referees.containsKey(name)) {
+    if (this.refereeRepository.containsName(name)) {
       return List.of("El árbitro ya existe");
     }
     return List.of();
@@ -41,7 +41,7 @@ public class LoginController extends Controller {
 
   public void createReferee(String name, String password) {
     assert this.getCreateRefereeeErrors(name, password).isEmpty();
-    this.referees.put(name, password);
+    this.refereeRepository.create(name, password);
   }
 
 }

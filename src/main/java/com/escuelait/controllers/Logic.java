@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.escuelait.models.State;
 import com.escuelait.models.StateValue;
+import com.escuelait.repositories.RefereeRepository;
 
 public class Logic {
 
@@ -14,7 +15,7 @@ public class Logic {
     this.state = new State();
     this.controllers = new HashMap<>();
     this.controllers.put(StateValue.INITIAL, new StartController(this.state));
-    this.controllers.put(StateValue.STARTED, new LoginController(this.state));
+    this.controllers.put(StateValue.STARTED, new LoginController(this.state, new RefereeRepository()));
     this.controllers.put(StateValue.EXIT, null);
   }
 
