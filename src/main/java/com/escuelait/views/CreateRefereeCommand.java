@@ -1,5 +1,7 @@
 package com.escuelait.views;
 
+import java.util.List;
+
 import com.escuelait.controllers.CommandType;
 import com.escuelait.controllers.Controller;
 import com.escuelait.controllers.LoginController;
@@ -17,7 +19,16 @@ class CreateRefereeCommand extends Command {
 
   @Override
   void execute() {
-    ((LoginController) this.controller).createReferee(this.name, this.password);
+    LoginController loginController = ((LoginController) this.controller);
+    List<String> errors = loginController.getCreateRefereeeErrors(this.name, this.password);
+    if (!errors.isEmpty()) {
+      for (String error : errors) {
+        this.console.writeln(error);
+      }
+    } else {
+      loginController.createReferee(this.name, this.password);
+      this.console.writeln("Árbitro creado correctamente");
+    }
   }
 
 }

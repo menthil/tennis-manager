@@ -6,8 +6,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum CommandType {
-  CREATE_REFEREE("createReferee", "name:(.{4,});password:(.{4,})", "name:<name>;password:<password>"),
-  LOGIN("login", "name:(.{4,});password:(.{4,})", "name:<name>;password:<password>"),
+  CREATE_REFEREE("createReferee", "name:(.+);password:(.+)", "name:<name>;password:<password>"),
+  LOGIN("login", "name:(.+);password:(.+)", "name:<name>;password:<password>"),
   EXIT("exit", "", ""),
   ;
 
