@@ -54,4 +54,8 @@ public class LoginController extends Controller {
     return referee.get().equals(new Referee(name, password));
   }
 
+  public void logged() {
+    this.state.logged();
+  }
+
 }

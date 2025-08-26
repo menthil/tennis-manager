@@ -3,6 +3,7 @@ package com.escuelait.views;
 import com.escuelait.controllers.Controller;
 import com.escuelait.controllers.ControllerVisitor;
 import com.escuelait.controllers.LoginController;
+import com.escuelait.controllers.ManageController;
 import com.escuelait.controllers.StartController;
 
 public class View implements ControllerVisitor {
@@ -19,6 +20,11 @@ public class View implements ControllerVisitor {
   @Override
   public void visit(LoginController loginController) {
     new LoginView(loginController).interact();
+  }
+
+  @Override
+  public void visit(ManageController manageController) {
+    new ManageView(manageController).interact();
   }
 
 }

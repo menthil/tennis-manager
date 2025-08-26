@@ -20,7 +20,7 @@ class LoginCommand extends Command {
     LoginController loginController = ((LoginController) this.controller);
     if (loginController.login(this.name, this.password)) {
       this.console.writeln("Login realizado correctamente");
-      loginController.exit();
+      loginController.logged();
     } else {
       this.console.writeln("Nombre o contraseña incorrecto");
     }

@@ -20,4 +20,8 @@ public class State {
     this.stateValue = StateValue.STARTED;
   }
 
+  public void logged() {
+    this.stateValue = StateValue.LOGGED;
+  }
+
 }
