@@ -17,6 +17,8 @@ class CommandFactory {
         return new LoginCommand(controller, commandString);
       case HELP:
         return new HelpCommand(controller);
+      case CREATE_PLAYER:
+        return new CreatePlayerCommand(controller, commandString);
       default:
         return null;
     }
