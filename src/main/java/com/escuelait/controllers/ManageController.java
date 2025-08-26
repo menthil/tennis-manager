@@ -38,7 +38,7 @@ public class ManageController extends Controller {
     if (name.length() < ManageController.MIN_LENGTH) {
       return List.of("La longitud del nombre debe ser al menos " + ManageController.MIN_LENGTH);
     }
-    if (this.playerRepository.containsName(name)) {
+    if (this.playerRepository.findByName(name).isPresent()) {
       return List.of("El jugador ya existe");
     }
     return List.of();

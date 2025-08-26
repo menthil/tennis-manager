@@ -14,16 +14,14 @@ public class RefereeRepository {
     this.create("molina", "1234");
   }
 
-  public boolean containsName(String name) {
-    return this.referees.containsKey(name);
+  public Optional<Referee> findByName(String name) {
+    assert name != null;
+    return Optional.ofNullable(this.referees.get(name));
   }
 
   public void create(String name, String password) {
+    assert this.findByName(name).isEmpty() && password != null;
     this.referees.put(name, new Referee(name, password));
-  }
-
-  public Optional<Referee> findByName(String name) {
-    return Optional.ofNullable(this.referees.get(name));
   }
 
 }

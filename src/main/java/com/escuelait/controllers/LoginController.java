@@ -35,7 +35,7 @@ public class LoginController extends Controller {
     if (password.length() < LoginController.MIN_LENGTH) {
       return List.of("La longitud de la contraseña debe ser al menos " + LoginController.MIN_LENGTH);
     }
-    if (this.refereeRepository.containsName(name)) {
+    if (this.refereeRepository.findByName(name).isPresent()) {
       return List.of("El árbitro ya existe");
     }
     return List.of();

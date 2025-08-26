@@ -1,6 +1,7 @@
 package com.escuelait.repositories;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 import com.escuelait.models.Player;
 
@@ -15,16 +16,18 @@ public class PlayerRepository {
     this.create("Zapata");
   }
 
-  public boolean containsName(String name) {
+  public Optional<Player> findByName(String name) {
+    assert name != null;
     for (Player player : this.players.values()) {
       if (player.name().equals(name)) {
-        return true;
+        return Optional.of(player);
       }
     }
-    return false;
+    return Optional.empty();
   }
 
   public void create(String name) {
+    assert this.findByName(name).isEmpty();
     Player player = new Player(this.players.size() + 1, name);
     this.players.put(player.id(), player);
   }
