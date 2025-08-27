@@ -37,4 +37,8 @@ public class PlayerRepository {
     return this.players.values().stream().toList();
   }
 
+  public Optional<Player> findById(int id) {
+    return Optional.ofNullable(this.players.get(id));
+  }
+
 }

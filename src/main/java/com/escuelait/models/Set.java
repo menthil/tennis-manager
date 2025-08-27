@@ -97,4 +97,8 @@ class Set {
     return this.gameFinished;
   }
 
+  boolean isLackService() {
+    return this.currentGame().isLackService();
+  }
+
 }

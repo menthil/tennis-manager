@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-class Match {
+public class Match {
 
-  private static final List<Integer> VALID_NUMBER_OF_SETS = List.of(3, 5);
+  public static final List<Integer> VALID_NUMBER_OF_SETS = List.of(3, 5);
   private int id;
   private int numberOfSets;
   private Turn turn;
@@ -31,6 +31,13 @@ class Match {
     return new Match(id, VALID_NUMBER_OF_SETS.get(1), players);
   }
 
+  public static Match createMatch(int numberOfSets, int id, List<Player> players) {
+    assert Match.VALID_NUMBER_OF_SETS.contains(numberOfSets);
+    return numberOfSets == VALID_NUMBER_OF_SETS.get(0)
+        ? Match.createThreeSetMatch(id, players)
+        : Match.createFiveSetMatch(id, players);
+  }
+
   void lackService() {
     this.currentSet().lackService();
   }
@@ -39,11 +46,11 @@ class Match {
     return this.sets.get(this.sets.size() - 1);
   }
 
-  int getGamePoints(Player player) {
+  public int getGamePoints(Player player) {
     return this.currentSet().getGamePoints(player);
   }
 
-  boolean isServing(Player player) {
+  public boolean isServing(Player player) {
     return this.turn.isServing(player);
   }
 
@@ -71,7 +78,7 @@ class Match {
     return this.currentSet().isGameFinished();
   }
 
-  List<Integer> getSetGames(Player player) {
+  public List<Integer> getSetGames(Player player) {
     ArrayList<Integer> games = new ArrayList<>();
     for (int i = 0; i < this.sets.size(); i++) {
       games.add(this.sets.get(i).getGamesWon(player));
@@ -97,6 +104,18 @@ class Match {
 
   boolean isTieBreak() {
     return this.currentSet().isTieBreak();
+  }
+
+  public int getId() {
+    return this.id;
+  }
+
+  public LocalDate getCreationDate() {
+    return this.creationDate;
+  }
+
+  public boolean isLackService() {
+    return this.currentSet().isLackService();
   }
 
 }

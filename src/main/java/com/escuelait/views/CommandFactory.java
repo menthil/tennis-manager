@@ -21,6 +21,8 @@ class CommandFactory {
         return new CreatePlayerCommand(controller, commandString);
       case READ_PLAYERS:
         return new ReadPlayersCommand(controller);
+      case CREATE_MATCH:
+        return new CreateMatchCommand(controller, commandString);
       default:
         return null;
     }

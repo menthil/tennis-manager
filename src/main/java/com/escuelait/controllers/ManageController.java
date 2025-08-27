@@ -1,19 +1,24 @@
 package com.escuelait.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.escuelait.models.Match;
 import com.escuelait.models.Player;
 import com.escuelait.models.State;
+import com.escuelait.repositories.MatchRepository;
 import com.escuelait.repositories.PlayerRepository;
 
 public class ManageController extends Controller {
 
   private static final int MIN_LENGTH = 4;
   private PlayerRepository playerRepository;
+  private MatchRepository matchRepository;
 
-  ManageController(State state, PlayerRepository playerRepository) {
+  ManageController(State state, PlayerRepository playerRepository, MatchRepository matchRepository) {
     super(state);
     this.playerRepository = playerRepository;
+    this.matchRepository = matchRepository;
   }
 
   @Override
@@ -52,6 +57,34 @@ public class ManageController extends Controller {
 
   public List<Player> getPlayers() {
     return this.playerRepository.findAll();
+  }
+
+  public List<String> getCreateMatchErrors(int numberOfSets, int[] ids) {
+    assert ids.length == 2;
+    if (!Match.VALID_NUMBER_OF_SETS.contains(numberOfSets)) {
+      List<String> validNumberOfSets = Match.VALID_NUMBER_OF_SETS.stream().map(i -> i.toString()).toList();
+      return List.of("Número de sets no válido. Opciones válidas: " + String.join(", ", validNumberOfSets));
+    }
+    for (int id : ids) {
+      if (this.playerRepository.findById(id).isEmpty()) {
+        return List.of("El id del jugador no existe: " + id);
+      }
+    }
+    return List.of();
+  }
+
+  public Match createMatch(int numberOfSets, int[] ids) {
+    assert this.getCreateMatchErrors(numberOfSets, ids).isEmpty();
+    this.state.matchStarted();
+    return this.matchRepository.create(numberOfSets, this.getPlayers(ids));
+  }
+
+  public List<Player> getPlayers(int[] ids) {
+    ArrayList<Player> players = new ArrayList<>();
+    for (int id : ids) {
+      players.add(this.playerRepository.findById(id).get());
+    }
+    return players;
   }
 
 }

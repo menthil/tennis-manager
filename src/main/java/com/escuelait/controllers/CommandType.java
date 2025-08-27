@@ -12,7 +12,7 @@ public enum CommandType {
   HELP("help", "", "help"),
   CREATE_PLAYER("createPlayer", "name:(.+)", "createPlayer name:<name>"),
   READ_PLAYERS("readPlayers", "", "readPlayers"),
-  CREATE_MATCH("createMatch", "sets:(.+);ids:\\d+,\\d+", "createMatch sets:<3|5>;ids:<id1>,<id2>"),
+  CREATE_MATCH("createMatch", "sets:(.+);ids:(\\d+),(\\d+)", "createMatch sets:<3|5>;ids:<id1>,<id2>"),
   READ_PLAYER("readPlayer:\\d+", "", "readPlayer:<id>"),
   READ_MATCH("readMatch:\\d+", "", "readMatch:<id>"),
   LOGOUT("logout", "", "logout"),

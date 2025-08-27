@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.escuelait.models.State;
 import com.escuelait.models.StateValue;
+import com.escuelait.repositories.MatchRepository;
 import com.escuelait.repositories.PlayerRepository;
 import com.escuelait.repositories.RefereeRepository;
 
@@ -17,7 +18,9 @@ public class Logic {
     this.controllers = new HashMap<>();
     this.controllers.put(StateValue.INITIAL, new StartController(this.state));
     this.controllers.put(StateValue.STARTED, new LoginController(this.state, new RefereeRepository()));
-    this.controllers.put(StateValue.LOGGED, new ManageController(this.state, new PlayerRepository()));
+    this.controllers.put(
+        StateValue.LOGGED,
+        new ManageController(this.state, new PlayerRepository(), new MatchRepository()));
     this.controllers.put(StateValue.EXIT, null);
   }
 

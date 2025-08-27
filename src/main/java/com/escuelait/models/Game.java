@@ -74,4 +74,8 @@ class Game {
         : this.turn.getSecondPlayer();
   }
 
+  boolean isLackService() {
+    return this.isLackService;
+  }
+
 }

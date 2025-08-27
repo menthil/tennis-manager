@@ -24,4 +24,8 @@ public class State {
     this.stateValue = StateValue.LOGGED;
   }
 
+  public void matchStarted() {
+    this.stateValue = StateValue.MATCH_STARTED;
+  }
+
 }
