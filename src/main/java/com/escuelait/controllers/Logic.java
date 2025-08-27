@@ -21,6 +21,7 @@ public class Logic {
     this.controllers.put(
         StateValue.LOGGED,
         new ManageController(this.state, new PlayerRepository(), new MatchRepository()));
+    this.controllers.put(StateValue.MATCH_STARTED, new PlayController(this.state));
     this.controllers.put(StateValue.EXIT, null);
   }
 

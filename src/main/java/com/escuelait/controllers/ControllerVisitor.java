@@ -8,4 +8,6 @@ public interface ControllerVisitor {
 
   public void visit(ManageController manageController);
 
+  public void visit(PlayController playController);
+
 }

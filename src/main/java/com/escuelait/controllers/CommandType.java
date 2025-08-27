@@ -16,6 +16,9 @@ public enum CommandType {
   READ_PLAYER("readPlayer:\\d+", "", "readPlayer:<id>"),
   READ_MATCH("readMatch:\\d+", "", "readMatch:<id>"),
   LOGOUT("logout", "", "logout"),
+  LACK_SERVICE("lackService", "", "lackService"),
+  POINT_SERVICE("pointService", "", "pointService"),
+  POINT_REST("pointRest", "", "pointRest"),
   ;
 
   private String name;
