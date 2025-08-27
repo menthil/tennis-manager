@@ -19,6 +19,8 @@ class CommandFactory {
         return new HelpCommand(controller);
       case CREATE_PLAYER:
         return new CreatePlayerCommand(controller, commandString);
+      case READ_PLAYERS:
+        return new ReadPlayersCommand(controller);
       default:
         return null;
     }

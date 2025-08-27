@@ -1,6 +1,7 @@
 package com.escuelait.repositories;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 import com.escuelait.models.Player;
@@ -30,6 +31,10 @@ public class PlayerRepository {
     assert this.findByName(name).isEmpty();
     Player player = new Player(this.players.size() + 1, name);
     this.players.put(player.id(), player);
+  }
+
+  public List<Player> findAll() {
+    return this.players.values().stream().toList();
   }
 
 }

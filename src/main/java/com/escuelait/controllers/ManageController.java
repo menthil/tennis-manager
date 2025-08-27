@@ -2,6 +2,7 @@ package com.escuelait.controllers;
 
 import java.util.List;
 
+import com.escuelait.models.Player;
 import com.escuelait.models.State;
 import com.escuelait.repositories.PlayerRepository;
 
@@ -47,6 +48,10 @@ public class ManageController extends Controller {
   public void createPlayer(String name) {
     assert this.getCreatePlayerErrors(name).isEmpty();
     this.playerRepository.create(name);
+  }
+
+  public List<Player> getPlayers() {
+    return this.playerRepository.findAll();
   }
 
 }
