@@ -40,10 +40,22 @@ public class Match {
 
   void lackService() {
     this.currentSet().lackService();
+    this.newSetIfFinished();
   }
 
   private Set currentSet() {
     return this.sets.get(this.sets.size() - 1);
+  }
+
+  private void newSetIfFinished() {
+    if (this.currentSet().isFinished()) {
+      this.setFinished = true;
+      if (!this.isFinished()) {
+        this.sets.add(Set.start(this.turn));
+      }
+    } else {
+      this.setFinished = false;
+    }
   }
 
   public int getGamePoints(Player player) {
@@ -60,14 +72,7 @@ public class Match {
 
   private void addPoint(Player player) {
     this.currentSet().addPoint(player);
-    if (this.currentSet().isFinished()) {
-      this.setFinished = true;
-      if (!this.isFinished()) {
-        this.sets.add(Set.start(this.turn));
-      }
-    } else {
-      this.setFinished = false;
-    }
+    this.newSetIfFinished();
   }
 
   void addPointRest() {

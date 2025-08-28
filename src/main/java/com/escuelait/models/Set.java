@@ -23,6 +23,10 @@ class Set {
 
   void addPoint(Player player) {
     this.currentGame().addPoint(player);
+    this.newGameIfFinished();
+  }
+
+  private void newGameIfFinished() {
     if (this.currentGame().isFinished()) {
       this.gameFinished = true;
       if (!this.isFinished()) {
@@ -87,6 +91,7 @@ class Set {
 
   void lackService() {
     this.currentGame().lackService();
+    this.newGameIfFinished();
   }
 
   int getGamePoints(Player player) {
