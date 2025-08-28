@@ -38,6 +38,10 @@ public abstract class Controller {
 
   public abstract List<CommandType> getAvailableCommandTypes();
 
+  public void started() {
+    this.state.started();
+  }
+
   public CommandType getCommandType(String commandString) {
     assert this.getErrors(commandString).isEmpty();
     return this.getMatchedCommandType(commandString).get();

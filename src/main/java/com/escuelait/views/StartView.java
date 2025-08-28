@@ -19,7 +19,7 @@ class StartView extends ConsoleView {
     this.console.writeln("|                             |");
     this.console.writeln("+-----------------------------+");
     this.console.writeln();
-    this.startController.next();
+    this.startController.started();
   }
 
 }

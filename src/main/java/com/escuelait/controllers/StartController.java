@@ -20,8 +20,4 @@ public class StartController extends Controller {
     return List.of();
   }
 
-  public void next() {
-    this.state.started();
-  }
-
 }
