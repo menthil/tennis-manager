@@ -33,4 +33,8 @@ public class PlayController extends Controller {
     this.state.addPointService();
   }
 
+  public void addPointRest() {
+    this.state.addPointRest();
+  }
+
 }

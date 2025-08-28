@@ -49,4 +49,9 @@ public class State {
     this.match.addPointService();
   }
 
+  public void addPointRest() {
+    assert this.match != null;
+    this.match.addPointRest();
+  }
+
 }

@@ -27,6 +27,8 @@ class CommandFactory {
         return new LackServiceCommand(controller);
       case POINT_SERVICE:
         return new PointServiceCommand(controller);
+      case POINT_REST:
+        return new PointRestCommand(controller);
       default:
         return null;
     }
