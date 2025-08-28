@@ -37,6 +37,13 @@ public class State {
   public void lackService() {
     assert this.match != null;
     this.match.lackService();
+    this.toLoggedIfMatchFinished();
+  }
+
+  private void toLoggedIfMatchFinished() {
+    if (this.match.isFinished()) {
+      this.logged();
+    }
   }
 
   public Score getScore() {
@@ -47,11 +54,13 @@ public class State {
   public void addPointService() {
     assert this.match != null;
     this.match.addPointService();
+    this.toLoggedIfMatchFinished();
   }
 
   public void addPointRest() {
     assert this.match != null;
     this.match.addPointRest();
+    this.toLoggedIfMatchFinished();
   }
 
 }
