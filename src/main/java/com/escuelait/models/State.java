@@ -41,9 +41,14 @@ public class State {
   }
 
   private void toLoggedIfMatchFinished() {
-    if (this.match.isFinished()) {
+    if (this.isFinished()) {
       this.logged();
     }
+  }
+
+  public boolean isFinished() {
+    assert this.match != null;
+    return this.match.isFinished();
   }
 
   public Score getScore() {

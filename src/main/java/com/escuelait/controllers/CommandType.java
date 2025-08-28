@@ -19,6 +19,7 @@ public enum CommandType {
   LACK_SERVICE("lackService", "", "lackService"),
   POINT_SERVICE("pointService", "", "pointService"),
   POINT_REST("pointRest", "", "pointRest"),
+  FINISH_MATCH("finishMatch", "", "finishMatch"),
   ;
 
   private String name;

@@ -29,6 +29,8 @@ class CommandFactory {
         return new PointServiceCommand(controller);
       case POINT_REST:
         return new PointRestCommand(controller);
+      case FINISH_MATCH:
+        return new FinishMatchCommand(controller);
       default:
         return null;
     }
