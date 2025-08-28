@@ -19,8 +19,9 @@ class Game {
   void lackService() {
     if (this.isLackService) {
       this.addPoint(this.turn.getRestPlayer());
+    } else {
+      this.isLackService = true;
     }
-    this.isLackService = !this.isLackService;
   }
 
   void addPoint(Player player) {

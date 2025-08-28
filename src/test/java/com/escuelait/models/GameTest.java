@@ -26,10 +26,23 @@ public class GameTest {
   }
 
   @Test
+  public void when_lack_service_first_time_then_isLackService_is_true() {
+    this.game.lackService();
+    assertTrue(this.game.isLackService());
+  }
+
+  @Test
   public void when_two_lack_services_then_one_point_added_to_rest() {
     this.game.lackService();
     this.game.lackService();
     assertEquals(1, this.game.getPoints(this.turn.getRestPlayer()));
+  }
+
+  @Test
+  public void when_two_lack_services_then_isLackService_is_false() {
+    this.game.lackService();
+    this.game.lackService();
+    assertFalse(this.game.isLackService());
   }
 
   @Test
