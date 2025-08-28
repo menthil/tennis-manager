@@ -32,6 +32,20 @@ public class MatchTest {
   }
 
   @Test
+  public void when_player_wins_set_with_lackService_then_set_is_finished() {
+    Player player = this.getServicePlayer();
+    for (int i = 0; i < Set.MIN_GAMES_TO_WIN - 1; i++) {
+      this.winGame(player);
+    }
+    this.match.addPointRest();
+    this.match.addPointRest();
+    this.match.addPointRest();
+    this.match.lackService();
+    this.match.lackService();
+    assertTrue(this.match.isSetFinished());
+  }
+
+  @Test
   public void when_add_point_to_service_service_player_gets_one_point() {
     this.match.addPointService();
     assertEquals(1, this.match.getGamePoints(this.getServicePlayer()));

@@ -85,6 +85,17 @@ public class SetTest {
   }
 
   @Test
+  public void when_player_wins_game_with_lackService_then_game_is_finished() {
+    Player player = this.turn.getRestPlayer();
+    for (int i = 0; i < Game.MIN_POINTS_TO_WIN - 1; i++) {
+      this.set.addPoint(player);
+    }
+    this.set.lackService();
+    this.set.lackService();
+    assertTrue(this.set.isGameFinished());
+  }
+
+  @Test
   public void when_players_draw_at_six_games_and_first_player_wins_next_game_then_first_player_wins() {
     this.firstPlayerGames = Set.MIN_GAMES_TO_WIN + 1;
     this.secondPlayerGames = Set.MIN_GAMES_TO_WIN;
