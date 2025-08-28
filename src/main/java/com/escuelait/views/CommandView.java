@@ -6,10 +6,10 @@ import com.escuelait.controllers.Controller;
 
 class CommandView extends ConsoleView {
 
-  private Controller loginController;
+  private Controller controller;
 
-  CommandView(Controller loginController) {
-    this.loginController = loginController;
+  CommandView(Controller controller) {
+    this.controller = controller;
   }
 
   @Override
@@ -18,7 +18,7 @@ class CommandView extends ConsoleView {
     List<String> errors = List.of();
     do {
       prompt = this.console.readString("Escribe un comando válido (help para mostrar ayuda)> ").trim();
-      errors = this.loginController.getErrors(prompt);
+      errors = this.controller.getErrors(prompt);
       if (!errors.isEmpty()) {
         for (String error : errors) {
           this.console.writeln(error);
@@ -26,7 +26,7 @@ class CommandView extends ConsoleView {
       }
     } while (!errors.isEmpty());
     this.console.writeln();
-    CommandFactory.create(this.loginController, prompt).execute();
+    CommandFactory.create(this.controller, prompt).execute();
     this.console.writeln();
   }
 
