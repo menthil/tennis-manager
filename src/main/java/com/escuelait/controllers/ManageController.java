@@ -2,6 +2,7 @@ package com.escuelait.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.escuelait.models.Match;
 import com.escuelait.models.Player;
@@ -66,7 +67,7 @@ public class ManageController extends Controller {
       return List.of("Número de sets no válido. Opciones válidas: " + String.join(", ", validNumberOfSets));
     }
     for (int id : ids) {
-      if (this.playerRepository.findById(id).isEmpty()) {
+      if (this.getPlayer(id).isEmpty()) {
         return List.of("El id del jugador no existe: " + id);
       }
     }
@@ -83,9 +84,19 @@ public class ManageController extends Controller {
   private List<Player> getPlayers(int[] ids) {
     ArrayList<Player> players = new ArrayList<>();
     for (int id : ids) {
-      players.add(this.playerRepository.findById(id).get());
+      players.add(this.getPlayer(id).get());
     }
     return players;
+  }
+
+  public Optional<Player> getPlayer(int id) {
+    return this.playerRepository.findById(id);
+  }
+
+  public List<Match> getMatchesByPlayerId(int id) {
+    Optional<Player> player = this.playerRepository.findById(id);
+    assert player.isPresent();
+    return this.matchRepository.findByPlayer(player.get());
   }
 
 }

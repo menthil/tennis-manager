@@ -61,4 +61,8 @@ class Turn {
     return player.equals(this.getServicePlayer());
   }
 
+  List<Player> getPlayers() {
+    return this.players.stream().toList();
+  }
+
 }

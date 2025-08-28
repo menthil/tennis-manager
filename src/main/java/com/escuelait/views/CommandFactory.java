@@ -31,6 +31,8 @@ class CommandFactory {
         return new PointRestCommand(controller);
       case FINISH_MATCH:
         return new FinishMatchCommand(controller);
+      case READ_PLAYER:
+        return new ReadPlayerCommand(controller, commandString);
       default:
         return null;
     }

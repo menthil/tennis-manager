@@ -99,12 +99,16 @@ public class Match {
     return this.isWinner(this.turn.getFirstPlayer()) || this.isWinner(this.turn.getSecondPlayer());
   }
 
-  boolean isWinner(Player player) {
-    int setsWinner = 0;
+  public boolean isWinner(Player player) {
+    return this.getSetsWon(player) == this.numberOfSets / 2 + 1;
+  }
+
+  public int getSetsWon(Player player) {
+    int count = 0;
     for (Set set : this.sets) {
-      setsWinner += set.isWinner(player) ? 1 : 0;
+      count += set.isWinner(player) ? 1 : 0;
     }
-    return setsWinner == this.numberOfSets / 2 + 1;
+    return count;
   }
 
   boolean isTieBreak() {
@@ -152,4 +156,11 @@ public class Match {
     return setGames;
   }
 
+  public List<Player> getPlayers() {
+    return this.turn.getPlayers();
+  }
+
+  public Player getOther(Player player) {
+    return this.turn.getOther(player);
+  }
 }

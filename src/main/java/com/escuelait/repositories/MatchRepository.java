@@ -22,4 +22,8 @@ public class MatchRepository {
     return match;
   }
 
+  public List<Match> findByPlayer(Player player) {
+    return this.matches.values().stream().filter(m -> m.getPlayers().contains(player)).toList();
+  }
+
 }
