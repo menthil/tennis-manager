@@ -18,6 +18,7 @@ public class MatchRepository {
     assert Match.VALID_NUMBER_OF_SETS.contains(numberOfSets);
     int id = this.matches.size() + 1;
     Match match = Match.createMatch(numberOfSets, id, players);
+    this.matches.put(id, match);
     return match;
   }
 
