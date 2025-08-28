@@ -118,4 +118,33 @@ public class Match {
     return this.currentSet().isLackService();
   }
 
+  Score getScore() {
+    Score score = new Score(this.id, this.creationDate);
+    this.createPlayerScore(score, 0);
+    this.createPlayerScore(score, 1);
+    return score;
+  }
+
+  private void createPlayerScore(Score score, int playerNumber) {
+    Player player = playerNumber == 0 ? this.turn.getFirstPlayer() : this.turn.getSecondPlayer();
+    if (this.isServing(player)) {
+      if (this.isLackService()) {
+        score.lackService(playerNumber);
+      } else {
+        score.service(playerNumber);
+      }
+    }
+    score.name(player.name(), playerNumber);
+    score.gamePoints(this.getGamePoints(player), playerNumber);
+    score.setGames(this.transformGamesListToArray(player), playerNumber);
+  }
+
+  private int[] transformGamesListToArray(Player player) {
+    int[] setGames = new int[this.numberOfSets];
+    for (int i = 0; i < this.getSetGames(player).size(); i++) {
+      setGames[i] = this.getSetGames(player).get(i);
+    }
+    return setGames;
+  }
+
 }

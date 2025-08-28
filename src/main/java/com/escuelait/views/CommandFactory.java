@@ -23,6 +23,8 @@ class CommandFactory {
         return new ReadPlayersCommand(controller);
       case CREATE_MATCH:
         return new CreateMatchCommand(controller, commandString);
+      case LACK_SERVICE:
+        return new LackServiceCommand(controller);
       default:
         return null;
     }

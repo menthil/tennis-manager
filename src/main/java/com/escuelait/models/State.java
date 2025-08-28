@@ -3,6 +3,7 @@ package com.escuelait.models;
 public class State {
 
   private StateValue stateValue;
+  private Match match;
 
   public State() {
     this.stateValue = StateValue.INITIAL;
@@ -26,6 +27,21 @@ public class State {
 
   public void matchStarted() {
     this.stateValue = StateValue.MATCH_STARTED;
+  }
+
+  public void setMatch(Match match) {
+    assert match != null;
+    this.match = match;
+  }
+
+  public void lackService() {
+    assert this.match != null;
+    this.match.lackService();
+  }
+
+  public Score getScore() {
+    assert this.match != null;
+    return this.match.getScore();
   }
 
 }

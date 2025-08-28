@@ -25,4 +25,8 @@ public class PlayController extends Controller {
         CommandType.EXIT);
   }
 
+  public void lackService() {
+    this.state.lackService();
+  }
+
 }

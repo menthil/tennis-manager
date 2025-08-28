@@ -73,13 +73,14 @@ public class ManageController extends Controller {
     return List.of();
   }
 
-  public Match createMatch(int numberOfSets, int[] ids) {
+  public void createMatch(int numberOfSets, int[] ids) {
     assert this.getCreateMatchErrors(numberOfSets, ids).isEmpty();
     this.state.matchStarted();
-    return this.matchRepository.create(numberOfSets, this.getPlayers(ids));
+    Match match = this.matchRepository.create(numberOfSets, this.getPlayers(ids));
+    this.state.setMatch(match);
   }
 
-  public List<Player> getPlayers(int[] ids) {
+  private List<Player> getPlayers(int[] ids) {
     ArrayList<Player> players = new ArrayList<>();
     for (int id : ids) {
       players.add(this.playerRepository.findById(id).get());

@@ -4,7 +4,6 @@ import java.util.List;
 import com.escuelait.controllers.CommandType;
 import com.escuelait.controllers.Controller;
 import com.escuelait.controllers.ManageController;
-import com.escuelait.models.Match;
 
 class CreateMatchCommand extends Command {
 
@@ -28,8 +27,8 @@ class CreateMatchCommand extends Command {
         this.console.writeln(error);
       }
     } else {
-      Match match = manageController.createMatch(this.numberOfSets, this.ids);
-      new ScoreboardView(match, this.numberOfSets, manageController.getPlayers(this.ids)).write();
+      manageController.createMatch(this.numberOfSets, this.ids);
+      new ScoreboardView(manageController.getScore()).write();
     }
   }
 

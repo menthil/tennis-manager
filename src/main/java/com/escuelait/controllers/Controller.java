@@ -3,6 +3,7 @@ package com.escuelait.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import com.escuelait.models.Score;
 import com.escuelait.models.State;
 
 public abstract class Controller {
@@ -40,6 +41,10 @@ public abstract class Controller {
   public CommandType getCommandType(String commandString) {
     assert this.getErrors(commandString).isEmpty();
     return this.getMatchedCommandType(commandString).get();
+  }
+
+  public Score getScore() {
+    return this.state.getScore();
   }
 
   public void exit() {
