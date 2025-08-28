@@ -68,4 +68,9 @@ public class State {
     this.toLoggedIfMatchFinished();
   }
 
+  public Match getMatch() {
+    assert this.match != null;
+    return this.match;
+  }
+
 }

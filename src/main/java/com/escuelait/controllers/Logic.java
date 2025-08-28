@@ -18,10 +18,9 @@ public class Logic {
     this.controllers = new HashMap<>();
     this.controllers.put(StateValue.INITIAL, new StartController(this.state));
     this.controllers.put(StateValue.STARTED, new LoginController(this.state, new RefereeRepository()));
-    this.controllers.put(
-        StateValue.LOGGED,
-        new ManageController(this.state, new PlayerRepository(), new MatchRepository()));
-    this.controllers.put(StateValue.MATCH_STARTED, new PlayController(this.state));
+    MatchRepository matchRepository = new MatchRepository();
+    this.controllers.put(StateValue.LOGGED, new ManageController(this.state, new PlayerRepository(), matchRepository));
+    this.controllers.put(StateValue.MATCH_STARTED, new PlayController(this.state, matchRepository));
     this.controllers.put(StateValue.EXIT, null);
   }
 

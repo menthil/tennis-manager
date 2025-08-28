@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.Random;
 
 import com.escuelait.models.State;
+import com.escuelait.repositories.MatchRepository;
 
 public class PlayController extends Controller {
 
-  PlayController(State state) {
+  private MatchRepository matchRepository;
+
+  PlayController(State state, MatchRepository matchRepository) {
     super(state);
+    this.matchRepository = matchRepository;
   }
 
   @Override
@@ -29,14 +33,31 @@ public class PlayController extends Controller {
 
   public void lackService() {
     this.state.lackService();
+    this.saveIfFinished();
+  }
+
+  private void saveIfFinished() {
+    if (this.isFinished()) {
+      this.save();
+    }
+  }
+
+  private boolean isFinished() {
+    return this.state.isFinished();
+  }
+
+  private void save() {
+    this.matchRepository.save(this.state.getMatch());
   }
 
   public void addPointService() {
     this.state.addPointService();
+    this.saveIfFinished();
   }
 
   public void addPointRest() {
     this.state.addPointRest();
+    this.saveIfFinished();
   }
 
   public void finishMatch() {
@@ -47,7 +68,8 @@ public class PlayController extends Controller {
         case Double d when d < 0.9 -> this.addPointRest();
         default -> this.lackService();
       }
-    } while (!this.state.isFinished());
+    } while (!this.isFinished());
+    this.save();
   }
 
 }
