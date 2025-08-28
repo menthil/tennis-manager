@@ -29,4 +29,8 @@ public class PlayController extends Controller {
     this.state.lackService();
   }
 
+  public void addPointService() {
+    this.state.addPointService();
+  }
+
 }

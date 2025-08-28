@@ -25,6 +25,8 @@ class CommandFactory {
         return new CreateMatchCommand(controller, commandString);
       case LACK_SERVICE:
         return new LackServiceCommand(controller);
+      case POINT_SERVICE:
+        return new PointServiceCommand(controller);
       default:
         return null;
     }
