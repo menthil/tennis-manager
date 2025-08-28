@@ -6,4 +6,4 @@
 - [ ] Comando logout
 - [x] Comando readPlayer
 - [ ] Comando readMatch
-- [ ] Un jugador no puede jugar contra sí mismo
+- [x] Un jugador no puede jugar contra sí mismo

@@ -71,6 +71,9 @@ public class ManageController extends Controller {
         return List.of("El id del jugador no existe: " + id);
       }
     }
+    if (ids[0] == ids[1]) {
+      return List.of("Un jugador no puede jugar contra sí mismo");
+    }
     return List.of();
   }
 
