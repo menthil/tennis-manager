@@ -1,4 +1,4 @@
-package com.escuelait.views;
+package com.escuelait.views.commands;
 
 import com.escuelait.controllers.Controller;
 
@@ -9,7 +9,7 @@ class ExitCommand extends Command {
   }
 
   @Override
-  void execute() {
+  public void execute() {
     controller.exit();
   }
 

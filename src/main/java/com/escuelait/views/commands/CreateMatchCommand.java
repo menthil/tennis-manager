@@ -1,4 +1,4 @@
-package com.escuelait.views;
+package com.escuelait.views.commands;
 
 import java.util.List;
 import com.escuelait.controllers.CommandType;
@@ -19,7 +19,7 @@ class CreateMatchCommand extends Command {
   }
 
   @Override
-  void execute() {
+  public void execute() {
     ManageController manageController = (ManageController) this.controller;
     List<String> errors = manageController.getCreateMatchErrors(this.numberOfSets, this.ids);
     if (!errors.isEmpty()) {

@@ -3,6 +3,7 @@ package com.escuelait.views;
 import java.util.List;
 
 import com.escuelait.controllers.Controller;
+import com.escuelait.views.commands.CommandFactory;
 
 class CommandView extends ConsoleView {
 

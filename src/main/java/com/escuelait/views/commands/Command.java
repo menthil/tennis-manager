@@ -1,9 +1,9 @@
-package com.escuelait.views;
+package com.escuelait.views.commands;
 
 import com.escuelait.controllers.Controller;
 import com.escuelait.utils.Console;
 
-abstract class Command {
+public abstract class Command {
 
   protected Controller controller;
   protected Console console;
@@ -13,6 +13,6 @@ abstract class Command {
     this.console = Console.getInstance();
   }
 
-  abstract void execute();
+  public abstract void execute();
 
 }

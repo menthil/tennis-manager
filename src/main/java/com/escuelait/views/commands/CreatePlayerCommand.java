@@ -1,4 +1,4 @@
-package com.escuelait.views;
+package com.escuelait.views.commands;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ class CreatePlayerCommand extends Command {
   }
 
   @Override
-  void execute() {
+  public void execute() {
     ManageController manageController = (ManageController) this.controller;
     List<String> errors = manageController.getCreatePlayerErrors(this.name);
     if (!errors.isEmpty()) {

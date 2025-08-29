@@ -7,4 +7,4 @@
 - [x] Comando readPlayer
 - [x] Comando readMatch
 - [x] Un jugador no puede jugar contra sí mismo
-- [ ] Paquete de comandos
+- [x] Paquete de comandos

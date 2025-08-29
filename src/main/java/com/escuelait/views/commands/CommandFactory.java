@@ -1,13 +1,13 @@
-package com.escuelait.views;
+package com.escuelait.views.commands;
 
 import com.escuelait.controllers.Controller;
 
-class CommandFactory {
+public class CommandFactory {
 
   private CommandFactory() {
   }
 
-  static Command create(Controller controller, String commandString) {
+  public static Command create(Controller controller, String commandString) {
     switch (controller.getCommandType(commandString)) {
       case CREATE_REFEREE:
         return new CreateRefereeCommand(controller, commandString);

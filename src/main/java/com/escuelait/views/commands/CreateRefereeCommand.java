@@ -1,4 +1,4 @@
-package com.escuelait.views;
+package com.escuelait.views.commands;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ class CreateRefereeCommand extends Command {
   }
 
   @Override
-  void execute() {
+  public void execute() {
     LoginController loginController = ((LoginController) this.controller);
     List<String> errors = loginController.getCreateRefereeeErrors(this.name, this.password);
     if (!errors.isEmpty()) {

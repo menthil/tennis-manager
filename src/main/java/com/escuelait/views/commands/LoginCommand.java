@@ -1,4 +1,4 @@
-package com.escuelait.views;
+package com.escuelait.views.commands;
 
 import com.escuelait.controllers.CommandType;
 import com.escuelait.controllers.Controller;
@@ -16,7 +16,7 @@ class LoginCommand extends Command {
   }
 
   @Override
-  void execute() {
+  public void execute() {
     LoginController loginController = ((LoginController) this.controller);
     if (loginController.login(this.name, this.password)) {
       this.console.writeln("Login realizado correctamente");

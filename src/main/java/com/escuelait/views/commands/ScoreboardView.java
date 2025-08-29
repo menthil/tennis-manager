@@ -1,4 +1,4 @@
-package com.escuelait.views;
+package com.escuelait.views.commands;
 
 import com.escuelait.models.Score;
 import com.escuelait.utils.Console;

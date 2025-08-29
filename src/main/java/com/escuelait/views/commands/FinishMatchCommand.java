@@ -1,4 +1,4 @@
-package com.escuelait.views;
+package com.escuelait.views.commands;
 
 import com.escuelait.controllers.Controller;
 import com.escuelait.controllers.PlayController;
@@ -10,7 +10,7 @@ class FinishMatchCommand extends Command {
   }
 
   @Override
-  void execute() {
+  public void execute() {
     ((PlayController) this.controller).finishMatch();
     new ScoreboardView(this.controller.getScore()).write();
   }

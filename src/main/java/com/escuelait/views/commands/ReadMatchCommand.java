@@ -1,4 +1,4 @@
-package com.escuelait.views;
+package com.escuelait.views.commands;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +20,7 @@ class ReadMatchCommand extends Command {
   }
 
   @Override
-  void execute() {
+  public void execute() {
     ManageController manageController = (ManageController) this.controller;
     Optional<Match> match = manageController.getMatch(this.id);
     if (match.isPresent()) {
