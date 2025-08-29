@@ -3,10 +3,10 @@ package com.escuelait.models;
 import java.util.HashMap;
 import java.util.Optional;
 
-class Game {
+public class Game {
 
   private static final int MIN_DIFFERENCE_TO_WIN = 2;
-  static final int MIN_POINTS_TO_WIN = 4;
+  public static final int MIN_POINTS_TO_WIN = 4;
   protected Turn turn;
   private boolean isLackService;
   private HashMap<Player, Integer> points;

@@ -146,6 +146,10 @@ public class Match {
     score.name(player.name(), playerNumber);
     score.gamePoints(this.getGamePoints(player), playerNumber);
     score.setGames(this.transformGamesListToArray(player), playerNumber);
+    score.setIsGameFinished(this.isGameFinished());
+    score.setIsTieBreak(this.isTieBreak());
+    score.setIsSetFinished(this.isSetFinished());
+    score.setIsMatchFinished(this.isFinished());
   }
 
   private int[] transformGamesListToArray(Player player) {

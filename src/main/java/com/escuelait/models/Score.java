@@ -10,6 +10,10 @@ public class Score {
   private String names[];
   private int gamesPoints[];
   private int setsGames[][];
+  private boolean isGameFinished;
+  private boolean isTieBreak;
+  private boolean isSetFinished;
+  private boolean isMatchFinished;
 
   Score(int id, LocalDate creationDate) {
     this.id = id;
@@ -42,6 +46,22 @@ public class Score {
     this.setsGames[playerNumber] = setGames;
   }
 
+  void setIsGameFinished(boolean isGameFinished) {
+    this.isGameFinished = isGameFinished;
+  }
+
+  void setIsTieBreak(boolean isTieBreak) {
+    this.isTieBreak = isTieBreak;
+  }
+
+  void setIsSetFinished(boolean isSetFinished) {
+    this.isSetFinished = isSetFinished;
+  }
+
+  void setIsMatchFinished(boolean isMatchFinished) {
+    this.isMatchFinished = isMatchFinished;
+  }
+
   public int getId() {
     return this.id;
   }
@@ -64,6 +84,22 @@ public class Score {
 
   public int[][] getSetGames() {
     return this.setsGames;
+  }
+
+  public boolean isGameFinished() {
+    return this.isGameFinished;
+  }
+
+  public boolean isTieBreak() {
+    return this.isTieBreak;
+  }
+
+  public boolean isSetFinished() {
+    return this.isSetFinished;
+  }
+
+  public boolean isMatchFinished() {
+    return this.isMatchFinished;
   }
 
 }
