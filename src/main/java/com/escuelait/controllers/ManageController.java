@@ -79,9 +79,8 @@ public class ManageController extends Controller {
 
   public void createMatch(int numberOfSets, int[] ids) {
     assert this.getCreateMatchErrors(numberOfSets, ids).isEmpty();
-    this.state.matchStarted();
     Match match = this.matchRepository.create(numberOfSets, this.getPlayers(ids));
-    this.state.setMatch(match);
+    this.state.matchStarted(match);
   }
 
   private List<Player> getPlayers(int[] ids) {

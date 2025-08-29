@@ -7,6 +7,7 @@ public class State {
 
   public State() {
     this.stateValue = StateValue.INITIAL;
+    this.match = null;
   }
 
   public StateValue getValue() {
@@ -19,53 +20,47 @@ public class State {
 
   public void started() {
     this.stateValue = StateValue.STARTED;
+    this.match = null;
   }
 
   public void logged() {
     this.stateValue = StateValue.LOGGED;
+    this.match = null;
   }
 
-  public void matchStarted() {
-    this.stateValue = StateValue.MATCH_STARTED;
-  }
-
-  public void setMatch(Match match) {
+  public void matchStarted(Match match) {
     assert match != null;
+    this.stateValue = StateValue.MATCH_STARTED;
     this.match = match;
   }
 
   public void lackService() {
-    assert this.match != null;
+    assert this.isMatchStarted();
     this.match.lackService();
-    this.toLoggedIfMatchFinished();
-  }
-
-  private void toLoggedIfMatchFinished() {
-    if (this.isFinished()) {
-      this.logged();
-    }
   }
 
   public boolean isFinished() {
-    assert this.match != null;
+    assert this.isMatchStarted();
     return this.match.isFinished();
   }
 
   public void addPointService() {
-    assert this.match != null;
+    assert this.isMatchStarted();
     this.match.addPointService();
-    this.toLoggedIfMatchFinished();
   }
 
   public void addPointRest() {
-    assert this.match != null;
+    assert this.isMatchStarted();
     this.match.addPointRest();
-    this.toLoggedIfMatchFinished();
   }
 
   public Match getMatch() {
-    assert this.match != null;
+    assert this.isMatchStarted();
     return this.match;
+  }
+
+  public boolean isMatchStarted() {
+    return this.stateValue == StateValue.MATCH_STARTED;
   }
 
 }

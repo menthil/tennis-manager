@@ -18,7 +18,7 @@ class CommandView extends ConsoleView {
     String prompt = null;
     List<String> errors = List.of();
     do {
-      prompt = this.console.readString("Escribe un comando válido (help para mostrar ayuda)> ").trim();
+      prompt = this.console.readString(this.getPrompt()).trim();
       errors = this.controller.getErrors(prompt);
       if (!errors.isEmpty()) {
         for (String error : errors) {
@@ -29,6 +29,13 @@ class CommandView extends ConsoleView {
     this.console.writeln();
     CommandFactory.create(this.controller, prompt).execute();
     this.console.writeln();
+  }
+
+  private String getPrompt() {
+    if (this.controller.isMatchStarted()) {
+      return "match id:" + this.controller.getMatch().getId() + "> ";
+    }
+    return "> ";
   }
 
 }

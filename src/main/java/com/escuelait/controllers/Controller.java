@@ -55,4 +55,8 @@ public abstract class Controller {
     this.state.exit();
   }
 
+  public boolean isMatchStarted() {
+    return this.state.isMatchStarted();
+  }
+
 }

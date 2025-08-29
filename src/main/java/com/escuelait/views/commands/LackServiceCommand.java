@@ -11,8 +11,12 @@ class LackServiceCommand extends Command {
 
   @Override
   public void execute() {
-    ((PlayController) this.controller).lackService();
-    new ScoreboardView(this.controller.getMatch()).write();
+    PlayController playController = (PlayController) this.controller;
+    playController.lackService();
+    new ScoreboardView(playController.getMatch()).write();
+    if (playController.isFinished()) {
+      playController.logged();
+    }
   }
 
 }

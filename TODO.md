@@ -9,4 +9,4 @@
 - [x] Un jugador no puede jugar contra sí mismo
 - [x] Paquete de comandos
 - [x] Score es innecesario
-- [ ] Prompt mientras se juega
+- [x] Prompt mientras se juega

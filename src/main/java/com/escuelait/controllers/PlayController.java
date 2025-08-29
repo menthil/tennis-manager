@@ -42,7 +42,7 @@ public class PlayController extends Controller {
     }
   }
 
-  private boolean isFinished() {
+  public boolean isFinished() {
     return this.state.isFinished();
   }
 
@@ -69,7 +69,10 @@ public class PlayController extends Controller {
         default -> this.lackService();
       }
     } while (!this.isFinished());
-    this.save();
+  }
+
+  public void logged() {
+    this.state.logged();
   }
 
 }

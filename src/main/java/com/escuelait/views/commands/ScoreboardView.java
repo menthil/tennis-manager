@@ -4,7 +4,6 @@ import com.escuelait.models.Game;
 import com.escuelait.models.Match;
 import com.escuelait.models.Player;
 import com.escuelait.utils.Console;
-import com.escuelait.utils.DateFormatter;
 
 class ScoreboardView {
 
@@ -17,8 +16,6 @@ class ScoreboardView {
   }
 
   void write() {
-    this.console.writeln("id:" + this.match.getId());
-    this.console.writeln("date:" + new DateFormatter().format(this.match.getCreationDate()));
     for (Player player : this.match.getPlayers()) {
       this.console.writeln(this.getPlayerPoints(player));
     }

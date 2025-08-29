@@ -4,6 +4,7 @@ import java.util.List;
 import com.escuelait.controllers.CommandType;
 import com.escuelait.controllers.Controller;
 import com.escuelait.controllers.ManageController;
+import com.escuelait.utils.DateFormatter;
 
 class CreateMatchCommand extends Command {
 
@@ -28,6 +29,8 @@ class CreateMatchCommand extends Command {
       }
     } else {
       manageController.createMatch(this.numberOfSets, this.ids);
+      this.console.writeln("id:" + this.controller.getMatch().getId());
+      this.console.writeln("date:" + new DateFormatter().format(this.controller.getMatch().getCreationDate()));
       new ScoreboardView(manageController.getMatch()).write();
     }
   }
