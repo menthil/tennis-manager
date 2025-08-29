@@ -5,5 +5,6 @@
 - [ ] ScoreboardView aún no pinta bien el marcador
 - [x] Comando logout
 - [x] Comando readPlayer
-- [ ] Comando readMatch
+- [x] Comando readMatch
 - [x] Un jugador no puede jugar contra sí mismo
+- [ ] Paquete de comandos

@@ -102,4 +102,8 @@ public class ManageController extends Controller {
     return this.matchRepository.findByPlayer(player.get());
   }
 
+  public Optional<Match> getMatch(int id) {
+    return this.matchRepository.findById(id);
+  }
+
 }

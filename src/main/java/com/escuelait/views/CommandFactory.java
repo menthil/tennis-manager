@@ -33,6 +33,8 @@ class CommandFactory {
         return new FinishMatchCommand(controller);
       case READ_PLAYER:
         return new ReadPlayerCommand(controller, commandString);
+      case READ_MATCH:
+        return new ReadMatchCommand(controller, commandString);
       case LOGOUT:
         return new LogoutCommand(controller);
       default:

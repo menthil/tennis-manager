@@ -2,6 +2,7 @@ package com.escuelait.repositories;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import com.escuelait.models.Match;
 import com.escuelait.models.Player;
@@ -29,6 +30,10 @@ public class MatchRepository {
   public void save(Match match) {
     assert match != null;
     this.matches.put(match.getId(), match);
+  }
+
+  public Optional<Match> findById(int id) {
+    return Optional.ofNullable(this.matches.get(id));
   }
 
 }

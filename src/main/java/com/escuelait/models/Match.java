@@ -58,11 +58,11 @@ public class Match {
     }
   }
 
-  public int getGamePoints(Player player) {
+  int getGamePoints(Player player) {
     return this.currentSet().getGamePoints(player);
   }
 
-  public boolean isServing(Player player) {
+  boolean isServing(Player player) {
     return this.turn.isServing(player);
   }
 
@@ -163,4 +163,9 @@ public class Match {
   public Player getOther(Player player) {
     return this.turn.getOther(player);
   }
+
+  public int getNumberOfSets() {
+    return this.numberOfSets;
+  }
+
 }
