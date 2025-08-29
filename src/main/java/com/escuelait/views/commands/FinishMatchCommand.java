@@ -12,7 +12,7 @@ class FinishMatchCommand extends Command {
   @Override
   public void execute() {
     ((PlayController) this.controller).finishMatch();
-    new ScoreboardView(this.controller.getScore()).write();
+    new ScoreboardView(this.controller.getMatch()).write();
   }
 
 }

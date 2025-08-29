@@ -58,11 +58,11 @@ public class Match {
     }
   }
 
-  int getGamePoints(Player player) {
+  public int getGamePoints(Player player) {
     return this.currentSet().getGamePoints(player);
   }
 
-  boolean isServing(Player player) {
+  public boolean isServing(Player player) {
     return this.turn.isServing(player);
   }
 
@@ -79,7 +79,7 @@ public class Match {
     this.addPoint(this.turn.getRestPlayer());
   }
 
-  boolean isGameFinished() {
+  public boolean isGameFinished() {
     return this.currentSet().isGameFinished();
   }
 
@@ -91,11 +91,11 @@ public class Match {
     return games;
   }
 
-  boolean isSetFinished() {
+  public boolean isSetFinished() {
     return this.setFinished;
   }
 
-  boolean isFinished() {
+  public boolean isFinished() {
     return this.isWinner(this.turn.getFirstPlayer()) || this.isWinner(this.turn.getSecondPlayer());
   }
 
@@ -111,7 +111,7 @@ public class Match {
     return count;
   }
 
-  boolean isTieBreak() {
+  public boolean isTieBreak() {
     return this.currentSet().isTieBreak();
   }
 
@@ -125,39 +125,6 @@ public class Match {
 
   public boolean isLackService() {
     return this.currentSet().isLackService();
-  }
-
-  Score getScore() {
-    Score score = new Score(this.id, this.creationDate);
-    this.createPlayerScore(score, 0);
-    this.createPlayerScore(score, 1);
-    return score;
-  }
-
-  private void createPlayerScore(Score score, int playerNumber) {
-    Player player = playerNumber == 0 ? this.turn.getFirstPlayer() : this.turn.getSecondPlayer();
-    if (this.isServing(player)) {
-      if (this.isLackService()) {
-        score.lackService(playerNumber);
-      } else {
-        score.service(playerNumber);
-      }
-    }
-    score.name(player.name(), playerNumber);
-    score.gamePoints(this.getGamePoints(player), playerNumber);
-    score.setGames(this.transformGamesListToArray(player), playerNumber);
-    score.setIsGameFinished(this.isGameFinished());
-    score.setIsTieBreak(this.isTieBreak());
-    score.setIsSetFinished(this.isSetFinished());
-    score.setIsMatchFinished(this.isFinished());
-  }
-
-  private int[] transformGamesListToArray(Player player) {
-    int[] setGames = new int[this.numberOfSets];
-    for (int i = 0; i < this.getSetGames(player).size(); i++) {
-      setGames[i] = this.getSetGames(player).get(i);
-    }
-    return setGames;
   }
 
   public List<Player> getPlayers() {

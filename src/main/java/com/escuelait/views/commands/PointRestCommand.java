@@ -12,7 +12,7 @@ class PointRestCommand extends Command {
   @Override
   public void execute() {
     ((PlayController) this.controller).addPointRest();
-    new ScoreboardView(this.controller.getScore()).write();
+    new ScoreboardView(this.controller.getMatch()).write();
   }
 
 }

@@ -28,7 +28,7 @@ class CreateMatchCommand extends Command {
       }
     } else {
       manageController.createMatch(this.numberOfSets, this.ids);
-      new ScoreboardView(manageController.getScore()).write();
+      new ScoreboardView(manageController.getMatch()).write();
     }
   }
 

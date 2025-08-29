@@ -12,7 +12,7 @@ class PointServiceCommand extends Command {
   @Override
   public void execute() {
     ((PlayController) this.controller).addPointService();
-    new ScoreboardView(this.controller.getScore()).write();
+    new ScoreboardView(this.controller.getMatch()).write();
   }
 
 }

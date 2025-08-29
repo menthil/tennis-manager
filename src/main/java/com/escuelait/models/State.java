@@ -51,11 +51,6 @@ public class State {
     return this.match.isFinished();
   }
 
-  public Score getScore() {
-    assert this.match != null;
-    return this.match.getScore();
-  }
-
   public void addPointService() {
     assert this.match != null;
     this.match.addPointService();
