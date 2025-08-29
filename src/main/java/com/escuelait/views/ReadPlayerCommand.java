@@ -1,8 +1,6 @@
 package com.escuelait.views;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 import com.escuelait.controllers.CommandType;
@@ -10,6 +8,7 @@ import com.escuelait.controllers.Controller;
 import com.escuelait.controllers.ManageController;
 import com.escuelait.models.Match;
 import com.escuelait.models.Player;
+import com.escuelait.utils.DateFormatter;
 
 class ReadPlayerCommand extends Command {
 
@@ -53,8 +52,7 @@ class ReadPlayerCommand extends Command {
   }
 
   private String getDate(Match match) {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu", Locale.of("ES"));
-    return "date:" + match.getCreationDate().format(formatter) + "; ";
+    return "date:" + new DateFormatter().format(match.getCreationDate()) + "; ";
   }
 
   private String getName(Match match, Player player) {

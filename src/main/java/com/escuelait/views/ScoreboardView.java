@@ -1,10 +1,8 @@
 package com.escuelait.views;
 
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-
 import com.escuelait.models.Score;
 import com.escuelait.utils.Console;
+import com.escuelait.utils.DateFormatter;
 
 class ScoreboardView {
 
@@ -18,8 +16,7 @@ class ScoreboardView {
 
   void write() {
     this.console.writeln("id:" + this.score.getId());
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu", Locale.of("ES"));
-    this.console.writeln("date:" + this.score.getCreationDate().format(formatter));
+    this.console.writeln("date:" + new DateFormatter().format(this.score.getCreationDate()));
     int[][] setGames = this.score.getSetGames();
     String playersPoints[] = new String[setGames.length];
     for (int i = 0; i < playersPoints.length; i++) {
