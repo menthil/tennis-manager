@@ -8,5 +8,5 @@
 - [x] Comando readMatch
 - [x] Un jugador no puede jugar contra sí mismo
 - [x] Paquete de comandos
-- [ ] Score es innecesario
+- [x] Score es innecesario
 - [ ] Prompt mientras se juega

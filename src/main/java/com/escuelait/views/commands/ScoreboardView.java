@@ -1,7 +1,5 @@
 package com.escuelait.views.commands;
 
-import java.util.HashMap;
-
 import com.escuelait.models.Game;
 import com.escuelait.models.Match;
 import com.escuelait.models.Player;
@@ -63,24 +61,33 @@ class ScoreboardView {
   }
 
   private String getPlayerSetGames(Player player) {
+    return this.getPlayedSetGames(player) + getNonPlayedSetsGames(player);
+  }
+
+  private String getPlayedSetGames(Player player) {
     String result = "";
-    HashMap<Player, int[]> setGames = this.getSetGames();
-    for (int j = 0; j < this.match.getNumberOfSets(); j++) {
-      boolean isZeroZero = setGames.get(player)[j] == 0 && setGames.get(this.match.getOther(player))[j] == 0;
-      result += " " + (isZeroZero ? "-" : setGames.get(player)[j]);
+    for (int i = 0; i < this.match.getSetGames(player).size(); i++) {
+      result += " ";
+      if (this.isZeroZero(player, i)) {
+        result += "-";
+      } else {
+        result += this.match.getSetGames(player).get(i);
+      }
     }
     return result;
   }
 
-  private HashMap<Player, int[]> getSetGames() {
-    HashMap<Player, int[]> setGames = new HashMap<>();
-    for (Player player : this.match.getPlayers()) {
-      setGames.put(player, new int[this.match.getNumberOfSets()]);
-      for (int j = 0; j < this.match.getSetGames(player).size(); j++) {
-        setGames.get(player)[j] = this.match.getSetGames(player).get(j);
-      }
+  private boolean isZeroZero(Player player, int i) {
+    return this.match.getSetGames(player).get(i) == 0
+        && this.match.getSetGames(this.match.getOther(player)).get(i) == 0;
+  }
+
+  private String getNonPlayedSetsGames(Player player) {
+    String result = "";
+    for (int i = this.match.getSetGames(player).size(); i < this.match.getNumberOfSets(); i++) {
+      result += " -";
     }
-    return setGames;
+    return result;
   }
 
   private void writeSpecialPoints() {
