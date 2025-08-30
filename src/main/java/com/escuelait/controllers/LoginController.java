@@ -19,6 +19,7 @@ public class LoginController extends Controller {
 
   @Override
   public void accept(ControllerVisitor visitor) {
+    assert visitor != null;
     visitor.visit(this);
   }
 
@@ -47,6 +48,7 @@ public class LoginController extends Controller {
   }
 
   public boolean login(String name, String password) {
+    assert name != null && password != null;
     Optional<Referee> referee = this.refereeRepository.findByName(name);
     if (referee.isEmpty()) {
       return false;

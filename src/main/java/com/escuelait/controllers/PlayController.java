@@ -17,6 +17,7 @@ public class PlayController extends Controller {
 
   @Override
   public void accept(ControllerVisitor visitor) {
+    assert visitor != null;
     visitor.visit(this);
   }
 
@@ -61,11 +62,12 @@ public class PlayController extends Controller {
   }
 
   public void finishMatch() {
+    final double[] PROBABILITIES = new double[] { 0.7, 0.9 };
     Random random = new Random();
     do {
       switch (Double.valueOf(random.nextDouble())) {
-        case Double d when d < 0.7 -> this.addPointService();
-        case Double d when d < 0.9 -> this.addPointRest();
+        case Double d when d < PROBABILITIES[0] -> this.addPointService();
+        case Double d when d < PROBABILITIES[1] -> this.addPointRest();
         default -> this.lackService();
       }
     } while (!this.isFinished());

@@ -12,6 +12,7 @@ class Set {
   private boolean gameFinished;
 
   private Set(Turn turn) {
+    assert turn != null;
     this.turn = turn;
     this.games = new ArrayList<>();
     this.games.add(GameFactory.regularGame(this.turn));

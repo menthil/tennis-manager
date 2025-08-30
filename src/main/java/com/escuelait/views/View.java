@@ -10,6 +10,7 @@ import com.escuelait.controllers.StartController;
 public class View implements ControllerVisitor {
 
   public void interact(Controller controller) {
+    assert controller != null;
     controller.accept(this);
   }
 

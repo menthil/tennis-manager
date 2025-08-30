@@ -24,6 +24,7 @@ public class ManageController extends Controller {
 
   @Override
   public void accept(ControllerVisitor visitor) {
+    assert visitor != null;
     visitor.visit(this);
   }
 
@@ -61,7 +62,7 @@ public class ManageController extends Controller {
   }
 
   public List<String> getCreateMatchErrors(int numberOfSets, int[] ids) {
-    assert ids.length == 2;
+    assert ids != null && ids.length == 2;
     if (!Match.VALID_NUMBER_OF_SETS.contains(numberOfSets)) {
       List<String> validNumberOfSets = Match.VALID_NUMBER_OF_SETS.stream().map(i -> i.toString()).toList();
       return List.of("Número de sets no válido. Opciones válidas: " + String.join(", ", validNumberOfSets));

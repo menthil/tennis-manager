@@ -7,6 +7,7 @@ import java.util.Locale;
 public class DateFormatter {
 
   public String format(LocalDate date) {
+    assert date != null;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu", Locale.of("ES"));
     return date.format(formatter);
   }

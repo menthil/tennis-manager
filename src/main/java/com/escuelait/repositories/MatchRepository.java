@@ -16,7 +16,6 @@ public class MatchRepository {
   }
 
   public Match create(int numberOfSets, List<Player> players) {
-    assert Match.VALID_NUMBER_OF_SETS.contains(numberOfSets);
     int id = this.matches.size() + 1;
     Match match = Match.createMatch(numberOfSets, id, players);
     this.save(match);
@@ -24,6 +23,7 @@ public class MatchRepository {
   }
 
   public List<Match> findByPlayer(Player player) {
+    assert player != null;
     return this.matches.values().stream().filter(m -> m.getPlayers().contains(player)).toList();
   }
 

@@ -7,6 +7,7 @@ class StartView extends ConsoleView {
   private StartController startController;
 
   StartView(StartController startController) {
+    assert startController != null;
     this.startController = startController;
   }
 

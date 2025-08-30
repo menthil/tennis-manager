@@ -8,6 +8,7 @@ public class CommandFactory {
   }
 
   public static Command create(Controller controller, String commandString) {
+    assert controller != null && commandString != null;
     switch (controller.getCommandType(commandString)) {
       case CREATE_REFEREE:
         return new CreateRefereeCommand(controller, commandString);

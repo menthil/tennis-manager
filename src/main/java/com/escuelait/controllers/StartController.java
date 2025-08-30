@@ -12,6 +12,7 @@ public class StartController extends Controller {
 
   @Override
   public void accept(ControllerVisitor visitor) {
+    assert visitor != null;
     visitor.visit(this);
   }
 

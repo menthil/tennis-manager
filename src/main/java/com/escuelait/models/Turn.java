@@ -52,12 +52,12 @@ class Turn {
   }
 
   Player getOther(Player player) {
-    assert this.players.contains(player);
+    assert player != null && this.players.contains(player);
     return player.equals(this.getFirstPlayer()) ? this.getSecondPlayer() : this.getFirstPlayer();
   }
 
   boolean isServing(Player player) {
-    assert this.players.contains(player);
+    assert player != null && this.players.contains(player);
     return player.equals(this.getServicePlayer());
   }
 

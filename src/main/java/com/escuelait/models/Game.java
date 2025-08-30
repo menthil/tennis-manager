@@ -12,6 +12,7 @@ public class Game {
   private HashMap<Player, Integer> points;
 
   protected Game(Turn turn) {
+    assert turn != null;
     this.turn = turn;
     this.points = new HashMap<>();
   }
@@ -25,6 +26,7 @@ public class Game {
   }
 
   void addPoint(Player player) {
+    assert player != null;
     assert !this.isFinished();
     this.points.put(player, this.getPoints(player) + 1);
     this.isLackService = false;
@@ -46,6 +48,7 @@ public class Game {
   }
 
   int getPoints(Player player) {
+    assert player != null;
     return Optional.ofNullable(this.points.get(player)).orElse(0);
   }
 
@@ -66,6 +69,7 @@ public class Game {
   }
 
   boolean isWinner(Player player) {
+    assert player != null;
     return this.isFinished() && this.getWinner().equals(player);
   }
 

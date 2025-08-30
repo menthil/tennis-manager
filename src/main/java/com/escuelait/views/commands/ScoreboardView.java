@@ -11,6 +11,7 @@ class ScoreboardView {
   private Console console;
 
   ScoreboardView(Match match) {
+    assert match != null;
     this.match = match;
     this.console = Console.getInstance();
   }

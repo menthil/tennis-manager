@@ -10,6 +10,7 @@ class CommandView extends ConsoleView {
   private Controller controller;
 
   CommandView(Controller controller) {
+    assert controller != null;
     this.controller = controller;
   }
 
