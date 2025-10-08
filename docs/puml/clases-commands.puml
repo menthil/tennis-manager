@@ -1,0 +1,75 @@
+@startuml views.commands
+
+package utils {}
+
+package controllers {}
+
+package models {}
+
+package commands {
+
+  abstract Command
+  Command --> controllers
+  Command --> utils
+
+  class CommandFactory
+  CommandFactory --> controllers
+  CommandFactory ..> Command
+  CommandFactory ..> CreateRefereeCommand
+  CommandFactory ..> ExitCommand
+  CommandFactory ..> LoginCommand
+  CommandFactory ..> HelpCommand
+  CommandFactory ..> CreatePlayerCommand
+  CommandFactory ..> ReadPlayersCommand
+  CommandFactory ..> CreateMatchCommand
+  CommandFactory ..> LackServiceCommand
+  CommandFactory ..> PointServiceCommand
+  CommandFactory ..> PointRestCommand
+  CommandFactory ..> FinishMatchCommand
+  CommandFactory ..> ReadPlayerCommand
+  CommandFactory ..> ReadMatchCommand
+  CommandFactory ..> LogoutCommand
+
+  class CreateMatchCommand extends Command
+  CreateMatchCommand ..> ScoreboardView
+
+  class CreatePlayerCommand extends Command
+
+  class CreateRefereeCommand extends Command
+
+  class ExitCommand extends Command
+
+  class FinishMatchCommand extends Command
+  FinishMatchCommand ..> ScoreboardView
+
+  class HelpCommand extends Command
+
+  class LackServiceCommand extends Command
+  LackServiceCommand ..> ScoreboardView
+
+  class LoginCommand extends Command
+
+  class LogoutCommand extends Command
+
+  class PointRestCommand extends Command
+  PointRestCommand ..> ScoreboardView
+
+  class PointServiceCommand extends Command
+  PointServiceCommand ..> ScoreboardView
+
+  class ReadMatchCommand extends Command
+  ReadMatchCommand --> models
+
+  class ReadPlayerCommand extends Command
+  ReadPlayerCommand --> models
+
+  class ReadPlayersCommand extends Command
+  ReadPlayersCommand --> models
+
+  class ScoreboardView
+  ScoreboardView --> models
+  ScoreboardView --> utils
+
+}
+
+@enduml

@@ -1,0 +1,33 @@
+@startuml estados
+
+state INITIAL
+state STARTED
+state LOGGED
+state MATCH_STARTED
+state EXIT
+state choice1 <<choice>>
+
+[*] --> INITIAL
+
+INITIAL --> STARTED : Start
+
+STARTED --> STARTED : createReferee || help
+STARTED --> LOGGED : login
+STARTED --> EXIT : exit
+
+LOGGED --> LOGGED : createPlayer || readPlayers || readPlayer || readMatch || help
+LOGGED --> MATCH_STARTED : createMatch
+LOGGED --> STARTED : logout
+LOGGED --> EXIT : exit
+
+MATCH_STARTED --> choice1 : lackService || pointService || pointRest
+MATCH_STARTED --> LOGGED : finishMatch
+MATCH_STARTED --> MATCH_STARTED : help
+MATCH_STARTED --> EXIT : exit
+
+choice1 --> MATCH_STARTED : [!isMatchFinished]
+choice1 --> LOGGED : [isMatchFinished]
+
+EXIT --> [*]
+
+@enduml

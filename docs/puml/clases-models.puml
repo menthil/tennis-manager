@@ -1,0 +1,42 @@
+@startuml models
+
+package models {
+
+  class Game
+  Game --> Turn
+  Game ..> Player
+
+  class GameFactory
+  GameFactory ..> Turn
+  GameFactory ..> Game
+  GameFactory ..> TieBreakGame
+
+  class Match
+  Match o--> Player : 2
+  Match *--> Turn
+  Match o--> Set
+
+  class Player
+
+  class Referee
+
+  class Set
+  Set --> Turn
+  Set ..> GameFactory
+  Set o--> Game
+  Set ..> Player
+
+  class State
+  State --> StateValue
+  State --> Match
+
+  enum StateValue
+
+  class TieBreakGame extends Game
+
+  class Turn
+  Turn o--> Player
+
+}
+
+@enduml

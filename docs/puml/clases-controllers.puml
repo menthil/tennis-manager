@@ -1,0 +1,43 @@
+@startuml controllers
+
+package models {}
+package repositories {}
+
+package controllers {
+
+  enum CommandType
+
+  abstract class Controller
+  Controller --> models
+  Controller ..> ControllerVisitor
+  Controller ..> CommandType
+
+  interface ControllerVisitor
+  ControllerVisitor ..> StartController
+  ControllerVisitor ..> LoginController
+  ControllerVisitor ..> ManageController
+  ControllerVisitor ..> PlayController
+
+  class Logic
+  Logic --> repositories
+  Logic --> models
+  Logic o--> Controller
+  Logic ..> StartController
+  Logic ..> LoginController
+  Logic ..> ManageController
+  Logic ..> PlayController
+
+  class LoginController extends Controller
+  LoginController --> repositories
+
+  class ManageController extends Controller
+  ManageController --> repositories
+
+  class PlayController extends Controller
+  PlayController --> repositories
+
+  class StartController extends Controller
+
+}
+
+@enduml

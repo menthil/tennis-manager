@@ -1,0 +1,47 @@
+@startuml views
+
+package utils {
+
+  class Console
+
+}
+
+package Controllers {
+
+  abstract Controller
+
+  interface ControllerVisitor
+
+  class StartController
+
+}
+
+package views.commands {
+
+  class CommandFactory
+
+  abstract Command
+
+}
+
+package views {
+
+  class CommandView extends ConsoleView
+  CommandView --> Controller
+  CommandView ..> commands.CommandFactory
+  CommandView ..> commands.Command
+
+  abstract ConsoleView
+  ConsoleView --> Console
+
+  class StartView extends ConsoleView
+  StartView --> StartController
+
+  class View
+  ControllerVisitor <|.up. View
+  View ..> StartView
+  View ..> CommandView
+
+}
+
+@enduml

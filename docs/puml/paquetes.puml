@@ -1,0 +1,30 @@
+@startuml paquetes
+
+set namespaceSeparator none
+
+package controllers {}
+package views {}
+package models {}
+package repositories {}
+package utils {}
+package views.commands {}
+
+class Tennis
+
+Tennis --> controllers
+Tennis --> views
+
+controllers --> models
+controllers --> repositories
+
+repositories --> models
+
+views --> controllers
+views --> views.commands
+views --> utils
+
+views.commands --> controllers
+views.commands --> utils
+views.commands --> models
+
+@enduml

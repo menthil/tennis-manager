@@ -1,0 +1,11 @@
+@startuml utils
+
+package utils {
+
+  class Console
+
+  class DateFormatter
+
+}
+
+@enduml

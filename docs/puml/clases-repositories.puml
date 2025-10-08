@@ -1,0 +1,19 @@
+@startuml repositories
+
+package models {}
+
+package repositories {
+
+  class MatchRepository
+  MatchRepository ..> models.Match
+  MatchRepository o..> models.Player : 2
+
+  class PlayerRepository
+  PlayerRepository ..> models.Player
+
+  class RefereeRepository
+  RefereeRepository ..> models.Referee
+
+}
+
+@enduml
