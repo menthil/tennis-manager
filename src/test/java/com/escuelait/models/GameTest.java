@@ -116,7 +116,7 @@ public class GameTest {
   }
 
   @Test
-  public void when_tie_break_first_player_need_six_points_to_win() {
+  public void when_tie_break_first_player_need_seven_points_to_win() {
     Player firstPlayer = this.turn.getFirstPlayer();
     this.game = new GameBuilder().turn(this.turn).tieBreakGame().build();
     this.alternatePoints(TieBreakGame.MIN_POINTS_TO_WIN, 0);
@@ -124,7 +124,7 @@ public class GameTest {
   }
 
   @Test
-  public void when_tie_break_second_player_need_six_points_to_win() {
+  public void when_tie_break_second_player_need_seven_points_to_win() {
     Player secondPlayer = this.turn.getSecondPlayer();
     this.game = new GameBuilder().turn(this.turn).tieBreakGame().build();
     this.alternatePoints(0, TieBreakGame.MIN_POINTS_TO_WIN);
