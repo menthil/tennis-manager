@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public enum CommandType {
+public enum Command {
   CREATE_REFEREE("createReferee", "name:(.+);password:(.+)", "createReferee name:<name>;password:<password>"),
   LOGIN("login", "name:(.+);password:(.+)", "login name:<name>;password:<password>"),
   EXIT("exit", "", "exit"),
@@ -24,34 +24,34 @@ public enum CommandType {
 
   private String name;
   private String regex;
-  private String parameters;
+  private String syntax;
 
-  private CommandType(String name, String regex, String parameters) {
+  private Command(String name, String regex, String syntax) {
     this.name = name;
     this.regex = (this.name + " " + regex).trim();
-    this.parameters = parameters;
+    this.syntax = syntax;
   }
 
-  boolean is(String commandString) {
-    return this.getMatcher("^" + this.name + "\\b(.*)", commandString).matches();
+  boolean is(String prompt) {
+    return this.getMatcher("^" + this.name + "\\b(.*)", prompt).matches();
   }
 
-  private Matcher getMatcher(String regex, String commandString) {
-    assert commandString != null;
-    return Pattern.compile(regex).matcher(commandString);
+  private Matcher getMatcher(String regex, String prompt) {
+    assert prompt != null;
+    return Pattern.compile(regex).matcher(prompt);
   }
 
-  boolean isValid(String commandString) {
-    return this.getMatcher(commandString).matches();
+  boolean isValid(String prompt) {
+    return this.getMatcher(prompt).matches();
   }
 
-  private Matcher getMatcher(String commandString) {
-    return this.getMatcher(this.regex, commandString);
+  private Matcher getMatcher(String prompt) {
+    return this.getMatcher(this.regex, prompt);
   }
 
-  public List<String> getArgs(String commandString) {
-    assert this.isValid(commandString);
-    Matcher matcher = this.getMatcher(commandString);
+  public List<String> getArgs(String prompt) {
+    assert this.isValid(prompt);
+    Matcher matcher = this.getMatcher(prompt);
     matcher.matches();
     ArrayList<String> args = new ArrayList<>();
     for (int i = 1; i <= matcher.groupCount(); i++) {
@@ -60,8 +60,8 @@ public enum CommandType {
     return args;
   }
 
-  public String getCommand() {
-    return this.parameters;
+  public String getSyntax() {
+    return this.syntax;
   }
 
 }

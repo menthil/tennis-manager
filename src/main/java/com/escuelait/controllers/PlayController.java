@@ -22,14 +22,14 @@ public class PlayController extends Controller {
   }
 
   @Override
-  public List<CommandType> getAvailableCommandTypes() {
+  public List<Command> getAvailableCommands() {
     return List.of(
-        CommandType.LACK_SERVICE,
-        CommandType.POINT_SERVICE,
-        CommandType.POINT_REST,
-        CommandType.FINISH_MATCH,
-        CommandType.HELP,
-        CommandType.EXIT);
+        Command.LACK_SERVICE,
+        Command.POINT_SERVICE,
+        Command.POINT_REST,
+        Command.FINISH_MATCH,
+        Command.HELP,
+        Command.EXIT);
   }
 
   public void lackService() {

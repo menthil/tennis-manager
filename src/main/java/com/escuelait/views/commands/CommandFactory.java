@@ -7,23 +7,23 @@ public class CommandFactory {
   private CommandFactory() {
   }
 
-  public static Command create(Controller controller, String commandString) {
-    assert controller != null && commandString != null;
-    switch (controller.getCommandType(commandString)) {
+  public static Command create(Controller controller, String prompt) {
+    assert controller != null && prompt != null;
+    switch (controller.getCommand(prompt)) {
       case CREATE_REFEREE:
-        return new CreateRefereeCommand(controller, commandString);
+        return new CreateRefereeCommand(controller, prompt);
       case EXIT:
         return new ExitCommand(controller);
       case LOGIN:
-        return new LoginCommand(controller, commandString);
+        return new LoginCommand(controller, prompt);
       case HELP:
         return new HelpCommand(controller);
       case CREATE_PLAYER:
-        return new CreatePlayerCommand(controller, commandString);
+        return new CreatePlayerCommand(controller, prompt);
       case READ_PLAYERS:
         return new ReadPlayersCommand(controller);
       case CREATE_MATCH:
-        return new CreateMatchCommand(controller, commandString);
+        return new CreateMatchCommand(controller, prompt);
       case LACK_SERVICE:
         return new LackServiceCommand(controller);
       case POINT_SERVICE:
@@ -33,9 +33,9 @@ public class CommandFactory {
       case FINISH_MATCH:
         return new FinishMatchCommand(controller);
       case READ_PLAYER:
-        return new ReadPlayerCommand(controller, commandString);
+        return new ReadPlayerCommand(controller, prompt);
       case READ_MATCH:
-        return new ReadMatchCommand(controller, commandString);
+        return new ReadMatchCommand(controller, prompt);
       case LOGOUT:
         return new LogoutCommand(controller);
       default:

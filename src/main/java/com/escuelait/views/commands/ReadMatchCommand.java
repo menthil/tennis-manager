@@ -3,7 +3,6 @@ package com.escuelait.views.commands;
 import java.util.List;
 import java.util.Optional;
 
-import com.escuelait.controllers.CommandType;
 import com.escuelait.controllers.Controller;
 import com.escuelait.controllers.ManageController;
 import com.escuelait.models.Match;
@@ -14,9 +13,9 @@ class ReadMatchCommand extends Command {
 
   private int id;
 
-  ReadMatchCommand(Controller controller, String commandString) {
+  ReadMatchCommand(Controller controller, String prompt) {
     super(controller);
-    this.id = Integer.parseInt(CommandType.READ_MATCH.getArgs(commandString).get(0));
+    this.id = Integer.parseInt(com.escuelait.controllers.Command.READ_MATCH.getArgs(prompt).get(0));
   }
 
   @Override

@@ -2,7 +2,6 @@ package com.escuelait.views.commands;
 
 import java.util.List;
 
-import com.escuelait.controllers.CommandType;
 import com.escuelait.controllers.Controller;
 import com.escuelait.controllers.ManageController;
 
@@ -10,9 +9,9 @@ class CreatePlayerCommand extends Command {
 
   private String name;
 
-  CreatePlayerCommand(Controller controller, String commandString) {
+  CreatePlayerCommand(Controller controller, String prompt) {
     super(controller);
-    this.name = CommandType.CREATE_PLAYER.getArgs(commandString).get(0);
+    this.name = com.escuelait.controllers.Command.CREATE_PLAYER.getArgs(prompt).get(0);
   }
 
   @Override

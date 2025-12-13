@@ -24,8 +24,8 @@ public class LoginController extends Controller {
   }
 
   @Override
-  public List<CommandType> getAvailableCommandTypes() {
-    return List.of(CommandType.CREATE_REFEREE, CommandType.LOGIN, CommandType.HELP, CommandType.EXIT);
+  public List<Command> getAvailableCommands() {
+    return List.of(Command.CREATE_REFEREE, Command.LOGIN, Command.HELP, Command.EXIT);
   }
 
   public List<String> getCreateRefereeeErrors(String name, String password) {

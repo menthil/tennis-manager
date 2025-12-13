@@ -16,35 +16,35 @@ public abstract class Controller {
 
   public abstract void accept(ControllerVisitor visitor);
 
-  public List<String> getErrors(String commandString) {
-    assert commandString != null;
-    Optional<CommandType> matched = this.getMatchedCommandType(commandString);
+  public List<String> getErrors(String prompt) {
+    assert prompt != null;
+    Optional<Command> matched = this.getMatchedCommand(prompt);
     if (matched.isEmpty()) {
       return List.of("Comando no válido");
     }
-    return matched.get().isValid(commandString)
+    return matched.get().isValid(prompt)
         ? List.of()
-        : List.of("Parámetros incorrectos: " + matched.get().getCommand());
+        : List.of("Parámetros incorrectos: " + matched.get().getSyntax());
   }
 
-  private Optional<CommandType> getMatchedCommandType(String commandString) {
-    for (CommandType commandType : this.getAvailableCommandTypes()) {
-      if (commandType.is(commandString)) {
-        return Optional.of(commandType);
+  private Optional<Command> getMatchedCommand(String prompt) {
+    for (Command command : this.getAvailableCommands()) {
+      if (command.is(prompt)) {
+        return Optional.of(command);
       }
     }
     return Optional.empty();
   }
 
-  public abstract List<CommandType> getAvailableCommandTypes();
+  public abstract List<Command> getAvailableCommands();
 
   public void started() {
     this.state.started();
   }
 
-  public CommandType getCommandType(String commandString) {
-    assert this.getErrors(commandString).isEmpty();
-    return this.getMatchedCommandType(commandString).get();
+  public Command getCommand(String prompt) {
+    assert this.getErrors(prompt).isEmpty();
+    return this.getMatchedCommand(prompt).get();
   }
 
   public Match getMatch() {

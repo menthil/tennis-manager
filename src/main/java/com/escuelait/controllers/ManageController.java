@@ -29,16 +29,16 @@ public class ManageController extends Controller {
   }
 
   @Override
-  public List<CommandType> getAvailableCommandTypes() {
+  public List<Command> getAvailableCommands() {
     return List.of(
-        CommandType.CREATE_PLAYER,
-        CommandType.READ_PLAYERS,
-        CommandType.CREATE_MATCH,
-        CommandType.READ_PLAYER,
-        CommandType.READ_MATCH,
-        CommandType.LOGOUT,
-        CommandType.HELP,
-        CommandType.EXIT);
+        Command.CREATE_PLAYER,
+        Command.READ_PLAYERS,
+        Command.CREATE_MATCH,
+        Command.READ_PLAYER,
+        Command.READ_MATCH,
+        Command.LOGOUT,
+        Command.HELP,
+        Command.EXIT);
   }
 
   public List<String> getCreatePlayerErrors(String name) {

@@ -2,7 +2,6 @@ package com.escuelait.views.commands;
 
 import java.util.List;
 
-import com.escuelait.controllers.CommandType;
 import com.escuelait.controllers.Controller;
 import com.escuelait.controllers.LoginController;
 
@@ -11,10 +10,10 @@ class CreateRefereeCommand extends Command {
   private String name;
   private String password;
 
-  CreateRefereeCommand(Controller controller, String commandString) {
+  CreateRefereeCommand(Controller controller, String prompt) {
     super(controller);
-    this.name = CommandType.CREATE_REFEREE.getArgs(commandString).get(0);
-    this.password = CommandType.CREATE_REFEREE.getArgs(commandString).get(1);
+    this.name = com.escuelait.controllers.Command.CREATE_REFEREE.getArgs(prompt).get(0);
+    this.password = com.escuelait.controllers.Command.CREATE_REFEREE.getArgs(prompt).get(1);
   }
 
   @Override

@@ -1,6 +1,5 @@
 package com.escuelait.views.commands;
 
-import com.escuelait.controllers.CommandType;
 import com.escuelait.controllers.Controller;
 import com.escuelait.controllers.LoginController;
 
@@ -9,10 +8,10 @@ class LoginCommand extends Command {
   private String name;
   private String password;
 
-  LoginCommand(Controller controller, String commandString) {
+  LoginCommand(Controller controller, String prompt) {
     super(controller);
-    this.name = CommandType.LOGIN.getArgs(commandString).get(0);
-    this.password = CommandType.LOGIN.getArgs(commandString).get(1);
+    this.name = com.escuelait.controllers.Command.LOGIN.getArgs(prompt).get(0);
+    this.password = com.escuelait.controllers.Command.LOGIN.getArgs(prompt).get(1);
   }
 
   @Override

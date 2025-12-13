@@ -1,7 +1,6 @@
 package com.escuelait.views.commands;
 
 import java.util.List;
-import com.escuelait.controllers.CommandType;
 import com.escuelait.controllers.Controller;
 import com.escuelait.controllers.ManageController;
 import com.escuelait.utils.DateFormatter;
@@ -11,12 +10,12 @@ class CreateMatchCommand extends Command {
   private int numberOfSets;
   private int ids[];
 
-  CreateMatchCommand(Controller controller, String commandString) {
+  CreateMatchCommand(Controller controller, String prompt) {
     super(controller);
-    this.numberOfSets = Integer.parseInt(CommandType.CREATE_MATCH.getArgs(commandString).get(0));
+    this.numberOfSets = Integer.parseInt(com.escuelait.controllers.Command.CREATE_MATCH.getArgs(prompt).get(0));
     this.ids = new int[2];
-    this.ids[0] = Integer.parseInt(CommandType.CREATE_MATCH.getArgs(commandString).get(1));
-    this.ids[1] = Integer.parseInt(CommandType.CREATE_MATCH.getArgs(commandString).get(2));
+    this.ids[0] = Integer.parseInt(com.escuelait.controllers.Command.CREATE_MATCH.getArgs(prompt).get(1));
+    this.ids[1] = Integer.parseInt(com.escuelait.controllers.Command.CREATE_MATCH.getArgs(prompt).get(2));
   }
 
   @Override

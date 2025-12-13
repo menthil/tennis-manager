@@ -59,7 +59,7 @@ class ScoreboardView {
   }
 
   private String getPlayerSetGames(Player player) {
-    return this.getPlayedSetGames(player) + getNonPlayedSetsGames(player);
+    return this.getPlayedSetGames(player) + this.getNonPlayedSetsGames(player);
   }
 
   private String getPlayedSetGames(Player player) {
