@@ -32,7 +32,7 @@ public enum Command {
     this.syntax = syntax;
   }
 
-  boolean is(String prompt) {
+  public boolean is(String prompt) {
     return this.getMatcher("^" + this.name + "\\b(.*)", prompt).matches();
   }
 
@@ -41,7 +41,7 @@ public enum Command {
     return Pattern.compile(regex).matcher(prompt);
   }
 
-  boolean isValid(String prompt) {
+  public boolean isValid(String prompt) {
     return this.getMatcher(prompt).matches();
   }
 

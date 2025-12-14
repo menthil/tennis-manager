@@ -3,7 +3,7 @@ package com.escuelait.views;
 import java.util.List;
 
 import com.escuelait.controllers.Controller;
-import com.escuelait.views.commands.CommandFactory;
+import com.escuelait.views.commands.CommandAnalyzer;
 
 class CommandView extends ConsoleView {
 
@@ -18,9 +18,10 @@ class CommandView extends ConsoleView {
   void interact() {
     String prompt = null;
     List<String> errors = List.of();
+    CommandAnalyzer commandAnalyzer = new CommandAnalyzer(this.controller);
     do {
       prompt = this.console.readString(this.getPrompt()).trim();
-      errors = this.controller.getErrors(prompt);
+      errors = commandAnalyzer.getErrors(prompt);
       if (!errors.isEmpty()) {
         for (String error : errors) {
           this.console.writeln(error);
@@ -28,7 +29,7 @@ class CommandView extends ConsoleView {
       }
     } while (!errors.isEmpty());
     this.console.writeln();
-    CommandFactory.create(this.controller, prompt).execute();
+    commandAnalyzer.getCommand().execute();
     this.console.writeln();
   }
 
