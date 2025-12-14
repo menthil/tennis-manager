@@ -30,6 +30,12 @@ package commands {
   CommandFactory ..> ReadMatchCommand
   CommandFactory ..> LogoutCommand
 
+  class CommandAnalyzer
+  CommandAnalyzer --> controllers
+  CommandAnalyzer ..> CommandFactory
+  CommandAnalyzer ..> Command
+  CommandAnalyzer ..> utils
+
   class CreateMatchCommand extends Command
   CreateMatchCommand ..> ScoreboardView
 

@@ -5,12 +5,12 @@ package repositories {}
 
 package controllers {
 
-  enum CommandType
+  enum Command
 
   abstract class Controller
   Controller --> models
   Controller ..> ControllerVisitor
-  Controller ..> CommandType
+  Controller ..> Command
 
   interface ControllerVisitor
   ControllerVisitor ..> StartController

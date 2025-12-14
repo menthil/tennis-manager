@@ -18,9 +18,7 @@ package Controllers {
 
 package views.commands {
 
-  class CommandFactory
-
-  abstract Command
+  class CommandAnalyzer
 
 }
 
@@ -28,8 +26,7 @@ package views {
 
   class CommandView extends ConsoleView
   CommandView --> Controller
-  CommandView ..> commands.CommandFactory
-  CommandView ..> commands.Command
+  CommandView ..> commands.CommandAnalyzer
 
   abstract ConsoleView
   ConsoleView --> Console
