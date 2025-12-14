@@ -9,10 +9,6 @@ class CreatePlayerCommand extends Command {
 
   private String name;
 
-  CreatePlayerCommand(Controller controller, String prompt) {
-    super(controller, prompt);
-  }
-
   @Override
   protected String getName() {
     return "createPlayer";
@@ -29,9 +25,9 @@ class CreatePlayerCommand extends Command {
   }
 
   @Override
-  public void execute() {
-    this.name = this.getArgs().get(0);
-    ManageController manageController = (ManageController) this.controller;
+  public void execute(Controller controller, String prompt) {
+    this.name = this.getArgs(prompt).get(0);
+    ManageController manageController = (ManageController) controller;
     List<String> errors = manageController.getCreatePlayerErrors(this.name);
     if (!errors.isEmpty()) {
       for (String error : errors) {

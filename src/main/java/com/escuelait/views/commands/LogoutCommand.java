@@ -4,10 +4,6 @@ import com.escuelait.controllers.Controller;
 
 class LogoutCommand extends Command {
 
-  LogoutCommand(Controller controller, String prompt) {
-    super(controller, prompt);
-  }
-
   @Override
   protected String getName() {
     return "logout";
@@ -24,8 +20,8 @@ class LogoutCommand extends Command {
   }
 
   @Override
-  public void execute() {
-    this.controller.started();
+  public void execute(Controller controller, String prompt) {
+    controller.started();
   }
 
 }

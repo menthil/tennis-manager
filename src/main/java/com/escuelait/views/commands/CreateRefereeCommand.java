@@ -10,10 +10,6 @@ class CreateRefereeCommand extends Command {
   private String name;
   private String password;
 
-  CreateRefereeCommand(Controller controller, String prompt) {
-    super(controller, prompt);
-  }
-
   @Override
   protected String getName() {
     return "createReferee";
@@ -30,10 +26,10 @@ class CreateRefereeCommand extends Command {
   }
 
   @Override
-  public void execute() {
-    this.name = this.getArgs().get(0);
-    this.password = this.getArgs().get(1);
-    LoginController loginController = ((LoginController) this.controller);
+  public void execute(Controller controller, String prompt) {
+    this.name = this.getArgs(prompt).get(0);
+    this.password = this.getArgs(prompt).get(1);
+    LoginController loginController = ((LoginController) controller);
     List<String> errors = loginController.getCreateRefereeeErrors(this.name, this.password);
     if (!errors.isEmpty()) {
       for (String error : errors) {

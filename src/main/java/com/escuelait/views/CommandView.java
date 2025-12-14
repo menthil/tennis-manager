@@ -29,7 +29,7 @@ class CommandView extends ConsoleView {
       }
     } while (!errors.isEmpty());
     this.console.writeln();
-    commandAnalyzer.getCommand().execute();
+    commandAnalyzer.getCommand().execute(this.controller, prompt);
     this.console.writeln();
   }
 

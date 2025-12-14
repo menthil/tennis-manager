@@ -8,10 +8,6 @@ class LoginCommand extends Command {
   private String name;
   private String password;
 
-  LoginCommand(Controller controller, String prompt) {
-    super(controller, prompt);
-  }
-
   @Override
   protected String getName() {
     return "login";
@@ -28,10 +24,10 @@ class LoginCommand extends Command {
   }
 
   @Override
-  public void execute() {
-    this.name = this.getArgs().get(0);
-    this.password = this.getArgs().get(1);
-    LoginController loginController = ((LoginController) this.controller);
+  public void execute(Controller controller, String prompt) {
+    this.name = this.getArgs(prompt).get(0);
+    this.password = this.getArgs(prompt).get(1);
+    LoginController loginController = ((LoginController) controller);
     if (loginController.login(this.name, this.password)) {
       this.console.writeln("Login realizado correctamente");
       loginController.logged();

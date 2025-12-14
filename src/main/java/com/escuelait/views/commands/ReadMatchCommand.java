@@ -13,10 +13,6 @@ class ReadMatchCommand extends Command {
 
   private int id;
 
-  ReadMatchCommand(Controller controller, String prompt) {
-    super(controller, prompt);
-  }
-
   @Override
   protected String getName() {
     return "readMatch:(\\d+)";
@@ -33,9 +29,9 @@ class ReadMatchCommand extends Command {
   }
 
   @Override
-  public void execute() {
-    this.id = Integer.parseInt(this.getArgs().get(0));
-    ManageController manageController = (ManageController) this.controller;
+  public void execute(Controller controller, String prompt) {
+    this.id = Integer.parseInt(this.getArgs(prompt).get(0));
+    ManageController manageController = (ManageController) controller;
     Optional<Match> match = manageController.getMatch(this.id);
     if (match.isPresent()) {
       this.write(match.get());

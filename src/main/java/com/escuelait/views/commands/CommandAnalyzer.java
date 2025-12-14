@@ -21,15 +21,15 @@ public class CommandAnalyzer {
     if (matched.isEmpty()) {
       return List.of("Comando no válido");
     }
-    return CommandFactory.create(matched.get(), this.controller, this.prompt).isValid()
+    return CommandFactory.create(matched.get()).isValid(this.prompt)
         ? List.of()
         : List.of("Parámetros incorrectos: "
-            + CommandFactory.create(matched.get(), this.controller, this.prompt).getSyntax());
+            + CommandFactory.create(matched.get()).getSyntax());
   }
 
   private Optional<com.escuelait.controllers.Command> getMatchedCommand() {
     for (com.escuelait.controllers.Command command : this.controller.getAvailableCommands()) {
-      if (CommandFactory.create(command, this.controller, this.prompt).is()) {
+      if (CommandFactory.create(command).is(this.prompt)) {
         return Optional.of(command);
       }
     }
@@ -38,7 +38,7 @@ public class CommandAnalyzer {
 
   public Command getCommand() {
     assert this.getErrors(this.prompt).isEmpty();
-    return CommandFactory.create(this.getMatchedCommand().get(), this.controller, this.prompt);
+    return CommandFactory.create(this.getMatchedCommand().get());
   }
 
 }

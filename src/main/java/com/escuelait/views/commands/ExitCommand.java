@@ -4,10 +4,6 @@ import com.escuelait.controllers.Controller;
 
 class ExitCommand extends Command {
 
-  ExitCommand(Controller controller, String prompt) {
-    super(controller, prompt);
-  }
-
   @Override
   protected String getName() {
     return "exit";
@@ -24,7 +20,7 @@ class ExitCommand extends Command {
   }
 
   @Override
-  public void execute() {
+  public void execute(Controller controller, String prompt) {
     controller.exit();
   }
 

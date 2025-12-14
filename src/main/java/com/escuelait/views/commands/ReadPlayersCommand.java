@@ -6,10 +6,6 @@ import com.escuelait.models.Player;
 
 class ReadPlayersCommand extends Command {
 
-  ReadPlayersCommand(Controller controller, String prompt) {
-    super(controller, prompt);
-  }
-
   @Override
   protected String getName() {
     return "readPlayers";
@@ -26,8 +22,8 @@ class ReadPlayersCommand extends Command {
   }
 
   @Override
-  public void execute() {
-    for (Player player : ((ManageController) this.controller).getPlayers()) {
+  public void execute(Controller controller, String prompt) {
+    for (Player player : ((ManageController) controller).getPlayers()) {
       this.console.writeln("name:" + player.name() + "; id:" + player.id());
     }
   }

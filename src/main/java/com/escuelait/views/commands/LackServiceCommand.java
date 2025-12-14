@@ -5,10 +5,6 @@ import com.escuelait.controllers.PlayController;
 
 class LackServiceCommand extends Command {
 
-  LackServiceCommand(Controller controller, String prompt) {
-    super(controller, prompt);
-  }
-
   @Override
   protected String getName() {
     return "lackService";
@@ -25,8 +21,8 @@ class LackServiceCommand extends Command {
   }
 
   @Override
-  public void execute() {
-    PlayController playController = (PlayController) this.controller;
+  public void execute(Controller controller, String prompt) {
+    PlayController playController = (PlayController) controller;
     playController.lackService();
     new ScoreboardView(playController.getMatch()).write();
     if (playController.isFinished()) {

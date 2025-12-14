@@ -10,14 +10,10 @@ import com.escuelait.utils.Console;
 
 public abstract class Command {
 
-  protected Controller controller;
-  protected String prompt;
   private String regex;
   protected Console console;
 
-  Command(Controller controller, String prompt) {
-    this.controller = controller;
-    this.prompt = prompt;
+  Command() {
     this.regex = (this.getName() + " " + this.getRegex()).trim();
     this.console = Console.getInstance();
   }
@@ -26,25 +22,25 @@ public abstract class Command {
 
   protected abstract String getRegex();
 
-  boolean is() {
-    return this.getMatcher("^" + this.getName() + "\\b(.*)").matches();
+  boolean is(String prompt) {
+    return this.getMatcher("^" + this.getName() + "\\b(.*)", prompt).matches();
   }
 
-  private Matcher getMatcher(String regex) {
-    return Pattern.compile(regex).matcher(this.prompt);
+  private Matcher getMatcher(String regex, String prompt) {
+    return Pattern.compile(regex).matcher(prompt);
   }
 
-  boolean isValid() {
-    return this.getMatcher(this.regex).matches();
+  boolean isValid(String prompt) {
+    return this.getMatcher(this.regex, prompt).matches();
   }
 
   abstract String getSyntax();
 
-  public abstract void execute();
+  public abstract void execute(Controller controller, String prompt);
 
-  List<String> getArgs() {
-    assert this.isValid();
-    Matcher matcher = this.getMatcher(this.regex);
+  protected List<String> getArgs(String prompt) {
+    assert this.isValid(prompt);
+    Matcher matcher = this.getMatcher(this.regex, prompt);
     matcher.matches();
     ArrayList<String> args = new ArrayList<>();
     for (int i = 1; i <= matcher.groupCount(); i++) {

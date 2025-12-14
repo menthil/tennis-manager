@@ -5,10 +5,6 @@ import com.escuelait.controllers.PlayController;
 
 class PointRestCommand extends Command {
 
-  PointRestCommand(Controller controller, String prompt) {
-    super(controller, prompt);
-  }
-
   @Override
   protected String getName() {
     return "pointRest";
@@ -25,8 +21,8 @@ class PointRestCommand extends Command {
   }
 
   @Override
-  public void execute() {
-    PlayController playController = (PlayController) this.controller;
+  public void execute(Controller controller, String prompt) {
+    PlayController playController = (PlayController) controller;
     playController.addPointRest();
     new ScoreboardView(playController.getMatch()).write();
     if (playController.isFinished()) {

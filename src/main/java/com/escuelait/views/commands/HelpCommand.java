@@ -4,10 +4,6 @@ import com.escuelait.controllers.Controller;
 
 class HelpCommand extends Command {
 
-  HelpCommand(Controller controller, String prompt) {
-    super(controller, prompt);
-  }
-
   @Override
   protected String getName() {
     return "help";
@@ -24,11 +20,11 @@ class HelpCommand extends Command {
   }
 
   @Override
-  public void execute() {
+  public void execute(Controller controller, String prompt) {
     this.console.writeln("Comandos disponibles:");
     this.console.writeln();
     for (com.escuelait.controllers.Command commandType : controller.getAvailableCommands()) {
-      this.console.writeln(CommandFactory.create(commandType, this.controller, this.prompt).getSyntax());
+      this.console.writeln(CommandFactory.create(commandType).getSyntax());
     }
   }
 

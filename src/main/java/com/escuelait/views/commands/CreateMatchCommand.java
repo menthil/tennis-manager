@@ -10,11 +10,6 @@ class CreateMatchCommand extends Command {
   private int numberOfSets;
   private int ids[];
 
-  CreateMatchCommand(Controller controller, String prompt) {
-    super(controller, prompt);
-    this.ids = new int[2];
-  }
-
   @Override
   protected String getName() {
     return "createMatch";
@@ -31,11 +26,12 @@ class CreateMatchCommand extends Command {
   }
 
   @Override
-  public void execute() {
-    this.numberOfSets = Integer.parseInt(this.getArgs().get(0));
-    this.ids[0] = Integer.parseInt(this.getArgs().get(1));
-    this.ids[1] = Integer.parseInt(this.getArgs().get(2));
-    ManageController manageController = (ManageController) this.controller;
+  public void execute(Controller controller, String prompt) {
+    this.numberOfSets = Integer.parseInt(this.getArgs(prompt).get(0));
+    this.ids = new int[2];
+    this.ids[0] = Integer.parseInt(this.getArgs(prompt).get(1));
+    this.ids[1] = Integer.parseInt(this.getArgs(prompt).get(2));
+    ManageController manageController = (ManageController) controller;
     List<String> errors = manageController.getCreateMatchErrors(this.numberOfSets, this.ids);
     if (!errors.isEmpty()) {
       for (String error : errors) {
@@ -43,8 +39,8 @@ class CreateMatchCommand extends Command {
       }
     } else {
       manageController.createMatch(this.numberOfSets, this.ids);
-      this.console.writeln("id:" + this.controller.getMatch().getId());
-      this.console.writeln("date:" + new DateFormatter().format(this.controller.getMatch().getCreationDate()));
+      this.console.writeln("id:" + controller.getMatch().getId());
+      this.console.writeln("date:" + new DateFormatter().format(controller.getMatch().getCreationDate()));
       new ScoreboardView(manageController.getMatch()).write();
     }
   }
