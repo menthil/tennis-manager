@@ -14,12 +14,27 @@ class ReadPlayerCommand extends Command {
   private int id;
 
   ReadPlayerCommand(Controller controller, String prompt) {
-    super(controller);
-    this.id = Integer.parseInt(com.escuelait.controllers.Command.READ_PLAYER.getArgs(prompt).get(0));
+    super(controller, prompt);
+  }
+
+  @Override
+  protected String getName() {
+    return "readPlayer:(\\d+)";
+  }
+
+  @Override
+  protected String getRegex() {
+    return "";
+  }
+
+  @Override
+  String getSyntax() {
+    return "readPlayer:<id>";
   }
 
   @Override
   public void execute() {
+    this.id = Integer.parseInt(this.getArgs().get(0));
     ManageController manageController = (ManageController) this.controller;
     Optional<Player> player = manageController.getPlayer(this.id);
     if (player.isPresent()) {

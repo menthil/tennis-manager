@@ -21,14 +21,15 @@ public class CommandAnalyzer {
     if (matched.isEmpty()) {
       return List.of("Comando no válido");
     }
-    return matched.get().isValid(this.prompt)
+    return CommandFactory.create(matched.get(), this.controller, this.prompt).isValid()
         ? List.of()
-        : List.of("Parámetros incorrectos: " + matched.get().getSyntax());
+        : List.of("Parámetros incorrectos: "
+            + CommandFactory.create(matched.get(), this.controller, this.prompt).getSyntax());
   }
 
   private Optional<com.escuelait.controllers.Command> getMatchedCommand() {
     for (com.escuelait.controllers.Command command : this.controller.getAvailableCommands()) {
-      if (command.is(this.prompt)) {
+      if (CommandFactory.create(command, this.controller, this.prompt).is()) {
         return Optional.of(command);
       }
     }
@@ -37,38 +38,7 @@ public class CommandAnalyzer {
 
   public Command getCommand() {
     assert this.getErrors(this.prompt).isEmpty();
-    switch (this.getMatchedCommand().get()) {
-      case CREATE_REFEREE:
-        return new CreateRefereeCommand(this.controller, this.prompt);
-      case EXIT:
-        return new ExitCommand(this.controller);
-      case LOGIN:
-        return new LoginCommand(this.controller, this.prompt);
-      case HELP:
-        return new HelpCommand(this.controller);
-      case CREATE_PLAYER:
-        return new CreatePlayerCommand(this.controller, this.prompt);
-      case READ_PLAYERS:
-        return new ReadPlayersCommand(this.controller);
-      case CREATE_MATCH:
-        return new CreateMatchCommand(this.controller, this.prompt);
-      case LACK_SERVICE:
-        return new LackServiceCommand(this.controller);
-      case POINT_SERVICE:
-        return new PointServiceCommand(this.controller);
-      case POINT_REST:
-        return new PointRestCommand(this.controller);
-      case FINISH_MATCH:
-        return new FinishMatchCommand(this.controller);
-      case READ_PLAYER:
-        return new ReadPlayerCommand(this.controller, this.prompt);
-      case READ_MATCH:
-        return new ReadMatchCommand(this.controller, this.prompt);
-      case LOGOUT:
-        return new LogoutCommand(this.controller);
-      default:
-        return null;
-    }
+    return CommandFactory.create(this.getMatchedCommand().get(), this.controller, this.prompt);
   }
 
 }

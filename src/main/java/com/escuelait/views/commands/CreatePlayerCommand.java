@@ -10,12 +10,27 @@ class CreatePlayerCommand extends Command {
   private String name;
 
   CreatePlayerCommand(Controller controller, String prompt) {
-    super(controller);
-    this.name = com.escuelait.controllers.Command.CREATE_PLAYER.getArgs(prompt).get(0);
+    super(controller, prompt);
+  }
+
+  @Override
+  protected String getName() {
+    return "createPlayer";
+  }
+
+  @Override
+  protected String getRegex() {
+    return "name:(.+)";
+  }
+
+  @Override
+  String getSyntax() {
+    return "createPlayer name:<name>";
   }
 
   @Override
   public void execute() {
+    this.name = this.getArgs().get(0);
     ManageController manageController = (ManageController) this.controller;
     List<String> errors = manageController.getCreatePlayerErrors(this.name);
     if (!errors.isEmpty()) {

@@ -11,15 +11,30 @@ class CreateMatchCommand extends Command {
   private int ids[];
 
   CreateMatchCommand(Controller controller, String prompt) {
-    super(controller);
-    this.numberOfSets = Integer.parseInt(com.escuelait.controllers.Command.CREATE_MATCH.getArgs(prompt).get(0));
+    super(controller, prompt);
     this.ids = new int[2];
-    this.ids[0] = Integer.parseInt(com.escuelait.controllers.Command.CREATE_MATCH.getArgs(prompt).get(1));
-    this.ids[1] = Integer.parseInt(com.escuelait.controllers.Command.CREATE_MATCH.getArgs(prompt).get(2));
+  }
+
+  @Override
+  protected String getName() {
+    return "createMatch";
+  }
+
+  @Override
+  protected String getRegex() {
+    return "sets:(.+);ids:(\\d+),(\\d+)";
+  }
+
+  @Override
+  String getSyntax() {
+    return "createMatch sets:<3|5>;ids:<id1>,<id2>";
   }
 
   @Override
   public void execute() {
+    this.numberOfSets = Integer.parseInt(this.getArgs().get(0));
+    this.ids[0] = Integer.parseInt(this.getArgs().get(1));
+    this.ids[1] = Integer.parseInt(this.getArgs().get(2));
     ManageController manageController = (ManageController) this.controller;
     List<String> errors = manageController.getCreateMatchErrors(this.numberOfSets, this.ids);
     if (!errors.isEmpty()) {

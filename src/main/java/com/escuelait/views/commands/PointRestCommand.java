@@ -5,8 +5,23 @@ import com.escuelait.controllers.PlayController;
 
 class PointRestCommand extends Command {
 
-  PointRestCommand(Controller controller) {
-    super(controller);
+  PointRestCommand(Controller controller, String prompt) {
+    super(controller, prompt);
+  }
+
+  @Override
+  protected String getName() {
+    return "pointRest";
+  }
+
+  @Override
+  protected String getRegex() {
+    return "";
+  }
+
+  @Override
+  String getSyntax() {
+    return "pointRest";
   }
 
   @Override

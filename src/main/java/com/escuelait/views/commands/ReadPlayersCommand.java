@@ -6,8 +6,23 @@ import com.escuelait.models.Player;
 
 class ReadPlayersCommand extends Command {
 
-  ReadPlayersCommand(Controller controller) {
-    super(controller);
+  ReadPlayersCommand(Controller controller, String prompt) {
+    super(controller, prompt);
+  }
+
+  @Override
+  protected String getName() {
+    return "readPlayers";
+  }
+
+  @Override
+  protected String getRegex() {
+    return "";
+  }
+
+  @Override
+  String getSyntax() {
+    return "readPlayers";
   }
 
   @Override

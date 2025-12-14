@@ -14,12 +14,27 @@ class ReadMatchCommand extends Command {
   private int id;
 
   ReadMatchCommand(Controller controller, String prompt) {
-    super(controller);
-    this.id = Integer.parseInt(com.escuelait.controllers.Command.READ_MATCH.getArgs(prompt).get(0));
+    super(controller, prompt);
+  }
+
+  @Override
+  protected String getName() {
+    return "readMatch:(\\d+)";
+  }
+
+  @Override
+  protected String getRegex() {
+    return "";
+  }
+
+  @Override
+  String getSyntax() {
+    return "readMatch:<id>";
   }
 
   @Override
   public void execute() {
+    this.id = Integer.parseInt(this.getArgs().get(0));
     ManageController manageController = (ManageController) this.controller;
     Optional<Match> match = manageController.getMatch(this.id);
     if (match.isPresent()) {

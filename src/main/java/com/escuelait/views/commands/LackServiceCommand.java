@@ -5,8 +5,23 @@ import com.escuelait.controllers.PlayController;
 
 class LackServiceCommand extends Command {
 
-  LackServiceCommand(Controller controller) {
-    super(controller);
+  LackServiceCommand(Controller controller, String prompt) {
+    super(controller, prompt);
+  }
+
+  @Override
+  protected String getName() {
+    return "lackService";
+  }
+
+  @Override
+  protected String getRegex() {
+    return "";
+  }
+
+  @Override
+  String getSyntax() {
+    return "lackService";
   }
 
   @Override
