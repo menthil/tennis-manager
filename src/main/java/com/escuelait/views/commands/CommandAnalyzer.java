@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.escuelait.controllers.Controller;
+import com.escuelait.utils.Console;
 
 public class CommandAnalyzer {
 
@@ -14,31 +15,37 @@ public class CommandAnalyzer {
     this.controller = controller;
   }
 
-  public List<String> getErrors(String prompt) {
+  public boolean isValid(String prompt) {
     assert prompt != null;
     this.prompt = prompt;
-    Optional<com.escuelait.controllers.Command> matched = this.getMatchedCommand();
+    List<String> errors = this.getErrors();
+    for (String error : errors) {
+      Console.getInstance().writeln(error);
+    }
+    return errors.isEmpty();
+  }
+
+  private List<String> getErrors() {
+    Optional<Command> matched = this.getMatchedCommand();
     if (matched.isEmpty()) {
       return List.of("Comando no válido");
     }
-    return CommandFactory.create(matched.get()).isValid(this.prompt)
+    return matched.get().isValid(this.prompt)
         ? List.of()
-        : List.of("Parámetros incorrectos: "
-            + CommandFactory.create(matched.get()).getSyntax());
+        : List.of("Parámetros incorrectos: " + matched.get().getSyntax());
   }
 
-  private Optional<com.escuelait.controllers.Command> getMatchedCommand() {
-    for (com.escuelait.controllers.Command command : this.controller.getAvailableCommands()) {
-      if (CommandFactory.create(command).is(this.prompt)) {
-        return Optional.of(command);
-      }
-    }
-    return Optional.empty();
+  private Optional<Command> getMatchedCommand() {
+    return this.controller.getAvailableCommands()
+        .stream()
+        .map(command -> CommandFactory.create(command))
+        .filter(command -> command.is(this.prompt))
+        .findFirst();
   }
 
-  public Command getCommand() {
-    assert this.getErrors(this.prompt).isEmpty();
-    return CommandFactory.create(this.getMatchedCommand().get());
+  public void execute() {
+    assert this.isValid(this.prompt);
+    this.getMatchedCommand().get().execute(this.controller, this.prompt);
   }
 
 }

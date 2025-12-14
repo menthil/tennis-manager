@@ -21,7 +21,7 @@ class PointRestCommand extends Command {
   }
 
   @Override
-  public void execute(Controller controller, String prompt) {
+  void execute(Controller controller, String prompt) {
     PlayController playController = (PlayController) controller;
     playController.addPointRest();
     new ScoreboardView(playController.getMatch()).write();

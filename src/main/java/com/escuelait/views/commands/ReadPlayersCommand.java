@@ -22,7 +22,7 @@ class ReadPlayersCommand extends Command {
   }
 
   @Override
-  public void execute(Controller controller, String prompt) {
+  void execute(Controller controller, String prompt) {
     for (Player player : ((ManageController) controller).getPlayers()) {
       this.console.writeln("name:" + player.name() + "; id:" + player.id());
     }

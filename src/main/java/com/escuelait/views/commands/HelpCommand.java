@@ -20,7 +20,7 @@ class HelpCommand extends Command {
   }
 
   @Override
-  public void execute(Controller controller, String prompt) {
+  void execute(Controller controller, String prompt) {
     this.console.writeln("Comandos disponibles:");
     this.console.writeln();
     for (com.escuelait.controllers.Command commandType : controller.getAvailableCommands()) {

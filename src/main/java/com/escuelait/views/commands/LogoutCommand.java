@@ -20,7 +20,7 @@ class LogoutCommand extends Command {
   }
 
   @Override
-  public void execute(Controller controller, String prompt) {
+  void execute(Controller controller, String prompt) {
     controller.started();
   }
 

@@ -1,7 +1,5 @@
 package com.escuelait.views;
 
-import java.util.List;
-
 import com.escuelait.controllers.Controller;
 import com.escuelait.views.commands.CommandAnalyzer;
 
@@ -17,19 +15,12 @@ class CommandView extends ConsoleView {
   @Override
   void interact() {
     String prompt = null;
-    List<String> errors = List.of();
     CommandAnalyzer commandAnalyzer = new CommandAnalyzer(this.controller);
     do {
       prompt = this.console.readString(this.getPrompt()).trim();
-      errors = commandAnalyzer.getErrors(prompt);
-      if (!errors.isEmpty()) {
-        for (String error : errors) {
-          this.console.writeln(error);
-        }
-      }
-    } while (!errors.isEmpty());
+    } while (!commandAnalyzer.isValid(prompt));
     this.console.writeln();
-    commandAnalyzer.getCommand().execute(this.controller, prompt);
+    commandAnalyzer.execute();
     this.console.writeln();
   }
 

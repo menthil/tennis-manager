@@ -21,7 +21,7 @@ class PointServiceCommand extends Command {
   }
 
   @Override
-  public void execute(Controller controller, String prompt) {
+  void execute(Controller controller, String prompt) {
     PlayController playController = (PlayController) controller;
     playController.addPointService();
     new ScoreboardView(playController.getMatch()).write();

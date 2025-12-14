@@ -23,7 +23,7 @@ class CreateMatchCommand extends Command {
   }
 
   @Override
-  public void execute(Controller controller, String prompt) {
+  void execute(Controller controller, String prompt) {
     int numberOfSets = Integer.parseInt(this.getArg(prompt, 0));
     int ids[] = new int[] {
         Integer.parseInt(this.getArg(prompt, 1)),

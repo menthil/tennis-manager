@@ -23,7 +23,7 @@ class CreateRefereeCommand extends Command {
   }
 
   @Override
-  public void execute(Controller controller, String prompt) {
+  void execute(Controller controller, String prompt) {
     String name = this.getArg(prompt, 0);
     String password = this.getArg(prompt, 1);
     LoginController loginController = ((LoginController) controller);

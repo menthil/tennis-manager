@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import com.escuelait.controllers.Controller;
 import com.escuelait.utils.Console;
 
-public abstract class Command {
+abstract class Command {
 
   private String regex;
   protected Console console;
@@ -36,7 +36,7 @@ public abstract class Command {
 
   abstract String getSyntax();
 
-  public abstract void execute(Controller controller, String prompt);
+  abstract void execute(Controller controller, String prompt);
 
   protected String getArg(String prompt, int i) {
     return this.getArgs(prompt).get(i);

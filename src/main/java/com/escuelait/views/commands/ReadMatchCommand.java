@@ -27,7 +27,7 @@ class ReadMatchCommand extends Command {
   }
 
   @Override
-  public void execute(Controller controller, String prompt) {
+  void execute(Controller controller, String prompt) {
     int id = Integer.parseInt(this.getArg(prompt, 0));
     ManageController manageController = (ManageController) controller;
     Optional<Match> match = manageController.getMatch(id);

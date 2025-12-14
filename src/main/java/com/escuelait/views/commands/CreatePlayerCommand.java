@@ -23,7 +23,7 @@ class CreatePlayerCommand extends Command {
   }
 
   @Override
-  public void execute(Controller controller, String prompt) {
+  void execute(Controller controller, String prompt) {
     String name = this.getArg(prompt, 0);
     ManageController manageController = (ManageController) controller;
     List<String> errors = manageController.getCreatePlayerErrors(name);
