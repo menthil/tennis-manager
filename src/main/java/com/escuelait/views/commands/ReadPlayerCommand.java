@@ -11,8 +11,6 @@ import com.escuelait.utils.DateFormatter;
 
 class ReadPlayerCommand extends Command {
 
-  private int id;
-
   @Override
   protected String getName() {
     return "readPlayer:(\\d+)";
@@ -30,11 +28,11 @@ class ReadPlayerCommand extends Command {
 
   @Override
   public void execute(Controller controller, String prompt) {
-    this.id = Integer.parseInt(this.getArgs(prompt).get(0));
+    int id = Integer.parseInt(this.getArg(prompt, 0));
     ManageController manageController = (ManageController) controller;
-    Optional<Player> player = manageController.getPlayer(this.id);
+    Optional<Player> player = manageController.getPlayer(id);
     if (player.isPresent()) {
-      this.write(player.get(), manageController.getMatchesByPlayerId(this.id));
+      this.write(player.get(), manageController.getMatchesByPlayerId(id));
     } else {
       this.console.writeln("El id del jugador no existe: " + id);
     }

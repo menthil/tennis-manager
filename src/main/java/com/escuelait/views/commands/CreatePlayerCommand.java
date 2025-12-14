@@ -7,8 +7,6 @@ import com.escuelait.controllers.ManageController;
 
 class CreatePlayerCommand extends Command {
 
-  private String name;
-
   @Override
   protected String getName() {
     return "createPlayer";
@@ -26,15 +24,15 @@ class CreatePlayerCommand extends Command {
 
   @Override
   public void execute(Controller controller, String prompt) {
-    this.name = this.getArgs(prompt).get(0);
+    String name = this.getArg(prompt, 0);
     ManageController manageController = (ManageController) controller;
-    List<String> errors = manageController.getCreatePlayerErrors(this.name);
+    List<String> errors = manageController.getCreatePlayerErrors(name);
     if (!errors.isEmpty()) {
       for (String error : errors) {
         this.console.writeln(error);
       }
     } else {
-      manageController.createPlayer(this.name);
+      manageController.createPlayer(name);
       this.console.writeln("Jugador creado correctamente");
     }
   }

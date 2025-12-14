@@ -5,9 +5,6 @@ import com.escuelait.controllers.LoginController;
 
 class LoginCommand extends Command {
 
-  private String name;
-  private String password;
-
   @Override
   protected String getName() {
     return "login";
@@ -25,10 +22,10 @@ class LoginCommand extends Command {
 
   @Override
   public void execute(Controller controller, String prompt) {
-    this.name = this.getArgs(prompt).get(0);
-    this.password = this.getArgs(prompt).get(1);
+    String name = this.getArg(prompt, 0);
+    String password = this.getArg(prompt, 1);
     LoginController loginController = ((LoginController) controller);
-    if (loginController.login(this.name, this.password)) {
+    if (loginController.login(name, password)) {
       this.console.writeln("Login realizado correctamente");
       loginController.logged();
     } else {

@@ -11,8 +11,6 @@ import com.escuelait.utils.DateFormatter;
 
 class ReadMatchCommand extends Command {
 
-  private int id;
-
   @Override
   protected String getName() {
     return "readMatch:(\\d+)";
@@ -30,9 +28,9 @@ class ReadMatchCommand extends Command {
 
   @Override
   public void execute(Controller controller, String prompt) {
-    this.id = Integer.parseInt(this.getArgs(prompt).get(0));
+    int id = Integer.parseInt(this.getArg(prompt, 0));
     ManageController manageController = (ManageController) controller;
-    Optional<Match> match = manageController.getMatch(this.id);
+    Optional<Match> match = manageController.getMatch(id);
     if (match.isPresent()) {
       this.write(match.get());
     } else {

@@ -38,7 +38,11 @@ public abstract class Command {
 
   public abstract void execute(Controller controller, String prompt);
 
-  protected List<String> getArgs(String prompt) {
+  protected String getArg(String prompt, int i) {
+    return this.getArgs(prompt).get(i);
+  }
+
+  private List<String> getArgs(String prompt) {
     assert this.isValid(prompt);
     Matcher matcher = this.getMatcher(this.regex, prompt);
     matcher.matches();

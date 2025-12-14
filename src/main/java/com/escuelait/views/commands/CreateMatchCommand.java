@@ -7,9 +7,6 @@ import com.escuelait.utils.DateFormatter;
 
 class CreateMatchCommand extends Command {
 
-  private int numberOfSets;
-  private int ids[];
-
   @Override
   protected String getName() {
     return "createMatch";
@@ -27,18 +24,19 @@ class CreateMatchCommand extends Command {
 
   @Override
   public void execute(Controller controller, String prompt) {
-    this.numberOfSets = Integer.parseInt(this.getArgs(prompt).get(0));
-    this.ids = new int[2];
-    this.ids[0] = Integer.parseInt(this.getArgs(prompt).get(1));
-    this.ids[1] = Integer.parseInt(this.getArgs(prompt).get(2));
+    int numberOfSets = Integer.parseInt(this.getArg(prompt, 0));
+    int ids[] = new int[] {
+        Integer.parseInt(this.getArg(prompt, 1)),
+        Integer.parseInt(this.getArg(prompt, 2)),
+    };
     ManageController manageController = (ManageController) controller;
-    List<String> errors = manageController.getCreateMatchErrors(this.numberOfSets, this.ids);
+    List<String> errors = manageController.getCreateMatchErrors(numberOfSets, ids);
     if (!errors.isEmpty()) {
       for (String error : errors) {
         this.console.writeln(error);
       }
     } else {
-      manageController.createMatch(this.numberOfSets, this.ids);
+      manageController.createMatch(numberOfSets, ids);
       this.console.writeln("id:" + controller.getMatch().getId());
       this.console.writeln("date:" + new DateFormatter().format(controller.getMatch().getCreationDate()));
       new ScoreboardView(manageController.getMatch()).write();
